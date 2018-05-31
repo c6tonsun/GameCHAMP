@@ -39,18 +39,17 @@ public class CubeHandler : MonoBehaviour {
     
     void FixedUpdate ()
     {
-        if (rb.velocity.magnitude < maxSpeed)
+        if (currentMode == GravityMode.Room)
         {
-            if(currentMode == GravityMode.Room)
-            {
-                rb.AddForce(GameManager.roomG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-            else if(currentMode == GravityMode.Self)
-            {
-                rb.AddForce(ownG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-
+            rb.AddForce(GameManager.roomG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
+        else if (currentMode == GravityMode.Self)
+        {
+            rb.AddForce(ownG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
+        }
+
+        if (rb.velocity.magnitude > maxSpeed)
+            rb.velocity = rb.velocity.normalized * maxSpeed;
 	}
 
     public GravityMode SetGravityMode(GravityMode mode)

@@ -8,10 +8,11 @@ public class Player : MonoBehaviour {
     public CubeHandler lastCubeHandler;
     private CubeHandler.GravityMode curCubeGravMode;
 
+    public Transform camTransform;
+
     public float distance;
     public Vector3 offset;
 
-    private Ray ray;
     private RaycastHit hit;
 
     public bool alreadyActived = false;
@@ -66,9 +67,9 @@ public class Player : MonoBehaviour {
 
     void RaycastHandler()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //ray = Camera.main.ScreenPointToRay();
 
-        if (Physics.Raycast(ray, out hit, float.MaxValue))
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, float.MaxValue))
         {
             lastCubeHandler = currentCubeHandler;
             currentCubeHandler = hit.collider.GetComponent<CubeHandler>();
@@ -107,9 +108,11 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        
+
         Vector3 lastPos = currentCubeHandler.transform.position;
         distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
-        currentCubeHandler.transform.position = ray.GetPoint(distance) + offset;
+        currentCubeHandler.transform.position = camTransform.position + (camTransform.forward * distance) + offset;
         currentCubeHandler.rb.velocity = Vector3.zero;
 
         Vector3 direction = currentCubeHandler.transform.position - lastPos;
