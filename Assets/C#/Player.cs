@@ -49,7 +49,7 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space) && currentCubeHandler.currentMode == CubeHandler.GravityMode.Player)
         {
             currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
-            currentCubeHandler.rb.AddForce(new Vector3(0, 0, 1000f) * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
+            currentCubeHandler.rb.AddForce(camTransform.forward * 1000f * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyActived = false;
         }
 

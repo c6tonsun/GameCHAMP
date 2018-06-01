@@ -46,8 +46,11 @@ public class PlayerMovement : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, newDirection, Time.deltaTime * turnSpeed);
         }
+    }
 
-        if(debug)
+    private void OnDrawGizmos()
+    {
+        if (debug)
             Debug.DrawRay(transform.position, transform.forward * 20f, Color.green);
     }
 
