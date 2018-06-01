@@ -6,7 +6,6 @@ public class Player : MonoBehaviour {
 
     public CubeHandler currentCubeHandler;
     public CubeHandler lastCubeHandler;
-    private CubeHandler.GravityMode curCubeGravMode;
 
     public Transform camTransform;
 
@@ -16,16 +15,10 @@ public class Player : MonoBehaviour {
     private RaycastHit hit;
 
     public bool alreadyActived = false;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-
-        RaycastHandler();
+	private void Update ()
+    {
+        RaycastHandling();
 
         if(currentCubeHandler == null)
         {
@@ -40,35 +33,31 @@ public class Player : MonoBehaviour {
 
         if (alreadyActived)
         {
-            if (curCubeGravMode == CubeHandler.GravityMode.Room || curCubeGravMode == CubeHandler.GravityMode.Self)
+            if (currentCubeHandler.currentMode == CubeHandler.GravityMode.Room ||
+                currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
             {
-                curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
+                currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
                 offset = currentCubeHandler.transform.position - hit.point;
                 distance = hit.distance;
             }
         }
         else
         {
-            curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
+            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && currentCubeHandler.currentMode == CubeHandler.GravityMode.Player)
         {
-            if(curCubeGravMode == CubeHandler.GravityMode.Player)
-            {
-                curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
-                currentCubeHandler.rb.AddForce(new Vector3(0, 0, 1000f) * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
-                alreadyActived = false;
-            }
+            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
+            currentCubeHandler.rb.AddForce(new Vector3(0, 0, 1000f) * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
+            alreadyActived = false;
         }
 
         MoveCube();
 	}
 
-    void RaycastHandler()
+    private void RaycastHandling()
     {
-        //ray = Camera.main.ScreenPointToRay();
-
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, float.MaxValue))
         {
             lastCubeHandler = currentCubeHandler;
@@ -76,14 +65,13 @@ public class Player : MonoBehaviour {
 
             if(currentCubeHandler != null && !alreadyActived)
             {
-                curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
+                currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
             }
 
             if(lastCubeHandler != null && currentCubeHandler != lastCubeHandler && !alreadyActived)
             {
                 lastCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
             }
-            
         }
 
         if (currentCubeHandler == null)
@@ -96,20 +84,17 @@ public class Player : MonoBehaviour {
             lastCubeHandler = null;
             return;
         }
-
-
     }
 
     private void MoveCube()
     {
-        
-        if(currentCubeHandler == null || curCubeGravMode == CubeHandler.GravityMode.Room || curCubeGravMode == CubeHandler.GravityMode.Self)
+        if (currentCubeHandler == null ||
+            currentCubeHandler.currentMode == CubeHandler.GravityMode.Room ||
+            currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
         {
             return;
         }
-
         
-
         Vector3 lastPos = currentCubeHandler.transform.position;
         distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
         currentCubeHandler.transform.position = camTransform.position + (camTransform.forward * distance) + offset;
@@ -120,12 +105,11 @@ public class Player : MonoBehaviour {
         if (Physics.BoxCast(lastPos, transform.localScale * 0.5f, direction, out hit, transform.rotation, direction.magnitude))
         {
             currentCubeHandler.transform.position = lastPos;
-            curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.ERROR);
+            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.ERROR);
         }
         else
         {
-            curCubeGravMode = currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
+            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
         }
     }
-
 }

@@ -6,8 +6,8 @@ public class CubeHandler : MonoBehaviour {
 
     [HideInInspector]
     public Rigidbody rb;
-    public Vector3 ownG;
-    public float maxSpeed;
+    public Vector3 selfGravity;
+    private float maxSpeed;
 
     public Material defMaterial;
     public Material highMaterial;
@@ -25,44 +25,47 @@ public class CubeHandler : MonoBehaviour {
     }
 
     public GravityMode currentMode = GravityMode.Room;
-
-	// Use this for initialization
-	void Start () {
+    
+	private void Start ()
+    {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
-    }
 
-    private void Update()
-    { 
-       
+        currentMode = GravityMode.Room;
+        maxSpeed = GameManager.worldGravity.magnitude;
     }
     
-    void FixedUpdate ()
+    private void FixedUpdate ()
     {
         if (currentMode == GravityMode.Room)
         {
-            rb.AddForce(GameManager.roomG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(GameManager.worldGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
         else if (currentMode == GravityMode.Self)
         {
-            rb.AddForce(ownG * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(selfGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
 
         if (rb.velocity.magnitude > maxSpeed)
             rb.velocity = rb.velocity.normalized * maxSpeed;
 	}
 
-    public GravityMode SetGravityMode(GravityMode mode)
+    public void SetGravityMode(GravityMode mode)
     {
+        if (currentMode == mode)
+            return;
+
         currentMode = mode;
 
         if(currentMode == GravityMode.Room)
         {
             mr.material = defMaterial;
+            maxSpeed = GameManager.worldGravity.magnitude;
         }
         else if(currentMode == GravityMode.Self)
         {
             mr.material = highMaterial;
+            maxSpeed = selfGravity.magnitude;
         }
         else if(currentMode == GravityMode.Player)
         {
@@ -72,8 +75,5 @@ public class CubeHandler : MonoBehaviour {
         {
             mr.material = errorMaterial;
         }
-
-        return currentMode;
     }
-
 }

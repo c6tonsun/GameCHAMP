@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class GameManager {
 
-    public static Vector3 roomG = new Vector3(0, -10, 0);
+    public static Vector3 worldGravity = new Vector3(0, -10, 0);
 
 }

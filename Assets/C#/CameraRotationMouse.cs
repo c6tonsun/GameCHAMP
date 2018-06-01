@@ -16,7 +16,7 @@ public class CameraRotationMouse : MonoBehaviour {
         float mouseY = Mathf.Clamp(Input.GetAxis("Mouse Y"), -maxInputSpeed, maxInputSpeed);
 
         transform.Rotate(Vector3.up, mouseX * rotationSpeed);
-        transform.Rotate(Vector3.right, mouseY * rotationSpeed);
+        transform.Rotate(Vector3.right, -mouseY * rotationSpeed);
 
         euler = transform.eulerAngles;
         // limit up and down
