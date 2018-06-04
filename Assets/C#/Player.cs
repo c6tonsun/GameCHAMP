@@ -15,8 +15,8 @@ public class Player : MonoBehaviour {
     private RaycastHit hit;
 
     public bool alreadyActived = false;
-	
-	private void Update ()
+
+    private void Update ()
     {
         if(!alreadyActived)
         {

@@ -50,6 +50,16 @@ public class CubeHandler : MonoBehaviour {
             rb.velocity = rb.velocity.normalized * maxSpeed;
 	}
 
+    private void OnTriggerStay(Collider other)
+    {
+
+        if(other.gameObject.layer == LayerMask.NameToLayer("Manipulation"))
+        {
+            
+        }
+
+    }
+
     public void SetGravityMode(GravityMode mode)
     {
         if (currentMode == mode)

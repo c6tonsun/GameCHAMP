@@ -917,8 +917,8 @@ GameObject:
   - component: {fileID: 806113107}
   - component: {fileID: 806113106}
   - component: {fileID: 806113105}
-  m_Layer: 0
-  m_Name: Sphere
+  m_Layer: 9
+  m_Name: ManipulationSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
