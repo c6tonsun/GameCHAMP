@@ -7,6 +7,8 @@ public class Player : MonoBehaviour {
     public CubeHandler currentCubeHandler;
     public CubeHandler lastCubeHandler;
 
+    public ManipulationArea manipulationArea;
+
     public Transform camTransform;
 
     public float distance;
@@ -18,6 +20,10 @@ public class Player : MonoBehaviour {
 
     private void Update ()
     {
+        Vector3 oldPos = transform.position;
+        transform.position += new Vector3(Input.GetAxis("Vertical") * Time.deltaTime, 0, 0);
+        manipulationArea.ManipulateArea(CubeHandler.GravityMode.Stop, transform.position - oldPos);
+
         if(!alreadyActived)
         {
             RaycastHandling();

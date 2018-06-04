@@ -12,7 +12,7 @@ public class CubeHandler : MonoBehaviour {
     public Material defMaterial;
     public Material highMaterial;
     public Material actMaterial;
-    public Material errorMaterial;
+    public Material stopMaterial;
 
     private MeshRenderer mr;
 
@@ -21,7 +21,8 @@ public class CubeHandler : MonoBehaviour {
         ERROR = 0,
         Room = 1,
         Self = 2,
-        Player = 3
+        Player = 3,
+        Stop = 4
     }
 
     public GravityMode currentMode = GravityMode.Room;
@@ -50,16 +51,6 @@ public class CubeHandler : MonoBehaviour {
             rb.velocity = rb.velocity.normalized * maxSpeed;
 	}
 
-    private void OnTriggerStay(Collider other)
-    {
-
-        if(other.gameObject.layer == LayerMask.NameToLayer("Manipulation"))
-        {
-            
-        }
-
-    }
-
     public void SetGravityMode(GravityMode mode)
     {
         if (currentMode == mode)
@@ -81,9 +72,23 @@ public class CubeHandler : MonoBehaviour {
         {
             mr.material = actMaterial;
         }
+        else if(currentMode == GravityMode.Stop)
+        {
+            mr.material = stopMaterial;
+            maxSpeed = 0;
+        }
         else
         {
-            mr.material = errorMaterial;
+            mr.material = null;
         }
+    }
+
+    public void Move(Vector3 movement)
+    {
+        RaycastHit hit;
+        if (Physics.BoxCast(transform.position, transform.localScale * 0.5f, movement, out hit, transform.rotation, movement.magnitude))
+            return;
+        else
+            transform.position += movement;
     }
 }
