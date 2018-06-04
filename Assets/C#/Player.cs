@@ -18,7 +18,10 @@ public class Player : MonoBehaviour {
 	
 	private void Update ()
     {
-        RaycastHandling();
+        if(!alreadyActived)
+        {
+            RaycastHandling();
+        }
 
         if(currentCubeHandler == null)
         {
