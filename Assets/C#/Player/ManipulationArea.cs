@@ -21,7 +21,12 @@ public class ManipulationArea : MonoBehaviour {
         itemsInside = Physics.OverlapSphere(transform.position, radius);
         CubeHandler cubeHandler;
 
-        bool[] keepOld = new bool[oldItems.Length];
+        bool[] keepOld;
+
+        if (oldItems != null)
+            keepOld = new bool[oldItems.Length];
+        else
+            keepOld = new bool[0];
 
         for (int i = 0; i < itemsInside.Length; i++)
         {
