@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
     {
         Vector3 oldPos = transform.position;
         transform.position += new Vector3(Input.GetAxis("Vertical") * Time.deltaTime, 0, 0);
-        manipulationArea.ManipulateArea(CubeHandler.GravityMode.Stop, transform.position - oldPos);
+        manipulationArea.ManipulateArea(CubeHandler.GravityMode.Slow, transform.position - oldPos);
 
         if(!alreadyActived)
         {
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
 
         if (alreadyActived)
         {
-            if (currentCubeHandler.currentMode == CubeHandler.GravityMode.Room ||
+            if (currentCubeHandler.currentMode == CubeHandler.GravityMode.World ||
                 currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
             {
                 currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space) && currentCubeHandler.currentMode == CubeHandler.GravityMode.Player)
         {
-            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
+            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
             currentCubeHandler.rb.AddForce(camTransform.forward * 1000f * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyActived = false;
         }
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
 
             if(lastCubeHandler != null && currentCubeHandler != lastCubeHandler && !alreadyActived)
             {
-                lastCubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
+                lastCubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
             }
         }
 
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour {
     private void MoveCube()
     {
         if (currentCubeHandler == null ||
-            currentCubeHandler.currentMode == CubeHandler.GravityMode.Room ||
+            currentCubeHandler.currentMode == CubeHandler.GravityMode.World ||
             currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
         {
             return;
