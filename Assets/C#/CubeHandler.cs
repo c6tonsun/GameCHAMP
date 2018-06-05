@@ -8,43 +8,111 @@ public class CubeHandler : MonoBehaviour {
     public Rigidbody rb;
     public Vector3 selfGravity;
     private float maxSpeed;
+    public Vector3 slowGravity;
 
     public Material defMaterial;
     public Material highMaterial;
     public Material actMaterial;
     public Material stopMaterial;
 
+    public Transform player;
+
     private MeshRenderer mr;
 
     public enum GravityMode
     {
         ERROR = 0,
-        Room = 1,
+        World = 1,
         Self = 2,
         Player = 3,
-        Stop = 4
+        Stop = 4,
+        Slow = 5
     }
 
-    public GravityMode currentMode = GravityMode.Room;
+    public GravityMode currentMode = GravityMode.World;
     
 	private void Start ()
     {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
 
-        currentMode = GravityMode.Room;
+        currentMode = GravityMode.World;
         maxSpeed = GameManager.worldGravity.magnitude;
+        slowGravity = new Vector3(0, -3, 0);
     }
     
     private void FixedUpdate ()
     {
-        if (currentMode == GravityMode.Room)
+        if (currentMode == GravityMode.World)
         {
             rb.AddForce(GameManager.worldGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
         else if (currentMode == GravityMode.Self)
         {
             rb.AddForce(selfGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
+        }
+        else if(currentMode == GravityMode.Slow)
+        {
+
+            rb.AddForce(slowGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+            float y = transform.position.y;
+            float playerY = player.position.y;
+            float threshhold = 1f;
+
+            float slowSpeed = 1f;
+
+            if(y < playerY + threshhold && y > playerY - threshhold)
+            {
+
+                if(y > playerY)
+                {
+
+                    slowGravity = new Vector3(0, -slowSpeed, 0);
+                    maxSpeed = slowGravity.magnitude;
+                    
+                }
+                else if(y < playerY)
+                {
+
+                    slowGravity = new Vector3(0, slowSpeed, 0);
+                    maxSpeed = slowGravity.magnitude;
+
+                }
+
+                if(y < playerY + threshhold / 2 && y > playerY - threshhold / 2)
+                {
+
+                    if(y > playerY)
+                    {
+
+                        slowGravity = new Vector3(0, -slowSpeed / 2, 0);
+                        maxSpeed = slowGravity.magnitude;
+
+                    }
+                    else if(y < playerY)
+                    {
+
+                        slowGravity = new Vector3(0, slowSpeed / 2, 0);
+                        maxSpeed = slowGravity.magnitude;
+
+                    }
+
+                }
+
+            }
+            else if(y > playerY)
+            {
+                slowGravity = new Vector3(0, -slowSpeed, 0);
+                maxSpeed = slowGravity.magnitude;
+            } 
+            else if(y < playerY)
+            {
+                slowGravity = new Vector3(0, slowSpeed, 0);
+                maxSpeed = slowGravity.magnitude;
+            }
+            
+
         }
 
         if (rb.velocity.magnitude > maxSpeed)
@@ -58,7 +126,7 @@ public class CubeHandler : MonoBehaviour {
 
         currentMode = mode;
 
-        if(currentMode == GravityMode.Room)
+        if(currentMode == GravityMode.World)
         {
             mr.material = defMaterial;
             maxSpeed = GameManager.worldGravity.magnitude;
@@ -76,6 +144,11 @@ public class CubeHandler : MonoBehaviour {
         {
             mr.material = stopMaterial;
             maxSpeed = 0;
+        }
+        else if(currentMode == GravityMode.Slow)
+        {
+            mr.material = defMaterial;
+            
         }
         else
         {

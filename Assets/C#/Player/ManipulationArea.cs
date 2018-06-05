@@ -12,7 +12,7 @@ public class ManipulationArea : MonoBehaviour {
     
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, radius);    
+        //Gizmos.DrawWireSphere(transform.position, radius);    
     }
 
     public void ManipulateArea(CubeHandler.GravityMode mode, Vector3 followMovement)
@@ -54,7 +54,7 @@ public class ManipulationArea : MonoBehaviour {
         {
             cubeHandler = oldItems[i].GetComponent<CubeHandler>();
             if (cubeHandler && !keepOld[i])
-                cubeHandler.SetGravityMode(CubeHandler.GravityMode.Room);
+                cubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
         }
     }
 
