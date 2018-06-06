@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public CubeHandler currentCubeHandler;
-    public CubeHandler lastCubeHandler;
+    public ItemMovement currentCubeHandler;
+    public ItemMovement lastCubeHandler;
 
     public ManipulationArea manipulationArea;
 
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
     {
         Vector3 oldPos = transform.position;
         transform.position += new Vector3(Input.GetAxis("Vertical") * Time.deltaTime, 0, 0);
-        manipulationArea.ManipulateArea(CubeHandler.GravityMode.Slow, transform.position - oldPos);
+        manipulationArea.ManipulateArea(ItemMovement.GravityMode.Slow, transform.position - oldPos);
 
         if(!alreadyActived)
         {
@@ -42,22 +42,22 @@ public class Player : MonoBehaviour {
 
         if (alreadyActived)
         {
-            if (currentCubeHandler.currentMode == CubeHandler.GravityMode.World ||
-                currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
+            if (currentCubeHandler.currentMode == ItemMovement.GravityMode.World ||
+                currentCubeHandler.currentMode == ItemMovement.GravityMode.Self)
             {
-                currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
+                currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.Player);
                 offset = currentCubeHandler.transform.position - hit.point;
                 distance = hit.distance;
             }
         }
         else
         {
-            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
+            currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.Self);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && currentCubeHandler.currentMode == CubeHandler.GravityMode.Player)
+        if (Input.GetKeyDown(KeyCode.Space) && currentCubeHandler.currentMode == ItemMovement.GravityMode.Player)
         {
-            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
+            currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.World);
             currentCubeHandler.rb.AddForce(camTransform.forward * 1000f * currentCubeHandler.rb.mass * Time.fixedDeltaTime, ForceMode.Impulse);
             alreadyActived = false;
         }
@@ -70,16 +70,16 @@ public class Player : MonoBehaviour {
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, float.MaxValue))
         {
             lastCubeHandler = currentCubeHandler;
-            currentCubeHandler = hit.collider.GetComponent<CubeHandler>();
+            currentCubeHandler = hit.collider.GetComponent<ItemMovement>();
 
             if(currentCubeHandler != null && !alreadyActived)
             {
-                currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Self);
+                currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.Self);
             }
 
             if(lastCubeHandler != null && currentCubeHandler != lastCubeHandler && !alreadyActived)
             {
-                lastCubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
+                lastCubeHandler.SetGravityMode(ItemMovement.GravityMode.World);
             }
         }
 
@@ -98,8 +98,8 @@ public class Player : MonoBehaviour {
     private void MoveCube()
     {
         if (currentCubeHandler == null ||
-            currentCubeHandler.currentMode == CubeHandler.GravityMode.World ||
-            currentCubeHandler.currentMode == CubeHandler.GravityMode.Self)
+            currentCubeHandler.currentMode == ItemMovement.GravityMode.World ||
+            currentCubeHandler.currentMode == ItemMovement.GravityMode.Self)
         {
             return;
         }
@@ -114,11 +114,11 @@ public class Player : MonoBehaviour {
         if (Physics.BoxCast(lastPos, transform.localScale * 0.5f, direction, out hit, transform.rotation, direction.magnitude))
         {
             currentCubeHandler.transform.position = lastPos;
-            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.ERROR);
+            currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.ERROR);
         }
         else
         {
-            currentCubeHandler.SetGravityMode(CubeHandler.GravityMode.Player);
+            currentCubeHandler.SetGravityMode(ItemMovement.GravityMode.Player);
         }
     }
 }

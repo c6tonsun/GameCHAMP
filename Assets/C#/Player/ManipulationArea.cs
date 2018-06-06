@@ -15,11 +15,11 @@ public class ManipulationArea : MonoBehaviour {
         //Gizmos.DrawWireSphere(transform.position, radius);    
     }
 
-    public void ManipulateArea(CubeHandler.GravityMode mode, Vector3 followMovement)
+    public void ManipulateArea(ItemMovement.GravityMode mode, Vector3 followMovement)
     {
         oldItems = itemsInside;
         itemsInside = Physics.OverlapSphere(transform.position, radius);
-        CubeHandler cubeHandler;
+        ItemMovement cubeHandler;
 
         bool[] keepOld;
 
@@ -30,7 +30,7 @@ public class ManipulationArea : MonoBehaviour {
 
         for (int i = 0; i < itemsInside.Length; i++)
         {
-            cubeHandler = itemsInside[i].GetComponent<CubeHandler>();
+            cubeHandler = itemsInside[i].GetComponent<ItemMovement>();
 
             if (cubeHandler)
             {
@@ -52,9 +52,9 @@ public class ManipulationArea : MonoBehaviour {
         // colliders that left area set to default mode
         for (int i = 0; i < keepOld.Length; i++)
         {
-            cubeHandler = oldItems[i].GetComponent<CubeHandler>();
+            cubeHandler = oldItems[i].GetComponent<ItemMovement>();
             if (cubeHandler && !keepOld[i])
-                cubeHandler.SetGravityMode(CubeHandler.GravityMode.World);
+                cubeHandler.SetGravityMode(ItemMovement.GravityMode.World);
         }
     }
 
