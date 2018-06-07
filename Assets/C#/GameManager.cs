@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class GameManager {
 
-    public const float WORLD_GRAVITY_Y = -10;
+    public const float WORLD_GRAVITY_Y = -10f;
 
 }

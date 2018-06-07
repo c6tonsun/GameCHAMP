@@ -5,7 +5,6 @@ using UnityEngine;
 public class ManipulationArea : MonoBehaviour {
 
     public float radius;
-    public LayerMask itemLayer;
 
     private Collider[] itemsInside;
     private Collider[] oldItems;
@@ -19,7 +18,7 @@ public class ManipulationArea : MonoBehaviour {
     {
         oldItems = itemsInside;
         itemsInside = Physics.OverlapSphere(transform.position, radius);
-        ItemMovement cubeHandler;
+        ItemMovement item;
 
         bool[] keepOld;
 
@@ -30,12 +29,12 @@ public class ManipulationArea : MonoBehaviour {
 
         for (int i = 0; i < itemsInside.Length; i++)
         {
-            cubeHandler = itemsInside[i].GetComponent<ItemMovement>();
+            item = itemsInside[i].GetComponent<ItemMovement>();
 
-            if (cubeHandler)
+            if (item)
             {
-                cubeHandler.Move(followMovement);
-                cubeHandler.SetGravityMode(mode);
+                item.Move(followMovement);
+                item.SetGravityMode(mode);
 
                 // check which colliders where inside last and this frame
                 for (int old = 0; old < oldItems.Length; old++)
@@ -52,9 +51,9 @@ public class ManipulationArea : MonoBehaviour {
         // colliders that left area set to default mode
         for (int i = 0; i < keepOld.Length; i++)
         {
-            cubeHandler = oldItems[i].GetComponent<ItemMovement>();
-            if (cubeHandler && !keepOld[i])
-                cubeHandler.SetGravityMode(ItemMovement.GravityMode.World);
+            item = oldItems[i].GetComponent<ItemMovement>();
+            if (item && !keepOld[i])
+                item.SetGravityMode(ItemMovement.GravityMode.World);
         }
     }
 

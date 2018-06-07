@@ -20,7 +20,9 @@ public class ItemMovement : MonoBehaviour {
     public Material actMaterial;
     public Material stopMaterial;
 
-    public Transform player;
+    private Transform manipulationSphere;
+
+    public bool isColliding = false;
 
     public enum GravityMode
     {
@@ -32,12 +34,14 @@ public class ItemMovement : MonoBehaviour {
         Slow = 5
     }
 
-    public GravityMode currentMode = GravityMode.World;
+    public GravityMode currentMode;
     
 	private void Start ()
     {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
+
+        manipulationSphere = FindObjectOfType<ManipulationArea>().transform;
 
         Collider[] cols = GetComponents<Collider>();
         foreach (Collider col in cols)
@@ -55,9 +59,10 @@ public class ItemMovement : MonoBehaviour {
         // actively set activeGravity
         if(currentMode == GravityMode.Slow)
         {
-            bool abovePlayer = transform.position.y > player.position.y;
+
+            bool abovePlayer = transform.position.y > manipulationSphere.position.y;
             // calculate difference
-            float difference = transform.position.y - player.position.y;
+            float difference = transform.position.y - manipulationSphere.position.y;
             // difference to absolute value
             if (difference < 0)
                 difference *= -1;
@@ -73,12 +78,25 @@ public class ItemMovement : MonoBehaviour {
 
             _maxGravitySqrMagnitude = _activeGravity.y * _activeGravity.y;
         }
-        
-        rb.AddForce(_activeGravity * Time.fixedDeltaTime, ForceMode.Force);
+
+        if (isColliding)
+            return;
+
+        rb.AddForce(_activeGravity * rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
 
         if (rb.velocity.sqrMagnitude < _maxGravitySqrMagnitude)
             rb.velocity = rb.velocity.normalized * _activeGravity.y;
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        isColliding = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isColliding = false;
+    }
 
     public void SetGravityMode(GravityMode mode)
     {
@@ -144,5 +162,10 @@ public class ItemMovement : MonoBehaviour {
         }
 
         transform.position += movement;
+    }
+
+    public GravityMode GetGravityMode()
+    {
+        return currentMode;
     }
 }
