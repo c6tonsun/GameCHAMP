@@ -15,16 +15,16 @@ public class CameraRotationMouse : MonoBehaviour {
     private float distanceFromPlayer = 4;
     public float minDistanceFromPlayer = 2;
     public float maxDistanceFromPlayer = 6;
+    public Vector3 pivotOffset;
 
     private Transform _player;
-    public Vector3 _pivotOffset;
+    private Vector3 _pivotOffset;
     private Vector3 _euler;
     private RaycastHit _hit;
 
     private void Start()
     {
         _player = transform.parent;
-        //_pivotOffset = new Vector3(0f, _player.localScale.y, 0f);
     }
 
     private void Update()
@@ -55,6 +55,8 @@ public class CameraRotationMouse : MonoBehaviour {
             distanceFromPlayer = minDistanceFromPlayer;
         if (distanceFromPlayer > maxDistanceFromPlayer)
             distanceFromPlayer = maxDistanceFromPlayer;
+
+        _pivotOffset = _player.right * pivotOffset.x + _player.up * pivotOffset.y;
 
         if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer))
             transform.position = (_player.position + _pivotOffset) + (-transform.forward * _hit.distance);
