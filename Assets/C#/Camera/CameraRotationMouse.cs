@@ -24,16 +24,16 @@ public class CameraRotationMouse : MonoBehaviour {
 
     private void Start()
     {
-        _player = transform.parent;
+        _player = FindObjectOfType<PlayerMove>().transform;
     }
 
     private void Update()
     {
-        #region player and camera rotations
+        #region camera rotation
         float mouseX = Mathf.Clamp(Input.GetAxis("Mouse X"), -maxInputSpeed, maxInputSpeed);
         float mouseY = Mathf.Clamp(Input.GetAxis("Mouse Y"), -maxInputSpeed, maxInputSpeed);
 
-        _player.Rotate(Vector3.up, mouseX * rotationSpeed);
+        transform.Rotate(Vector3.up, mouseX * rotationSpeed);
         transform.Rotate(Vector3.right, -mouseY * rotationSpeed);
 
         _euler = transform.eulerAngles;
