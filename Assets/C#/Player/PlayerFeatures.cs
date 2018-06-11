@@ -32,8 +32,8 @@ public class PlayerFeatures : MonoBehaviour {
     private void Update ()
     {
 
-        manipulationArea.ManipulateArea(ItemMovement.GravityMode.Slow, transform.position - oldPos);
-        oldPos = transform.position;
+        //manipulationArea.ManipulateArea(ItemMovement.GravityMode.Slow, transform.position - oldPos);
+        //oldPos = transform.position;
         
 
         // Selecting the item
