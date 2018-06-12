@@ -7,8 +7,9 @@ public class PlayerFeatures : MonoBehaviour {
     public ItemMovement currentItem;
     public ItemMovement lastItem;
 
-    private Transform camTransform;
-    private CameraRotationMouse cameraRotationMouse;
+    public ManipulationArea manipulationArea;
+
+    public Transform camTransform;
 
     public float distance;
     public Vector3 offset;
@@ -24,12 +25,17 @@ public class PlayerFeatures : MonoBehaviour {
     private void Start()
     {
         camTransform = transform.GetChild(0).transform;
-        cameraRotationMouse = camTransform.GetComponent<CameraRotationMouse>();
+        manipulationArea = GetComponentInChildren<ManipulationArea>();
         oldPos = transform.position;
     }
 
     private void Update ()
     {
+
+        //manipulationArea.ManipulateArea(ItemMovement.GravityMode.Slow, transform.position - oldPos);
+        //oldPos = transform.position;
+        
+
         // Selecting the item
         if(!alreadyActived)
         {
@@ -128,7 +134,7 @@ public class PlayerFeatures : MonoBehaviour {
         
         Vector3 lastPos = currentItem.transform.position;
         distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
-        currentItem.transform.position = transform.position + cameraRotationMouse.pivotOffset + (camTransform.forward * distance) + offset;
+        currentItem.transform.position = camTransform.position + (camTransform.forward * distance) + offset;
         currentItem.rb.velocity = Vector3.zero;
 
         Vector3 direction = currentItem.transform.position - lastPos;
