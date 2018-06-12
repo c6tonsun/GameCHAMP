@@ -8,6 +8,12 @@ public class Item : MonoBehaviour {
     public Rigidbody rb;
     private MeshRenderer mr;
 
+    private Transform camTransform;
+
+    private float turnSpeed = 2f;
+    private float yAngle = 0;
+    private float xAngle = 0;
+
     public GravityMode currentMode;
 
     public float degreesPerSecond = 15.0f;
@@ -37,6 +43,7 @@ public class Item : MonoBehaviour {
         mr = GetComponent<MeshRenderer>();
         SetGravityMode(GravityMode.World);
         posOffset = transform.position;
+        camTransform = FindObjectOfType<Camera>().transform;
     }
 	
 	// Update is called once per frame
@@ -50,6 +57,15 @@ public class Item : MonoBehaviour {
         {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
+
+            Vector3 targetDir = camTransform.position - transform.position;
+            float step = turnSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x + xAngle, transform.eulerAngles.y + yAngle, transform.eulerAngles.z);
+            yAngle = 0;
+            xAngle = 0;
+
         }
         else if(currentMode == GravityMode.Self)
         {
@@ -91,5 +107,15 @@ public class Item : MonoBehaviour {
         {
             mr.material = highMaterial;
         }
+    }
+
+    public void ChangeAngle(float degrees, bool isYAngle)
+    {
+
+        if (isYAngle)
+            yAngle = degrees;
+        else
+            xAngle = degrees;
+
     }
 }

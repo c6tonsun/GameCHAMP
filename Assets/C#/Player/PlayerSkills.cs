@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
 
     private bool alreadyActivated = false;
 
+    private float minDistance = 8f;
+    private float maxDistance = 12f;
+
+    private float lastActivationInput;
+
     // Use this for initialization
     void Start()
     {
@@ -35,12 +40,14 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if (lastActivationInput != Input.GetAxis("Activation") && lastActivationInput == 0)
         {
             alreadyActivated = !alreadyActivated;
         }
 
-        if(alreadyActivated)
+        lastActivationInput = Input.GetAxis("Activation");
+
+        if (alreadyActivated)
         {
             if(currentItem.currentMode == Item.GravityMode.World || currentItem.currentMode == Item.GravityMode.Self)
             {
@@ -53,6 +60,31 @@ public class Player : MonoBehaviour
         {
             currentItem.SetGravityMode(Item.GravityMode.Self);
         }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                currentItem.ChangeAngle(90, false);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentItem.ChangeAngle(-90, false);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                currentItem.ChangeAngle(-90, true);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentItem.ChangeAngle(90, true);
+            }
+        }
+
+        
 
         MoveItem();
 
@@ -95,7 +127,14 @@ public class Player : MonoBehaviour
         */
 
         Vector3 lastPos = currentItem.transform.position;
+
         distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
+
+        if (distance < minDistance)
+            distance = minDistance;
+        else if (distance > maxDistance)
+            distance = maxDistance;
+
         Vector3 pointerPos = camTransform.position + (camTransform.forward * distance);
         currentItem.transform.position = Vector3.Lerp(currentItem.transform.position, pointerPos, lerp);
 
