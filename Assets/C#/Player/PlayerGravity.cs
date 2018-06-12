@@ -9,9 +9,9 @@ public class PlayerGravity : MonoBehaviour {
     
     public float maxUpMomentum = 5;
     [Range(0.5f, 1f)]
-    public float factor;
+    public float factor = 0.7f;
     [Range(0.3f, 0.5f)]
-    public float radius;
+    public float radius = 0.35f;
 
     private void Start()
     {
@@ -41,9 +41,9 @@ public class PlayerGravity : MonoBehaviour {
             _rb.AddForce(-Physics.gravity * _rb.mass * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * 0.5f, radius);
-        Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * factor, radius);
+        //Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * 0.5f, radius);
+        //Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * factor, radius);
     }
 }

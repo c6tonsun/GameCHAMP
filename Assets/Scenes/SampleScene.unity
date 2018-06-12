@@ -1200,7 +1200,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1149866831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2, z: -4}
+  m_LocalPosition: {x: 0, y: 3.25, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 912556202}
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   scrollSpeed: 2
   minDistanceFromPlayer: 2
   maxDistanceFromPlayer: 6
-  pivotOffset: {x: 0, y: 1.2, z: 0}
+  pivotOffset: {x: 0, y: 1.25, z: 0}
 --- !u!81 &1149866834
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1463,6 +1463,7 @@ GameObject:
   - component: {fileID: 1499706595}
   - component: {fileID: 1499706600}
   - component: {fileID: 1499706594}
+  - component: {fileID: 1499706597}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1515,6 +1516,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1499706597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1499706593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e3f2577ed2a3144a04896ac6e7ae97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSpeed: 3
+  offSpeed: -5
+  onV3: {x: 0.5, y: 2.25, z: 0}
+  offV3: {x: 0, y: 1.25, z: 0}
 --- !u!4 &1499706599
 Transform:
   m_ObjectHideFlags: 0
