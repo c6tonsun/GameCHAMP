@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class MathHelp {
+﻿public static class MathHelp {
     
     public static float Clamp(float value, float min, float max)
     {
