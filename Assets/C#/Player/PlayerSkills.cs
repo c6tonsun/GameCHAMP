@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSkills : MonoBehaviour
 {
+    private PlayerMagnesis playerMagnesis;
+
     private Transform camTransform;
     private Item currentItem;
     private Item lastItem;
@@ -16,36 +18,60 @@ public class PlayerSkills : MonoBehaviour
 
     private bool alreadyActivated = false;
 
+    private bool useAim = false;
+
     private float minDistance = 8f;
     private float maxDistance = 12f;
 
-    private float lastActivationInput;
+    private float activationInput;
+    private float lastActivationInput = 0;
+
+    private float aimInput;
+    private float lastAimInput = 0;
 
     // Use this for initialization
     void Start()
     {
-        camTransform = transform.GetChild(0).transform;
+        camTransform = FindObjectOfType<Camera>().transform;
+        playerMagnesis = GetComponent<PlayerMagnesis>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        activationInput = Input.GetAxisRaw("Activation");
+        aimInput = Input.GetAxisRaw("Aim");
+        Debug.Log(aimInput);
+
+        if(lastAimInput <= 0 && aimInput > 0)
+        {
+            useAim = !useAim;
+        }
+
+        if(useAim)
+        {
+            playerMagnesis.MagnesisOn();
+        }
+        else
+        {
+            playerMagnesis.MagnesisOff();
+        }
+
         if(!alreadyActivated)
         {
             RaycastHandling();
         }
 
-        if(currentItem == null)
+        if (currentItem == null)
         {
             return;
         }
 
-        if (lastActivationInput != Input.GetAxis("Activation") && lastActivationInput == 0)
+        if (lastActivationInput <= 0 && activationInput > 0)
         {
             alreadyActivated = !alreadyActivated;
         }
-
-        lastActivationInput = Input.GetAxis("Activation");
 
         if (alreadyActivated)
         {
@@ -61,33 +87,10 @@ public class PlayerSkills : MonoBehaviour
             currentItem.SetGravityMode(Item.GravityMode.Self);
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                currentItem.ChangeAngle(90, false);
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                currentItem.ChangeAngle(-90, false);
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                currentItem.ChangeAngle(-90, true);
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                currentItem.ChangeAngle(90, true);
-            }
-        }
-
-        
-
         MoveItem();
 
+        lastAimInput = aimInput;
+        lastActivationInput = activationInput;
     }
 
     private void RaycastHandling()
@@ -128,7 +131,7 @@ public class PlayerSkills : MonoBehaviour
 
         Vector3 lastPos = currentItem.transform.position;
 
-        distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
+        distance += Input.GetAxisRaw("Distance input") * 2;
 
         if (distance < minDistance)
             distance = minDistance;
