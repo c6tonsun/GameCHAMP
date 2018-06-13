@@ -22,8 +22,10 @@ public class PlayerGravity : MonoBehaviour {
 
     private void Update()
     {
+        // read new input
         gravityInput = Input.GetAxisRaw("Gravity input");
 
+        // use old and new input
         if (oldGravityInput <= 0 && gravityInput > 0)
         {
             if (!_rb.useGravity)
@@ -35,6 +37,7 @@ public class PlayerGravity : MonoBehaviour {
             }
         }
 
+        // update old input
         oldGravityInput = gravityInput;
     }
 
