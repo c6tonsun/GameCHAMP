@@ -10,9 +10,9 @@ public class Item : MonoBehaviour {
 
     private Transform camTransform;
 
-    private float turnSpeed = 2f;
-    private float yAngle = 0;
-    private float xAngle = 0;
+    public Transform leftTrasform;
+    public Transform rightTrasform;
+    private float defLerpTime;
 
     public GravityMode currentMode;
 
@@ -58,14 +58,29 @@ public class Item : MonoBehaviour {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
 
-            Vector3 targetDir = camTransform.position - transform.position;
+            /*
+             Vector3 targetDir = camTransform.position - transform.position;
             float step = turnSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x + xAngle, transform.eulerAngles.y + yAngle, transform.eulerAngles.z);
             yAngle = 0;
             xAngle = 0;
+             */
 
+            
+
+            if (defLerpTime < 1)
+                defLerpTime += Time.deltaTime;
+
+            float rotationInput = Input.GetAxisRaw("Rotate Item");
+
+            if (rotationInput > 0)
+                transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
+            if (rotationInput < 0)
+                transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
+
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(transform.parent.eulerAngles.x, transform.eulerAngles.y, transform.parent.eulerAngles.z), defLerpTime);
         }
         else if(currentMode == GravityMode.Self)
         {
@@ -109,13 +124,4 @@ public class Item : MonoBehaviour {
         }
     }
 
-    public void ChangeAngle(float degrees, bool isYAngle)
-    {
-
-        if (isYAngle)
-            yAngle = degrees;
-        else
-            xAngle = degrees;
-
-    }
 }
