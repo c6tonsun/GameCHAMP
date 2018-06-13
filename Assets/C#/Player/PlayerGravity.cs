@@ -22,6 +22,7 @@ public class PlayerGravity : MonoBehaviour {
 
     private void Update()
     {
+		//aslhhfsjvhasdvakh
         gravityInput = Input.GetAxisRaw("Gravity input");
 
         if (oldGravityInput <= 0 && gravityInput > 0)
