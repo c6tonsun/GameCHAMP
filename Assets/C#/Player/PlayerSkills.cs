@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerSkills : MonoBehaviour
 {
     private Transform camTransform;
     private Item currentItem;

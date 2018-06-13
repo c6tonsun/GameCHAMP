@@ -22,9 +22,9 @@ public class PlayerMove : MonoBehaviour {
     private void Update()
     {
         // read and normalize input
-        _inputVector.x = Input.GetAxis("Horizontal");
+        _inputVector.x = Input.GetAxis("Move input X");
         _inputVector.y = 0f;
-        _inputVector.z = Input.GetAxis("Vertical");
+        _inputVector.z = Input.GetAxis("Move input Z");
         _inputVector.Normalize();
 
         _movement += camTransform.right * _inputVector.x * Time.deltaTime;
