@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMagnesis : MonoBehaviour {
 
     private CameraRotationMouse _cameraRotation;
-    private MeshRenderer _pointer;
+    private Material _pointer;
     private Rigidbody _rb;
 
     private bool _isInTransition;
@@ -19,8 +19,10 @@ public class PlayerMagnesis : MonoBehaviour {
     private void Start()
     {
         _cameraRotation = FindObjectOfType<CameraRotationMouse>();
-        _pointer = _cameraRotation.GetComponentInChildren<MeshRenderer>();
+        _pointer = _cameraRotation.GetComponentInChildren<MeshRenderer>().material;
         _rb = GetComponent<Rigidbody>();
+
+        MagnesisOff();
     }
 
     public void MagnesisOn()
@@ -43,6 +45,7 @@ public class PlayerMagnesis : MonoBehaviour {
         if (_isInTransition)
         {
             _lerpTime += _lerpSpeed * Time.deltaTime;
+            _pointer.color = new Color(_pointer.color.r, _pointer.color.g, _pointer.color.b, _lerpTime);
 
             if (_lerpTime > 1)
             {

@@ -5,16 +5,16 @@ using UnityEngine;
 public class CameraRotationMouse : MonoBehaviour {
     
     [Header("Rotating")]
-    public float maxInputSpeed = 1;
+    public float maxRotationInput = 1;
     public float rotationSpeed = 1;
     public float minRotX = -45;
     public float maxRotX = 45;
-    
+    private Vector2 _rawRotationInput;
+
     [Header("Positioning")]
     public float scrollSpeed = 1;
-    private float distanceFromPlayer = 4;
-    public float minDistanceFromPlayer = 2;
-    public float maxDistanceFromPlayer = 6;
+    public float distanceFromPlayer = 4;
+    [HideInInspector]
     public Vector3 pivotOffset;
 
     private Transform _player;
@@ -30,11 +30,12 @@ public class CameraRotationMouse : MonoBehaviour {
     private void Update()
     {
         #region camera rotation
-        float mouseX = Mathf.Clamp(Input.GetAxis("Mouse X"), -maxInputSpeed, maxInputSpeed);
-        float mouseY = Mathf.Clamp(Input.GetAxis("Mouse Y"), -maxInputSpeed, maxInputSpeed);
+        // input and clamp
+        _rawRotationInput.x = MathHelp.Clamp(Input.GetAxisRaw("Look input X"), -maxRotationInput, maxRotationInput);
+        _rawRotationInput.y = MathHelp.Clamp(Input.GetAxisRaw("Look input Y"), -maxRotationInput, maxRotationInput);
 
-        transform.Rotate(Vector3.up, mouseX * rotationSpeed);
-        transform.Rotate(Vector3.right, -mouseY * rotationSpeed);
+        transform.Rotate(Vector3.up, _rawRotationInput.x * rotationSpeed);
+        transform.Rotate(Vector3.right, -_rawRotationInput.y * rotationSpeed);
 
         _euler = transform.eulerAngles;
         // limit up and down
@@ -50,13 +51,7 @@ public class CameraRotationMouse : MonoBehaviour {
         #endregion
 
         #region camera position
-        distanceFromPlayer += Input.GetAxisRaw("Mouse ScrollWheel") * -scrollSpeed;
-        if (distanceFromPlayer < minDistanceFromPlayer)
-            distanceFromPlayer = minDistanceFromPlayer;
-        if (distanceFromPlayer > maxDistanceFromPlayer)
-            distanceFromPlayer = maxDistanceFromPlayer;
-
-        _pivotOffset = _player.right * pivotOffset.x + _player.up * pivotOffset.y;
+        _pivotOffset = transform.right * pivotOffset.x + Vector3.up * pivotOffset.y;
 
         if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer))
             transform.position = (_player.position + _pivotOffset) + (-transform.forward * _hit.distance);

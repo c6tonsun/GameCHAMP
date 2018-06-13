@@ -6,6 +6,8 @@ public class PlayerGravity : MonoBehaviour {
 
     private Rigidbody _rb;
     private RaycastHit _hit;
+    private float gravityInput;
+    private float oldGravityInput;
     
     public float maxUpMomentum = 5;
     [Range(0.5f, 1f)]
@@ -20,7 +22,9 @@ public class PlayerGravity : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        gravityInput = Input.GetAxisRaw("Gravity input");
+
+        if (oldGravityInput <= 0 && gravityInput > 0)
         {
             if (!_rb.useGravity)
                 _rb.useGravity = true;
@@ -30,6 +34,8 @@ public class PlayerGravity : MonoBehaviour {
                     _rb.useGravity = false;
             }
         }
+
+        oldGravityInput = gravityInput;
     }
 
     private void FixedUpdate()
