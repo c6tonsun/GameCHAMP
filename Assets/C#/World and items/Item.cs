@@ -7,7 +7,7 @@ public class Item : MonoBehaviour {
     [HideInInspector]
     public Rigidbody rb;
     private MeshRenderer mr;
-
+    private Collider[] _colliders;
     private Transform camTransform;
 
     public Transform leftTrasform;
@@ -41,6 +41,7 @@ public class Item : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
+        _colliders = GetComponentsInChildren<Collider>();
         SetGravityMode(GravityMode.World);
         posOffset = transform.position;
         camTransform = FindObjectOfType<Camera>().transform;
@@ -57,19 +58,7 @@ public class Item : MonoBehaviour {
         {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
-
-            /*
-             Vector3 targetDir = camTransform.position - transform.position;
-            float step = turnSpeed * Time.deltaTime;
-            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
-            transform.rotation = Quaternion.LookRotation(newDir);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x + xAngle, transform.eulerAngles.y + yAngle, transform.eulerAngles.z);
-            yAngle = 0;
-            xAngle = 0;
-             */
-
             
-
             if (defLerpTime < 1)
                 defLerpTime += Time.deltaTime;
 
@@ -80,7 +69,7 @@ public class Item : MonoBehaviour {
             if (rotationInput < 0)
                 transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
 
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(transform.parent.eulerAngles.x, transform.eulerAngles.y, transform.parent.eulerAngles.z), defLerpTime);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, transform.eulerAngles.y, 0f), defLerpTime);
         }
         else if(currentMode == GravityMode.Self)
         {
@@ -89,14 +78,55 @@ public class Item : MonoBehaviour {
 
     }
 
-    private void DoFloating()
+    public bool CanMoveCheck(Vector3 movement)
     {
-        transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
+        RaycastHit[] hits;
+        Vector3 direction = movement.normalized;
+        float maxDistance = movement.magnitude;
 
-        tempPos = posOffset;
-        tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
+        foreach (Collider col in _colliders)
+        {
+            if (col is BoxCollider)
+            {   // box info
+                Vector3 center = col.transform.position;
+                Vector3 fromCenterToCorner = col.transform.localScale * 0.5f;
+                Quaternion orientation = col.transform.rotation;
 
-        transform.position = tempPos;
+                hits = Physics.BoxCastAll(center, fromCenterToCorner, direction, orientation, maxDistance);
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.collider.gameObject.isStatic)
+                        return false;
+                }
+            }
+            else if (col is SphereCollider)
+            {   // sphere info
+                Vector3 origin = col.transform.position;
+                float radius = Mathf.Max(new float[] { Mathf.Abs(col.transform.localScale.x), Mathf.Abs(col.transform.localScale.y), Mathf.Abs(col.transform.localScale.z) }) * 0.5f;
+
+                hits = Physics.SphereCastAll(origin, radius, direction, maxDistance);
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.collider.gameObject.isStatic)
+                        return false;
+                }
+            }
+            else if (col is CapsuleCollider)
+            {   // capsule info
+                float radius = Mathf.Max(Mathf.Abs(col.transform.localScale.x), Mathf.Abs(col.transform.localScale.z)) * 0.5f;
+                Vector3 point1 = col.transform.position - (col.transform.up * col.transform.localScale.y - col.transform.up * radius);
+                Vector3 point2 = col.transform.position + (col.transform.up * col.transform.localScale.y - col.transform.up * radius);
+
+                hits = Physics.CapsuleCastAll(point1, point2, radius, direction, maxDistance);
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.collider.gameObject.isStatic)
+                        return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public void SetGravityMode(GravityMode mode)
@@ -116,6 +146,7 @@ public class Item : MonoBehaviour {
         }
         else if(currentMode == GravityMode.Player)
         {
+            defLerpTime = 0f;
             mr.material = actMaterial;
         }
         else if(currentMode == GravityMode.Self)

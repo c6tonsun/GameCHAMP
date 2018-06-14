@@ -42,7 +42,6 @@ public class PlayerSkills : MonoBehaviour
 
         activationInput = Input.GetAxisRaw("Activation");
         aimInput = Input.GetAxisRaw("Aim");
-        Debug.Log(aimInput);
 
         if(lastAimInput <= 0 && aimInput > 0)
         {
@@ -122,13 +121,6 @@ public class PlayerSkills : MonoBehaviour
             return;
         }
 
-        /*
-        Vector3 lastPos = currentItem.transform.position;
-        distance += Input.GetAxisRaw("Mouse ScrollWheel") * 2;
-        currentItem.transform.position = camTransform.position + (camTransform.forward * distance) + offset;
-        currentItem.rb.velocity = Vector3.zero;
-        */
-
         Vector3 lastPos = currentItem.transform.position;
 
         distance += Input.GetAxisRaw("Distance input") * 2;
@@ -141,16 +133,16 @@ public class PlayerSkills : MonoBehaviour
         Vector3 pointerPos = camTransform.position + (camTransform.forward * distance);
         currentItem.transform.position = Vector3.Lerp(currentItem.transform.position, pointerPos, lerp);
 
-        Vector3 direction = currentItem.transform.position - lastPos;
+        Vector3 movement = currentItem.transform.position - lastPos;
 
-        if (Physics.BoxCast(lastPos, transform.localScale * 0.5f, direction, out hit, transform.rotation, direction.magnitude))
+        if (currentItem.CanMoveCheck(movement))
         {
-            currentItem.transform.position = lastPos;
-            currentItem.SetGravityMode(Item.GravityMode.ERROR);
+            currentItem.SetGravityMode(Item.GravityMode.Player);
         }
         else
         {
-            currentItem.SetGravityMode(Item.GravityMode.Player);
+            currentItem.transform.position = lastPos;
+            currentItem.SetGravityMode(Item.GravityMode.ERROR);
         }
 
     }
