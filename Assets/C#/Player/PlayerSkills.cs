@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSkills : MonoBehaviour
 {
     private PlayerMagnesis playerMagnesis;
+    private Rigidbody _rb;
 
     private Transform camTransform;
     private Item currentItem;
@@ -24,48 +25,57 @@ public class PlayerSkills : MonoBehaviour
     private float maxDistance = 12f;
 
     private float activationInput;
-    private float lastActivationInput = 0;
+    private float lastActivationInput;
 
     private float aimInput;
-    private float lastAimInput = 0;
+    private float lastAimInput;
 
     // Use this for initialization
     void Start()
     {
         camTransform = FindObjectOfType<Camera>().transform;
         playerMagnesis = GetComponent<PlayerMagnesis>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        activationInput = Input.GetAxisRaw("Activation");
+        #region aim
         aimInput = Input.GetAxisRaw("Aim");
-
+        
         if(lastAimInput <= 0 && aimInput > 0)
         {
             useAim = !useAim;
+
+            if (!_rb.useGravity)
+                useAim = false;
+
+            if (useAim)
+            {
+                playerMagnesis.MagnesisOn();
+            }
+            else
+            {
+                playerMagnesis.MagnesisOff();
+            }
         }
 
-        if(useAim)
-        {
-            playerMagnesis.MagnesisOn();
-        }
-        else
-        {
-            playerMagnesis.MagnesisOff();
-        }
+        lastAimInput = aimInput;
+        #endregion
 
-        if(!alreadyActivated)
+        if (!alreadyActivated)
         {
             RaycastHandling();
         }
-
+        
         if (currentItem == null)
         {
             return;
         }
+
+        #region actiation
+        activationInput = Input.GetAxisRaw("Activation");
 
         if (lastActivationInput <= 0 && activationInput > 0)
         {
@@ -86,10 +96,10 @@ public class PlayerSkills : MonoBehaviour
             currentItem.SetGravityMode(Item.GravityMode.Self);
         }
 
-        MoveItem();
-
-        lastAimInput = aimInput;
         lastActivationInput = activationInput;
+        #endregion
+
+        MoveItem();
     }
 
     private void RaycastHandling()

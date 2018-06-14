@@ -6,7 +6,6 @@ public class PlayerMagnesis : MonoBehaviour {
 
     private CameraRotationMouse _cameraRotation;
     private Material _pointer;
-    private Rigidbody _rb;
 
     private bool _isInTransition;
     private float _lerpTime;
@@ -20,7 +19,6 @@ public class PlayerMagnesis : MonoBehaviour {
     {
         _cameraRotation = FindObjectOfType<CameraRotationMouse>();
         _pointer = _cameraRotation.GetComponentInChildren<MeshRenderer>().material;
-        _rb = GetComponent<Rigidbody>();
 
         MagnesisOff();
     }
@@ -39,9 +37,6 @@ public class PlayerMagnesis : MonoBehaviour {
 
     private void Update()
     {
-        if (!_rb.useGravity && _lerpTime > 0)
-            MagnesisOff();
-
         if (_isInTransition)
         {
             _lerpTime += _lerpSpeed * Time.deltaTime;
