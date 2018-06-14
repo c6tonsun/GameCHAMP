@@ -145,8 +145,12 @@ public class PlayerSkills : MonoBehaviour
 
         if (Physics.BoxCast(lastPos, transform.localScale * 0.5f, direction, out hit, transform.rotation, direction.magnitude))
         {
-            currentItem.transform.position = lastPos;
-            currentItem.SetGravityMode(Item.GravityMode.ERROR);
+
+            if(hit.collider.gameObject.isStatic)
+            {
+                currentItem.transform.position = lastPos;
+                currentItem.SetGravityMode(Item.GravityMode.ERROR);
+            }
         }
         else
         {
