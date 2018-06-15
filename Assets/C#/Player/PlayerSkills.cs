@@ -12,7 +12,7 @@ public class PlayerSkills : MonoBehaviour
     private Item lastItem;
 
     private float distance;
-    private Vector3 offset;
+    //private Vector3 offset;
     private RaycastHit hit;
 
     private float lerp = 0.1f;
@@ -57,6 +57,7 @@ public class PlayerSkills : MonoBehaviour
             }
             else
             {
+                alreadyActivated = false;
                 playerMagnesis.MagnesisOff();
             }
         }
@@ -77,7 +78,7 @@ public class PlayerSkills : MonoBehaviour
         #region actiation
         activationInput = Input.GetAxisRaw("Activation");
 
-        if (lastActivationInput <= 0 && activationInput > 0)
+        if (lastActivationInput <= 0 && activationInput > 0 && useAim)
         {
             alreadyActivated = !alreadyActivated;
         }
@@ -87,7 +88,7 @@ public class PlayerSkills : MonoBehaviour
             if(currentItem.currentMode == Item.GravityMode.World || currentItem.currentMode == Item.GravityMode.Self)
             {
                 currentItem.SetGravityMode(Item.GravityMode.Player);
-                offset = currentItem.transform.position - hit.point;
+                //offset = currentItem.transform.position - hit.point;
                 distance = hit.distance;
             }
         }

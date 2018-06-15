@@ -14,7 +14,7 @@ public class PlayerFeatures : MonoBehaviour {
     public float distance;
     public Vector3 offset;
 
-    private Vector3 oldPos;
+    //private Vector3 oldPos;
 
     private RaycastHit hit;
 
@@ -26,7 +26,7 @@ public class PlayerFeatures : MonoBehaviour {
     {
         camTransform = transform.GetChild(0).transform;
         manipulationArea = GetComponentInChildren<ManipulationArea>();
-        oldPos = transform.position;
+        //oldPos = transform.position;
     }
 
     private void Update ()

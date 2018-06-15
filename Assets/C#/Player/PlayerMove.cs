@@ -32,6 +32,9 @@ public class PlayerMove : MonoBehaviour {
         _movement.y = 0f;
 
         transform.forward = Vector3.Lerp(transform.forward, _movement.normalized, lerp);
+
+        if (transform.position.y < -10)
+            ResetPosition();
     }
 
     private void FixedUpdate()
@@ -61,5 +64,11 @@ public class PlayerMove : MonoBehaviour {
         }
 
         return true;
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = new Vector3(0f, 2f, 0f);
+        _rb.velocity = Vector3.zero;
     }
 }

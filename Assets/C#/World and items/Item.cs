@@ -8,7 +8,7 @@ public class Item : MonoBehaviour {
     public Rigidbody rb;
     private MeshRenderer mr;
     private Collider[] _colliders;
-    private Transform camTransform;
+    //private Transform camTransform;
 
     public Transform leftTrasform;
     public Transform rightTrasform;
@@ -20,8 +20,8 @@ public class Item : MonoBehaviour {
     public float amplitude = 0.5f;
     public float frequency = 1f;
 
-    Vector3 posOffset = new Vector3();
-    Vector3 tempPos = new Vector3();
+    //Vector3 posOffset;
+    //Vector3 tempPos;
 
     public Material defMaterial;
     public Material highMaterial;
@@ -43,8 +43,8 @@ public class Item : MonoBehaviour {
         mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
         SetGravityMode(GravityMode.World);
-        posOffset = transform.position;
-        camTransform = FindObjectOfType<Camera>().transform;
+        //posOffset = transform.position;
+        //camTransform = FindObjectOfType<Camera>().transform;
     }
 	
 	// Update is called once per frame
