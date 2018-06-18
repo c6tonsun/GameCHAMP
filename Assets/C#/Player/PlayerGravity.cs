@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,10 @@ public class PlayerGravity : MonoBehaviour {
     public float factor = 0.7f;
     [Range(0.3f, 0.5f)]
     public float radius = 0.35f;
+	
+	public float yMovement;
+	public bool isGrounded;
+	public Animator anim;
 
     private void Start()
     {
@@ -39,6 +43,8 @@ public class PlayerGravity : MonoBehaviour {
 
         // update old input
         oldGravityInput = gravityInput;
+		
+		AnimationHandling();
     }
 
     private void FixedUpdate()
@@ -55,4 +61,13 @@ public class PlayerGravity : MonoBehaviour {
         //Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * 0.5f, radius);
         //Gizmos.DrawWireSphere(transform.position - transform.up * transform.localScale.y * factor, radius);
     }
+	
+	private void AnimationHandling()
+	{
+		isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
+		yMovement = _rb.velocity.y;
+		
+		anim.SetBool("isGrounded", isGrounded);
+		anim.SetFloat("yMovement", yMovement);
+	}
 }
