@@ -77,7 +77,7 @@ public class PlayerSkills : MonoBehaviour
             return;
         }
 
-        #region actiation
+        #region activation
         _activationInput = Input.GetAxisRaw("Activation");
 
         if (_lastActivationInput <= 0 && _activationInput > 0 && _useAim)
@@ -106,7 +106,6 @@ public class PlayerSkills : MonoBehaviour
 
     private void RaycastHandling()
     {
-
         if (Physics.Raycast(_camTransform.position, _camTransform.forward, out _hit, float.MaxValue))
         {
             _lastItem = _currentItem;
@@ -121,9 +120,7 @@ public class PlayerSkills : MonoBehaviour
             {
                 _lastItem.SetGravityMode(Item.GravityMode.World);
             }
-
         }
-
     }
 
     private void MoveItem()
@@ -135,7 +132,7 @@ public class PlayerSkills : MonoBehaviour
 
         Vector3 lastPos = _currentItem.transform.position;
 
-        _distance += Input.GetAxisRaw("Distance input") * 2;
+        _distance += Input.GetAxisRaw("Distance input");
 
         if (_distance < _minDistance)
             _distance = _minDistance;
