@@ -2,9 +2,10 @@
 
 public class PlayerGravity : MonoBehaviour {
 
+    private PlayerMagnesis _playerMagnesis;
     private Rigidbody _rb;
     private RaycastHit _hit;
-    private float gravityInput;
+    private float newGravityInput;
     private float oldGravityInput;
     
     public float maxUpMomentum = 5;
@@ -13,30 +14,43 @@ public class PlayerGravity : MonoBehaviour {
     [Range(0.3f, 0.5f)]
     public float radius = 0.35f;
 
+    private Animator _anim;
+    [HideInInspector]
+    public bool isGrounded;
+    private float _yMovement;
+
     private void Start()
     {
+        _playerMagnesis = GetComponent<PlayerMagnesis>();
         _rb = GetComponent<Rigidbody>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        // read new input
-        gravityInput = Input.GetAxisRaw("Gravity input");
+        isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
+        _yMovement = _rb.velocity.y;
 
-        // use old and new input
-        if (oldGravityInput <= 0 && gravityInput > 0)
+        newGravityInput = Input.GetAxisRaw("Gravity input");
+
+        if (oldGravityInput <= 0 && newGravityInput > 0)
         {
             if (!_rb.useGravity)
-                _rb.useGravity = true;
-            else if (Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f))
             {
-                if (_hit.collider.GetComponent<UnWalkable>() == null)
-                    _rb.useGravity = false;
+                _rb.useGravity = true;
+            }
+            else if (isGrounded && _hit.collider.GetComponent<UnWalkable>() == null)
+            {
+                _rb.useGravity = false;
+                _playerMagnesis.MagnesisOff();
             }
         }
 
-        // update old input
-        oldGravityInput = gravityInput;
+        oldGravityInput = newGravityInput;
+
+        // animation
+        _anim.SetBool("isGrounded", isGrounded);
+        _anim.SetFloat("yMovement", _yMovement);
     }
 
     private void FixedUpdate()

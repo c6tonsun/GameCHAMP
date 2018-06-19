@@ -2,100 +2,103 @@
 
 public class PlayerSkills : MonoBehaviour
 {
-    private PlayerMagnesis playerMagnesis;
-    private Rigidbody _rb;
+    private PlayerMagnesis _playerMagnesis;
+    private PlayerGravity _playerGravity;
+    private Transform _camTransform;
 
-    private Transform camTransform;
-    private Item currentItem;
-    private Item lastItem;
+    private Item _currentItem;
+    private Item _lastItem;
 
-    private float distance;
-    //private Vector3 offset;
-    private RaycastHit hit;
+    private float _distance;
+    private RaycastHit _hit;
 
-    private float lerp = 0.1f;
+    private float _lerp = 0.1f;
 
-    private bool alreadyActivated = false;
+    private bool _alreadyActivated = false;
 
-    private bool useAim = false;
+    private bool _useAim = false;
 
-    private float minDistance = 8f;
-    private float maxDistance = 12f;
+    private float _minDistance = 8f;
+    private float _maxDistance = 12f;
 
-    private float activationInput;
-    private float lastActivationInput;
+    private float _activationInput;
+    private float _lastActivationInput;
 
-    private float aimInput;
-    private float lastAimInput;
+    private float _aimInput;
+    private float _lastAimInput;
 
     // Use this for initialization
     void Start()
     {
-        camTransform = FindObjectOfType<Camera>().transform;
-        playerMagnesis = GetComponent<PlayerMagnesis>();
-        _rb = GetComponent<Rigidbody>();
+        _camTransform = FindObjectOfType<Camera>().transform;
+        _playerMagnesis = GetComponent<PlayerMagnesis>();
+        _playerGravity = GetComponent<PlayerGravity>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        #region aim
-        aimInput = Input.GetAxisRaw("Aim");
-        
-        if(lastAimInput <= 0 && aimInput > 0)
-        {
-            useAim = !useAim;
-
-            if (!_rb.useGravity)
-                useAim = false;
-
-            if (useAim)
-            {
-                playerMagnesis.MagnesisOn();
-            }
-            else
-            {
-                alreadyActivated = false;
-                playerMagnesis.MagnesisOff();
-            }
-        }
-
-        lastAimInput = aimInput;
-        #endregion
-
-        if (!alreadyActivated)
+        if (!_alreadyActivated && _useAim)
         {
             RaycastHandling();
         }
+
+        #region aim
+        _aimInput = Input.GetAxisRaw("Aim");
         
-        if (currentItem == null)
+        if(_lastAimInput <= 0 && _aimInput > 0 || !_playerGravity.isGrounded)
+        {
+            _useAim = !_useAim;
+
+            if (!_playerGravity.isGrounded)
+                _useAim = false;
+
+            if (_useAim)
+            {
+                _playerMagnesis.MagnesisOn();
+            }
+            else
+            {
+                _alreadyActivated = false;
+                _playerMagnesis.MagnesisOff();
+                if (_currentItem != null)
+                {
+                    _currentItem.SetGravityMode(Item.GravityMode.World);
+                    _currentItem = null;
+                }
+            }
+        }
+
+        _lastAimInput = _aimInput;
+        #endregion
+
+        if (_currentItem == null)
         {
             return;
         }
 
         #region actiation
-        activationInput = Input.GetAxisRaw("Activation");
+        _activationInput = Input.GetAxisRaw("Activation");
 
-        if (lastActivationInput <= 0 && activationInput > 0 && useAim)
+        if (_lastActivationInput <= 0 && _activationInput > 0 && _useAim)
         {
-            alreadyActivated = !alreadyActivated;
+            _alreadyActivated = !_alreadyActivated;
         }
 
-        if (alreadyActivated)
+        if (_alreadyActivated)
         {
-            if(currentItem.currentMode == Item.GravityMode.World || currentItem.currentMode == Item.GravityMode.Self)
+            if(_currentItem.currentMode == Item.GravityMode.World || _currentItem.currentMode == Item.GravityMode.Self)
             {
-                currentItem.SetGravityMode(Item.GravityMode.Player);
-                //offset = currentItem.transform.position - hit.point;
-                distance = hit.distance;
+                _currentItem.SetGravityMode(Item.GravityMode.Player);
+                _distance = _hit.distance;
             }
         }
         else
         {
-            currentItem.SetGravityMode(Item.GravityMode.Self);
+            _currentItem.SetGravityMode(Item.GravityMode.Self);
         }
 
-        lastActivationInput = activationInput;
+        _lastActivationInput = _activationInput;
         #endregion
 
         MoveItem();
@@ -104,19 +107,19 @@ public class PlayerSkills : MonoBehaviour
     private void RaycastHandling()
     {
 
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, float.MaxValue))
+        if (Physics.Raycast(_camTransform.position, _camTransform.forward, out _hit, float.MaxValue))
         {
-            lastItem = currentItem;
-            currentItem = hit.collider.GetComponent<Item>();
+            _lastItem = _currentItem;
+            _currentItem = _hit.collider.GetComponent<Item>();
 
-            if(currentItem != null && !alreadyActivated)
+            if(_currentItem != null && !_alreadyActivated)
             {
-                currentItem.SetGravityMode(Item.GravityMode.Self);
+                _currentItem.SetGravityMode(Item.GravityMode.Self);
             }
 
-            if (lastItem != null && currentItem != lastItem && !alreadyActivated)
+            if (_lastItem != null && _currentItem != _lastItem && !_alreadyActivated)
             {
-                lastItem.SetGravityMode(Item.GravityMode.World);
+                _lastItem.SetGravityMode(Item.GravityMode.World);
             }
 
         }
@@ -125,33 +128,33 @@ public class PlayerSkills : MonoBehaviour
 
     private void MoveItem()
     {
-        if(currentItem == null || !alreadyActivated)
+        if(_currentItem == null || !_alreadyActivated)
         {
             return;
         }
 
-        Vector3 lastPos = currentItem.transform.position;
+        Vector3 lastPos = _currentItem.transform.position;
 
-        distance += Input.GetAxisRaw("Distance input") * 2;
+        _distance += Input.GetAxisRaw("Distance input") * 2;
 
-        if (distance < minDistance)
-            distance = minDistance;
-        else if (distance > maxDistance)
-            distance = maxDistance;
+        if (_distance < _minDistance)
+            _distance = _minDistance;
+        else if (_distance > _maxDistance)
+            _distance = _maxDistance;
 
-        Vector3 pointerPos = camTransform.position + (camTransform.forward * distance);
-        currentItem.transform.position = Vector3.Lerp(currentItem.transform.position, pointerPos, lerp);
+        Vector3 pointerPos = _camTransform.position + (_camTransform.forward * _distance);
+        _currentItem.transform.position = Vector3.Lerp(_currentItem.transform.position, pointerPos, _lerp);
 
-        Vector3 movement = currentItem.transform.position - lastPos;
+        Vector3 movement = _currentItem.transform.position - lastPos;
 
-        if (currentItem.CanMoveCheck(movement))
+        if (_currentItem.CanMoveCheck(movement))
         {
-            currentItem.SetGravityMode(Item.GravityMode.Player);
+            _currentItem.SetGravityMode(Item.GravityMode.Player);
         }
         else
         {
-            currentItem.transform.position = lastPos;
-            currentItem.SetGravityMode(Item.GravityMode.ERROR);
+            _currentItem.transform.position = lastPos;
+            _currentItem.SetGravityMode(Item.GravityMode.ERROR);
         }
 
     }

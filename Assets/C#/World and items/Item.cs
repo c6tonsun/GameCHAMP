@@ -12,14 +12,9 @@ public class Item : MonoBehaviour {
     public Transform rightTrasform;
     private float defLerpTime;
 
-    public GravityMode currentMode;
-
     public float degreesPerSecond = 15.0f;
     public float amplitude = 0.5f;
     public float frequency = 1f;
-
-    //Vector3 posOffset;
-    //Vector3 tempPos;
 
     public Material defMaterial;
     public Material highMaterial;
@@ -33,20 +28,21 @@ public class Item : MonoBehaviour {
         Player = 2,
         Self = 3
     }
+    public GravityMode currentMode;
 
 
 	// Use this for initialization
-	void Start () {
+	private void Start ()
+    {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
         SetGravityMode(GravityMode.World);
-        //posOffset = transform.position;
-        //camTransform = FindObjectOfType<Camera>().transform;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update ()
+    {
 	
         if(currentMode == GravityMode.World)
         {
