@@ -6,7 +6,7 @@ public class CameraRotationMouse : MonoBehaviour {
     public float rotationSpeed = 1;
     public float minRotX = -45;
     public float maxRotX = 45;
-    private float _maxRotationInput = 1;
+    private float _maxRotationInput = 2;
     private Vector2 _rawRotationInput;
 
     [Header("Positioning"), Range(3f, 7f)]
