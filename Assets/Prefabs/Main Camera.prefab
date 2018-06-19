@@ -170,11 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de105c664addc3459a7aa764096630f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRotationInput: 1
-  rotationSpeed: 5
+  rotationSpeed: 2
   minRotX: -45
   maxRotX: 45
-  scrollSpeed: 2
   distanceFromPlayer: 4
   pivotOffset: {x: 0, y: 1.25, z: 0}
 --- !u!124 &124941819487983600

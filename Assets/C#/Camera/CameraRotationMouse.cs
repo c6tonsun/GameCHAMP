@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraRotationMouse : MonoBehaviour {
     
     [Header("Rotating")]
-    public float maxRotationInput = 1;
     public float rotationSpeed = 1;
     public float minRotX = -45;
     public float maxRotX = 45;
+    private float _maxRotationInput = 1;
     private Vector2 _rawRotationInput;
 
-    [Header("Positioning")]
-    public float scrollSpeed = 1;
+    [Header("Positioning"), Range(3f, 7f)]
     public float distanceFromPlayer = 4;
     [HideInInspector]
     public Vector3 pivotOffset;
@@ -31,8 +28,8 @@ public class CameraRotationMouse : MonoBehaviour {
     {
         #region camera rotation
         // input and clamp
-        _rawRotationInput.x = MathHelp.Clamp(Input.GetAxisRaw("Look input X"), -maxRotationInput, maxRotationInput);
-        _rawRotationInput.y = MathHelp.Clamp(Input.GetAxisRaw("Look input Y"), -maxRotationInput, maxRotationInput);
+        _rawRotationInput.x = MathHelp.Clamp(Input.GetAxisRaw("Look input X"), -_maxRotationInput, _maxRotationInput);
+        _rawRotationInput.y = MathHelp.Clamp(Input.GetAxisRaw("Look input Y"), -_maxRotationInput, _maxRotationInput);
 
         transform.Rotate(Vector3.up, _rawRotationInput.x * rotationSpeed);
         transform.Rotate(Vector3.right, -_rawRotationInput.y * rotationSpeed);
