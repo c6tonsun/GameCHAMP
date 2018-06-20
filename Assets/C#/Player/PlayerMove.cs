@@ -4,6 +4,7 @@ public class PlayerMove : MonoBehaviour {
 
     private Rigidbody _rb;
     private Transform camTransform;
+    private CapsuleCollider _col;
     
     public float movementSpeed = 5;
     private Vector3 _inputVector;
@@ -14,6 +15,7 @@ public class PlayerMove : MonoBehaviour {
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _col = GetComponent<CapsuleCollider>();
         camTransform = FindObjectOfType<Camera>().transform;
     }
 
@@ -38,11 +40,12 @@ public class PlayerMove : MonoBehaviour {
     private void FixedUpdate()
     {
         _movement *= movementSpeed;
+        Vector3 velocity = _rb.velocity;
 
         if (_movement != Vector3.zero && CheckMovementCollisions())
         {
             _rb.MovePosition(transform.position + _movement);
-            _rb.velocity = new Vector3(0f, _rb.velocity.y, 0f);
+            _rb.velocity = velocity;
         }
 
         _movement = Vector3.zero;
@@ -50,10 +53,10 @@ public class PlayerMove : MonoBehaviour {
     
     private bool CheckMovementCollisions()
     {
-        Vector3 point1 = transform.position - transform.up * 0.5f * transform.localScale.y;
-        Vector3 point2 = transform.position + transform.up * 0.5f * transform.localScale.y;
+        float radius;
+        Vector3[] centers = MathHelp.CapsuleEndPoints(_col, out radius);
 
-        RaycastHit[] hits = Physics.CapsuleCastAll(point1, point2, transform.localScale.y * 0.49f, _movement.normalized, _movement.magnitude);
+        RaycastHit[] hits = Physics.CapsuleCastAll(centers[0], centers[1], radius, _movement.normalized, _movement.magnitude);
 
         foreach (RaycastHit hit in hits)
         {

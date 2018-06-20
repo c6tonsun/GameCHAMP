@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1636279013712364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.25, z: -4}
+  m_LocalPosition: {x: 0, y: 3.25, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4639246233465106}
@@ -173,7 +173,7 @@ MonoBehaviour:
   rotationSpeed: 2
   minRotX: -45
   maxRotX: 45
-  distanceFromPlayer: 4
+  distanceFromPlayer: 5
   pivotOffset: {x: 0, y: 1.25, z: 0}
 --- !u!124 &124941819487983600
 Behaviour:

@@ -12,6 +12,7 @@ public class Item : MonoBehaviour {
     public Transform rightTrasform;
     private float defLerpTime;
 
+    private Quaternion _startRot;
     public float degreesPerSecond = 15.0f;
     public float amplitude = 0.5f;
     public float frequency = 1f;
@@ -30,9 +31,12 @@ public class Item : MonoBehaviour {
     }
     public GravityMode currentMode;
 
+    // Casting and drawing
+    private BoxCollider _boxCol;
+    private SphereCollider _sphereCol;
+    private CapsuleCollider _capsuleCol;
 
-	// Use this for initialization
-	private void Start ()
+    private void Start ()
     {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
@@ -40,21 +44,20 @@ public class Item : MonoBehaviour {
         SetGravityMode(GravityMode.World);
     }
 	
-	// Update is called once per frame
 	private void Update ()
     {
-	
-        if(currentMode == GravityMode.World)
-        {
-            rb.useGravity = true;
-        }
-        else if(currentMode == GravityMode.Player)
+        if (currentMode == GravityMode.Player)
         {
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             rb.useGravity = false;
-            
+
             if (defLerpTime < 1)
+            {
                 defLerpTime += Time.deltaTime;
+                transform.rotation = Quaternion.Lerp(_startRot, transform.parent.rotation, defLerpTime);
+                return;
+            }
 
             float rotationInput = Input.GetAxisRaw("Rotate Item");
 
@@ -62,10 +65,8 @@ public class Item : MonoBehaviour {
                 transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
             if (rotationInput < 0)
                 transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
-
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, transform.eulerAngles.y, 0f), defLerpTime);
         }
-        else if(currentMode == GravityMode.Self)
+        else
         {
             rb.useGravity = true;
         }
@@ -80,38 +81,38 @@ public class Item : MonoBehaviour {
 
         foreach (Collider col in _colliders)
         {
+            hits = null;
+
             if (col is BoxCollider)
             {   // box info
-                Vector3 center = col.transform.position;
-                Vector3 fromCenterToCorner = col.transform.localScale * 0.5f;
+                _boxCol = col as BoxCollider;
+                Vector3 center = col.transform.position + _boxCol.center;
+                Vector3 fromCenterToCorner = MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * 0.5f;
                 Quaternion orientation = col.transform.rotation;
 
                 hits = Physics.BoxCastAll(center, fromCenterToCorner, direction, orientation, maxDistance);
-                foreach (RaycastHit hit in hits)
-                {
-                    if (hit.collider.gameObject.isStatic)
-                        return false;
-                }
             }
             else if (col is SphereCollider)
             {   // sphere info
-                Vector3 origin = col.transform.position;
-                float radius = Mathf.Max(new float[] { Mathf.Abs(col.transform.localScale.x), Mathf.Abs(col.transform.localScale.y), Mathf.Abs(col.transform.localScale.z) }) * 0.5f;
+                _sphereCol = col as SphereCollider;
+                Vector3 origin = col.transform.position + _sphereCol.center;
+                float radius = MathHelp.AbsBiggest(col.transform.localScale, false) * _sphereCol.radius;
 
                 hits = Physics.SphereCastAll(origin, radius, direction, maxDistance);
-                foreach (RaycastHit hit in hits)
-                {
-                    if (hit.collider.gameObject.isStatic)
-                        return false;
-                }
             }
             else if (col is CapsuleCollider)
             {   // capsule info
-                float radius = Mathf.Max(Mathf.Abs(col.transform.localScale.x), Mathf.Abs(col.transform.localScale.z)) * 0.5f;
-                Vector3 point1 = col.transform.position - (col.transform.up * col.transform.localScale.y - col.transform.up * radius);
-                Vector3 point2 = col.transform.position + (col.transform.up * col.transform.localScale.y - col.transform.up * radius);
+                float radius;
+                Vector3[] centers = MathHelp.CapsuleEndPoints(col as CapsuleCollider, out radius);
 
-                hits = Physics.CapsuleCastAll(point1, point2, radius, direction, maxDistance);
+                if (centers.Length == 1)
+                    hits = Physics.SphereCastAll(centers[0], radius, direction, maxDistance);
+                else
+                    hits = Physics.CapsuleCastAll(centers[0], centers[1], radius, direction, maxDistance);
+            }
+
+            if (hits != null)
+            {
                 foreach (RaycastHit hit in hits)
                 {
                     if (hit.collider.gameObject.isStatic)
@@ -141,6 +142,7 @@ public class Item : MonoBehaviour {
         else if(currentMode == GravityMode.Player)
         {
             defLerpTime = 0f;
+            _startRot = transform.rotation;
             mr.material = actMaterial;
         }
         else if(currentMode == GravityMode.Self)
@@ -148,5 +150,51 @@ public class Item : MonoBehaviour {
             mr.material = highMaterial;
         }
     }
+    
+    private void OnDrawGizmos()
+    {
+        /*
+        if (_colliders == null)
+            _colliders = GetComponentsInChildren<Collider>();
 
+        foreach (Collider col in _colliders)
+        {
+            // color
+            if (col.isTrigger)
+                Gizmos.color = Color.gray;
+            else
+                Gizmos.color = Color.black;
+
+
+            if (col is BoxCollider)
+            {
+                // correct orientation
+                Gizmos.matrix = Matrix4x4.TRS(col.transform.TransformPoint(Vector3.zero), col.transform.rotation, col.transform.localScale);
+
+                _boxCol = col as BoxCollider;
+                Gizmos.DrawWireCube(_boxCol.center, _boxCol.size);
+
+                // back to default
+                Gizmos.matrix = Matrix4x4.TRS(transform.parent.TransformPoint(Vector3.zero), transform.parent.rotation, transform.parent.localScale);
+            }
+            else if (col is SphereCollider)
+            {
+                _sphereCol = col as SphereCollider;
+                Gizmos.DrawWireSphere(col.transform.position + _sphereCol.center, MathHelp.AbsBiggest(transform.localScale, false) * _sphereCol.radius);
+            }
+            else if (col is CapsuleCollider)
+            {
+                float radius;
+                Vector3[] centers = MathHelp.CapsuleEndPoints(col as CapsuleCollider, out radius);
+
+                foreach (Vector3 center in centers)
+                    Gizmos.DrawWireSphere(center, radius);
+            }
+        }
+        
+        // back to defaults
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+        */
+    }
 }

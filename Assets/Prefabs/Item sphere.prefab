@@ -173,7 +173,6 @@ MonoBehaviour:
   rb: {fileID: 0}
   leftTrasform: {fileID: 4824411504535620}
   rightTrasform: {fileID: 4889443330361372}
-  currentMode: 0
   degreesPerSecond: 15
   amplitude: 0.5
   frequency: 1
@@ -181,6 +180,7 @@ MonoBehaviour:
   highMaterial: {fileID: 2100000, guid: cfdc6fae2571bf24bb238da94ca7e2b8, type: 2}
   actMaterial: {fileID: 2100000, guid: e3dc92445b08f5542bb6510d7c7f2739, type: 2}
   errorMaterial: {fileID: 2100000, guid: e30ca4b518cb15d4bb45028af1138826, type: 2}
+  currentMode: 0
 --- !u!135 &135899554591771488
 SphereCollider:
   m_ObjectHideFlags: 1
