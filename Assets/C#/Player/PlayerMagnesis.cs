@@ -2,7 +2,7 @@
 
 public class PlayerMagnesis : MonoBehaviour {
 
-    private CameraRotationMouse _cameraRotation;
+    private CameraControl _cameraRotation;
     private Material _pointer;
 
     private bool _isInTransition;
@@ -15,7 +15,7 @@ public class PlayerMagnesis : MonoBehaviour {
 
     private void Start()
     {
-        _cameraRotation = FindObjectOfType<CameraRotationMouse>();
+        _cameraRotation = FindObjectOfType<CameraControl>();
         _pointer = _cameraRotation.GetComponentInChildren<MeshRenderer>().material;
 
         MagnesisOff();

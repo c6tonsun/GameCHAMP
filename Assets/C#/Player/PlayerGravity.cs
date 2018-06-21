@@ -2,13 +2,13 @@
 
 public class PlayerGravity : MonoBehaviour {
 
+    private InputHandler _inputHandler;
+
     private PlayerMagnesis _playerMagnesis;
     private Rigidbody _rb;
     private RaycastHit _hit;
-    private float newGravityInput;
-    private float oldGravityInput;
     
-    public float maxUpMomentum = 5;
+    public float maxUpMomentum = 7;
     [Range(0.5f, 1f)]
     public float factor = 0.7f;
     [Range(0.3f, 0.5f)]
@@ -24,6 +24,7 @@ public class PlayerGravity : MonoBehaviour {
         _playerMagnesis = GetComponent<PlayerMagnesis>();
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
+        _inputHandler = FindObjectOfType<InputHandler>();
     }
 
     private void Update()
@@ -31,9 +32,7 @@ public class PlayerGravity : MonoBehaviour {
         isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
         _yMovement = _rb.velocity.y;
 
-        newGravityInput = Input.GetAxisRaw("Gravity input");
-
-        if (oldGravityInput <= 0 && newGravityInput > 0)
+        if (_inputHandler.KeyDown(InputHandler.Key.Jump))
         {
             if (!_rb.useGravity)
             {
@@ -45,8 +44,6 @@ public class PlayerGravity : MonoBehaviour {
                 _playerMagnesis.MagnesisOff();
             }
         }
-
-        oldGravityInput = newGravityInput;
 
         // animation
         _anim.SetBool("isGrounded", isGrounded);

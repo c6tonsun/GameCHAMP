@@ -2,6 +2,8 @@
 
 public class Item : MonoBehaviour {
 
+    private InputHandler _inputHandler;
+
     [HideInInspector]
     public Rigidbody rb;
     private MeshRenderer mr;
@@ -42,6 +44,7 @@ public class Item : MonoBehaviour {
         mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
         SetGravityMode(GravityMode.World);
+        _inputHandler = FindObjectOfType<InputHandler>();
     }
 	
 	private void Update ()
@@ -59,7 +62,7 @@ public class Item : MonoBehaviour {
                 return;
             }
 
-            float rotationInput = Input.GetAxisRaw("Rotate Item");
+            float rotationInput = _inputHandler.rotationInput;
 
             if (rotationInput > 0)
                 transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);

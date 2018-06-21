@@ -2,6 +2,8 @@
 
 public class PlayerMove : MonoBehaviour {
 
+    private InputHandler _inputHandler;
+
     private Rigidbody _rb;
     private Transform camTransform;
     private CapsuleCollider _col;
@@ -17,14 +19,15 @@ public class PlayerMove : MonoBehaviour {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         camTransform = FindObjectOfType<Camera>().transform;
+        _inputHandler = FindObjectOfType<InputHandler>();
     }
 
     private void Update()
     {
         // read and normalize input
-        _inputVector.x = Input.GetAxis("Move input X");
+        _inputVector.x = _inputHandler.moveXInput;
         _inputVector.y = 0f;
-        _inputVector.z = Input.GetAxis("Move input Z");
+        _inputVector.z = _inputHandler.moveZInput;
         _inputVector.Normalize();
 
         _movement += camTransform.right * _inputVector.x * Time.deltaTime;

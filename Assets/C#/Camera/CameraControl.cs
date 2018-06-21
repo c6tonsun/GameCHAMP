@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class CameraRotationMouse : MonoBehaviour {
-    
+public class CameraControl : MonoBehaviour
+{
+
+    private InputHandler _inputHandler;
+
     [Header("Rotating")]
     public float rotationSpeed = 1;
     public float minRotX = -45;
@@ -10,9 +13,10 @@ public class CameraRotationMouse : MonoBehaviour {
     private Vector2 _rawRotationInput;
 
     [Header("Positioning"), Range(3f, 7f)]
-    public float distanceFromPlayer = 4;
+    public float distanceFromPlayer = 5f;
     [HideInInspector]
     public Vector3 pivotOffset;
+    public float currentDistance;
 
     private Transform _player;
     private Vector3 _pivotOffset;
@@ -22,17 +26,18 @@ public class CameraRotationMouse : MonoBehaviour {
     private void Start()
     {
         _player = FindObjectOfType<PlayerMove>().transform;
+        _inputHandler = FindObjectOfType<InputHandler>();
     }
 
     private void Update()
     {
         #region camera rotation
         // input and clamp
-        _rawRotationInput.x = MathHelp.Clamp(Input.GetAxisRaw("Look input X"), -_maxRotationInput, _maxRotationInput);
-        _rawRotationInput.y = MathHelp.Clamp(Input.GetAxisRaw("Look input Y"), -_maxRotationInput, _maxRotationInput);
+        _rawRotationInput.x = MathHelp.Clamp(_inputHandler.lookXInput, -_maxRotationInput, _maxRotationInput);
+        _rawRotationInput.y = MathHelp.Clamp(_inputHandler.lookYInput, -_maxRotationInput, _maxRotationInput);
 
         transform.Rotate(Vector3.up, _rawRotationInput.x * rotationSpeed);
-        transform.Rotate(Vector3.right, -_rawRotationInput.y * rotationSpeed);
+        transform.Rotate(Vector3.right, _rawRotationInput.y * rotationSpeed);
 
         _euler = transform.eulerAngles;
         // limit up and down
@@ -51,9 +56,11 @@ public class CameraRotationMouse : MonoBehaviour {
         _pivotOffset = transform.right * pivotOffset.x + Vector3.up * pivotOffset.y;
 
         if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer))
-            transform.position = (_player.position + _pivotOffset) + (-transform.forward * _hit.distance);
+            currentDistance = _hit.distance;
         else
-            transform.position = (_player.position + _pivotOffset) + (-transform.forward * distanceFromPlayer);
+            currentDistance = distanceFromPlayer;
+
+        transform.position = (_player.position + _pivotOffset) + (-transform.forward * currentDistance);
         #endregion
     }
 }

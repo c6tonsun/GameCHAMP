@@ -2,9 +2,11 @@
 
 public class PlayerSkills : MonoBehaviour
 {
+    private InputHandler _inputHandler;
+
     private PlayerMagnesis _playerMagnesis;
     private PlayerGravity _playerGravity;
-    private Transform _camTransform;
+    private CameraControl _camControl;
 
     private Item _currentItem;
     private Item _lastItem;
@@ -18,21 +20,16 @@ public class PlayerSkills : MonoBehaviour
 
     private bool _useAim = false;
 
-    private float _minDistance = 8f;
-    private float _maxDistance = 12f;
-
-    private float _activationInput;
-    private float _lastActivationInput;
-
-    private float _aimInput;
-    private float _lastAimInput;
+    private float _minDistance = 2f;
+    private float _maxDistance = 8f;
 
     // Use this for initialization
     void Start()
     {
-        _camTransform = FindObjectOfType<Camera>().transform;
+        _camControl = FindObjectOfType<CameraControl>();
         _playerMagnesis = GetComponent<PlayerMagnesis>();
         _playerGravity = GetComponent<PlayerGravity>();
+        _inputHandler = FindObjectOfType<InputHandler>();
     }
 
     // Update is called once per frame
@@ -44,9 +41,8 @@ public class PlayerSkills : MonoBehaviour
         }
 
         #region aim
-        _aimInput = Input.GetAxisRaw("Aim");
         
-        if(_lastAimInput <= 0 && _aimInput > 0 || !_playerGravity.isGrounded)
+        if(_inputHandler.KeyDown(InputHandler.Key.Aim) || !_playerGravity.isGrounded)
         {
             _useAim = !_useAim;
 
@@ -69,7 +65,6 @@ public class PlayerSkills : MonoBehaviour
             }
         }
 
-        _lastAimInput = _aimInput;
         #endregion
 
         if (_currentItem == null)
@@ -78,9 +73,8 @@ public class PlayerSkills : MonoBehaviour
         }
 
         #region activation
-        _activationInput = Input.GetAxisRaw("Activation");
 
-        if (_lastActivationInput <= 0 && _activationInput > 0 && _useAim)
+        if (_inputHandler.KeyDown(InputHandler.Key.Activation) && _useAim)
         {
             _alreadyActivated = !_alreadyActivated;
         }
@@ -90,15 +84,14 @@ public class PlayerSkills : MonoBehaviour
             if(_currentItem.currentMode == Item.GravityMode.World || _currentItem.currentMode == Item.GravityMode.Self)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
-                _distance = _hit.distance;
+                _distance = _hit.distance - _camControl.currentDistance;
             }
         }
         else
         {
             _currentItem.SetGravityMode(Item.GravityMode.Self);
         }
-
-        _lastActivationInput = _activationInput;
+        
         #endregion
 
         MoveItem();
@@ -106,7 +99,7 @@ public class PlayerSkills : MonoBehaviour
 
     private void RaycastHandling()
     {
-        if (Physics.Raycast(_camTransform.position, _camTransform.forward, out _hit, float.MaxValue))
+        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
         {
             _lastItem = _currentItem;
             _currentItem = _hit.collider.GetComponent<Item>();
@@ -132,14 +125,14 @@ public class PlayerSkills : MonoBehaviour
 
         Vector3 lastPos = _currentItem.transform.position;
 
-        _distance += Input.GetAxisRaw("Distance input");
+        _distance += _inputHandler.distanceInput;
 
         if (_distance < _minDistance)
             _distance = _minDistance;
         else if (_distance > _maxDistance)
             _distance = _maxDistance;
 
-        Vector3 pointerPos = _camTransform.position + (_camTransform.forward * _distance);
+        Vector3 pointerPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
         _currentItem.transform.position = Vector3.Lerp(_currentItem.transform.position, pointerPos, _lerp);
 
         Vector3 movement = _currentItem.transform.position - lastPos;

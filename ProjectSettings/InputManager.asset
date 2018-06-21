@@ -6,7 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: Move input X
+    m_Name: MoveX
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -22,7 +22,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Move input Z
+    m_Name: MoveZ
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: down
@@ -38,7 +38,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Gravity input
+    m_Name: Jump
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -54,7 +54,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Look input X
+    m_Name: LookX
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -70,23 +70,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Look input X
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.1
-    sensitivity: 2
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 2
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Look input Y
+    m_Name: LookY
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -97,28 +81,12 @@ InputManager:
     dead: 0
     sensitivity: 0.1
     snap: 0
-    invert: 0
+    invert: 1
     type: 1
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Look input Y
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.1
-    sensitivity: 2
-    snap: 0
-    invert: 1
-    type: 2
-    axis: 3
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Distance input
+    m_Name: Distance
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -134,7 +102,151 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Distance input
+    m_Name: Activation
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: mouse 0
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Rotation
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: q
+    positiveButton: e
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Aim
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: mouse 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad MoveX
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 2
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad MoveZ
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 2
+    snap: 0
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad Aim
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick button 11
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad Activation
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick button 1
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad Jump
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick button 2
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad Rotation
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick button 6
+    positiveButton: joystick button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RumblePad Distance
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -150,7 +262,7 @@ InputManager:
     axis: 5
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Move input X
+    m_Name: RumblePad LookX
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -158,15 +270,15 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
-    sensitivity: 1
+    dead: 0.2
+    sensitivity: 2
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Move input Z
+    m_Name: RumblePad LookY
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -174,74 +286,26 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
-    sensitivity: 1
+    dead: 0.2
+    sensitivity: 2
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
-    axis: 1
+    axis: 3
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Gravity input
+    m_Name: Xbox MoveX
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 3
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
+    gravity: 0
+    dead: 0.2
+    sensitivity: 2
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Activation
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: mouse 0
-    altNegativeButton: 
-    altPositiveButton: joystick button 0
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Rotate Item
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: q
-    positiveButton: e
-    altNegativeButton: joystick button 7
-    altPositiveButton: joystick button 6
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Aim
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: r
-    altNegativeButton: 
-    altPositiveButton: joystick button 1
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 3
     joyNum: 0
