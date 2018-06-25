@@ -43,6 +43,8 @@ public class InputHandler : MonoBehaviour {
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         CheckController();
     }
 
@@ -58,11 +60,11 @@ public class InputHandler : MonoBehaviour {
         {
             if (_firstController.Contains("xbox"))
             {
-                //SetInputs(XBOX_CONTROLLER);
+                SetInputs(XBOX_CONTROLLER);
             }
             else if (_firstController.Contains("wireless controller"))
             {
-                //SetInputs(PS_CONTROLLER);
+                SetInputs(PS_CONTROLLER);
             }
             else if (_firstController.Contains("rumblepad"))
             {
