@@ -21,6 +21,15 @@ public class InputHandler : MonoBehaviour {
     private float _newJumpInput;
     private float _lastJumpInput;
 
+    private float _newPushInput;
+    private float _lastPushInput;
+
+    private float _newPullInput;
+    private float _lastPullInput;
+
+    private float _newChangeInput;
+    private float _lastChangeInput;
+
     private float _newInput;
     private float _lastInput;
 
@@ -38,7 +47,10 @@ public class InputHandler : MonoBehaviour {
     {
         Aim = 0,
         Activation = 1,
-        Jump = 2
+        Jump = 2,
+        Push = 3,
+        Pull = 4,
+        Change = 5
     }
 
     private void Start()
@@ -50,6 +62,19 @@ public class InputHandler : MonoBehaviour {
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = !Cursor.visible;
+
+            if(Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            } else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+
         if((_checkDelay + _lastCheck) < Time.realtimeSinceStartup)
         {
             CheckController();
@@ -116,7 +141,17 @@ public class InputHandler : MonoBehaviour {
 
         distanceInput = Input.GetAxisRaw(controller + "Distance");
 
+        if(controller == "")
+        {
+            _lastPushInput = _newPushInput;
+            _newPushInput = Input.GetAxisRaw(controller + "Push");
 
+            _lastPullInput = _newPullInput;
+            _newPullInput = Input.GetAxisRaw(controller + "Pull");
+
+            _lastChangeInput = _newChangeInput;
+            _newChangeInput = Input.GetAxisRaw(controller + "Change Skill");
+        }
 
     }
 
@@ -138,6 +173,21 @@ public class InputHandler : MonoBehaviour {
             case 2:
                 newInput = _newJumpInput;
                 lastInput = _lastJumpInput;
+                break;
+
+            case 3:
+                newInput = _newPushInput;
+                lastInput = _lastPushInput;
+                break;
+
+            case 4:
+                newInput = _newPullInput;
+                lastInput = _lastPullInput;
+                break;
+
+            case 5:
+                newInput = _newChangeInput;
+                lastInput = _lastChangeInput;
                 break;
 
             default:
