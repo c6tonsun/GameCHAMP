@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InputHandler : MonoBehaviour {
+public class InputHandler : MonoBehaviour
+{
 
     [HideInInspector]
     public float moveXInput, moveZInput;
@@ -10,6 +9,7 @@ public class InputHandler : MonoBehaviour {
     public float lookXInput, lookYInput;
     [HideInInspector]
     public float rotationInput;
+    [HideInInspector]
     public float distanceInput;
 
     private float _newAimInput;
@@ -60,21 +60,21 @@ public class InputHandler : MonoBehaviour {
         {
             if (_firstController.Contains("xbox"))
             {
-                SetInputs(XBOX_CONTROLLER);
+                ReadInput(XBOX_CONTROLLER);
             }
             else if (_firstController.Contains("wireless controller"))
             {
-                SetInputs(PS_CONTROLLER);
+                ReadInput(PS_CONTROLLER);
             }
             else if (_firstController.Contains("rumblepad"))
             {
-                SetInputs(RP_CONTROLLER);
+                ReadInput(RP_CONTROLLER);
             }
 
         }
         else
         {
-            SetInputs("");
+            ReadInput("");
         }
 
     }
@@ -94,7 +94,7 @@ public class InputHandler : MonoBehaviour {
         }
     }
 
-    private void SetInputs(string controller)
+    private void ReadInput(string controller)
     {
         
         moveXInput = Input.GetAxisRaw(controller + "MoveX");

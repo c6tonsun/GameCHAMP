@@ -8,6 +8,8 @@ public class Item : MonoBehaviour {
     public Rigidbody rb;
     private MeshRenderer mr;
     private Collider[] _colliders;
+    [HideInInspector]
+    public ItemStop itemStop;
     //private Transform camTransform;
 
     public Transform leftTrasform;
@@ -43,8 +45,10 @@ public class Item : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
-        SetGravityMode(GravityMode.World);
         _inputHandler = FindObjectOfType<InputHandler>();
+        itemStop = GetComponent<ItemStop>();
+
+        SetGravityMode(GravityMode.World);
     }
 	
 	private void Update ()
@@ -69,10 +73,17 @@ public class Item : MonoBehaviour {
             if (rotationInput < 0)
                 transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
         }
+        else if (itemStop.enabled)
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
         else
         {
             rb.useGravity = true;
         }
+
 
     }
 
@@ -118,7 +129,7 @@ public class Item : MonoBehaviour {
             {
                 foreach (RaycastHit hit in hits)
                 {
-                    if (hit.collider.gameObject.isStatic)
+                    if (hit.collider.GetComponent<StaticObject>() != null)
                         return false;
                 }
             }

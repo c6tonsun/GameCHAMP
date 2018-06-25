@@ -59,11 +59,12 @@ public class PlayerMove : MonoBehaviour {
         float radius;
         Vector3[] centers = MathHelp.CapsuleEndPoints(_col, out radius);
 
-        RaycastHit[] hits = Physics.CapsuleCastAll(centers[0], centers[1], radius, _movement.normalized, _movement.magnitude);
+        RaycastHit[] hits = Physics.CapsuleCastAll(centers[0], centers[1], radius - float.Epsilon * 4, _movement.normalized, _movement.magnitude);
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.GetComponent<UnWalkable>() != null)
+            StaticObject staticObject = hit.collider.GetComponent<StaticObject>();
+            if (staticObject != null && !staticObject.isWalkable)
                 return false;
         }
 
