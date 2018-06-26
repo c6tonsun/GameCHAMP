@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030bbf072b6efbb4787a561a4b062111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUpMomentum: 7
+  maxUpMomentum: 6
   factor: 0.75
   radius: 0.35
   isGrounded: 0
@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  lerp: 0.4
+  rotationLerp: 0.2
 --- !u!114 &114671570589313452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1041,7 +1041,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bffd7a10a268bcd49976bd84bbf93194, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

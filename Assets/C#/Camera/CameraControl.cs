@@ -16,6 +16,7 @@ public class CameraControl : MonoBehaviour
     public float distanceFromPlayer = 5f;
     [HideInInspector]
     public Vector3 pivotOffset;
+    [HideInInspector]
     public float currentDistance;
 
     private Transform _player;

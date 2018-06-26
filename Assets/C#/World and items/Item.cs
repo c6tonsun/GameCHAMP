@@ -8,9 +8,8 @@ public class Item : MonoBehaviour {
     public Rigidbody rb;
     private MeshRenderer mr;
     private Collider[] _colliders;
-    [HideInInspector]
-    public ItemStop itemStop;
-    //private Transform camTransform;
+
+    private float _freezeTime;
 
     public Transform leftTrasform;
     public Transform rightTrasform;
@@ -24,14 +23,15 @@ public class Item : MonoBehaviour {
     public Material defMaterial;
     public Material highMaterial;
     public Material actMaterial;
-    public Material errorMaterial;
+    public Material freezeMaterial;
 
     public enum GravityMode
     {
         ERROR = 0,
         World = 1,
         Player = 2,
-        Self = 3
+        Self = 3,
+        Freeze = 4
     }
     public GravityMode currentMode;
 
@@ -46,7 +46,6 @@ public class Item : MonoBehaviour {
         mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
         _inputHandler = FindObjectOfType<InputHandler>();
-        itemStop = GetComponent<ItemStop>();
 
         SetGravityMode(GravityMode.World);
     }
@@ -55,36 +54,28 @@ public class Item : MonoBehaviour {
     {
         if (currentMode == GravityMode.Player)
         {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.useGravity = false;
-
             if (defLerpTime < 1)
             {
                 defLerpTime += Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(_startRot, transform.parent.rotation, defLerpTime);
-                return;
             }
+            else
+            {
+                float rotationInput = _inputHandler.rotationInput;
 
-            float rotationInput = _inputHandler.rotationInput;
-
-            if (rotationInput > 0)
-                transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
-            if (rotationInput < 0)
-                transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
+                if (rotationInput > 0)
+                    transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
+                if (rotationInput < 0)
+                    transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
+            }
         }
-        else if (itemStop.enabled)
+
+        if (_freezeTime > 0)
         {
-            rb.useGravity = false;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            _freezeTime -= Time.deltaTime;
+            if (_freezeTime <= 0)
+                UnfreezeRigidbody();
         }
-        else
-        {
-            rb.useGravity = true;
-        }
-
-
     }
 
     public bool CanMoveCheck(Vector3 movement)
@@ -140,31 +131,55 @@ public class Item : MonoBehaviour {
 
     public void SetGravityMode(GravityMode mode)
     {
-        if (currentMode == mode)
+        if (currentMode == mode || _freezeTime > 0)
             return;
 
         currentMode = mode;
         
-        if(currentMode == GravityMode.ERROR)
+        if(currentMode == GravityMode.Freeze)
         {
-            mr.material = errorMaterial;
-        }
-        else if(currentMode == GravityMode.World)
-        {
-            mr.material = defMaterial;
+            FreezeRigidbody();
+            _freezeTime = 5f;
+
+            mr.material = freezeMaterial;
         }
         else if(currentMode == GravityMode.Player)
         {
             defLerpTime = 0f;
             _startRot = transform.rotation;
+
+            FreezeRigidbody();
+
             mr.material = actMaterial;
+        }
+        else if (currentMode == GravityMode.World)
+        {
+            UnfreezeRigidbody();
+
+            mr.material = defMaterial;
         }
         else if(currentMode == GravityMode.Self)
         {
             mr.material = highMaterial;
         }
+        else
+        {
+            mr.material = null;
+        }
     }
-    
+
+    public void FreezeRigidbody()
+    {
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void UnfreezeRigidbody()
+    {
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
     private void OnDrawGizmos()
     {
         /*
