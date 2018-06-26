@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  itemStop: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
   leftTrasform: {fileID: 4824411504535620}
   rightTrasform: {fileID: 4889443330361372}
   degreesPerSecond: 15
@@ -181,7 +181,7 @@ MonoBehaviour:
   defMaterial: {fileID: 2100000, guid: 2222a11ccdbe43c4cb5cecbe03d6e93f, type: 2}
   highMaterial: {fileID: 2100000, guid: cfdc6fae2571bf24bb238da94ca7e2b8, type: 2}
   actMaterial: {fileID: 2100000, guid: e3dc92445b08f5542bb6510d7c7f2739, type: 2}
-  errorMaterial: {fileID: 2100000, guid: e30ca4b518cb15d4bb45028af1138826, type: 2}
+  freezeMaterial: {fileID: 0}
   currentMode: 0
 --- !u!114 &114920289831480164
 MonoBehaviour:

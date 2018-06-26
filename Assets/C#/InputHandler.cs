@@ -33,6 +33,9 @@ public class InputHandler : MonoBehaviour
     private float _newShootInput;
     private float _lastShootInput;
 
+    private float _newFreezeInput;
+    private float _lastFreezeInput;
+
     private float _newInput;
     private float _lastInput;
 
@@ -54,7 +57,8 @@ public class InputHandler : MonoBehaviour
         Push = 3,
         Pull = 4,
         Change = 5,
-        Shoot = 6
+        Shoot = 6,
+        Freeze = 7
     }
 
     private void Start()
@@ -158,6 +162,9 @@ public class InputHandler : MonoBehaviour
 
             _lastShootInput = _newShootInput;
             _newShootInput = Input.GetAxisRaw(controller + "Shoot");
+
+            _lastFreezeInput = _newFreezeInput;
+            _newFreezeInput = Input.GetAxisRaw(controller + "Freeze");
         }
 
     }
@@ -200,6 +207,11 @@ public class InputHandler : MonoBehaviour
             case 6:
                 newInput = _newShootInput;
                 lastInput = _lastShootInput;
+                break;
+
+            case 7:
+                newInput = _newFreezeInput;
+                lastInput = _lastFreezeInput;
                 break;
 
             default:

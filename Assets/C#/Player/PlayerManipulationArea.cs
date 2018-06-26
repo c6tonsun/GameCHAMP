@@ -4,114 +4,96 @@ using UnityEngine;
 
 public class PlayerManipulationArea : MonoBehaviour {
 
-    [HideInInspector]
     public bool isVisible = false;
     public bool itemsActivated = false;
 
-    private Collider[] hits;
+
+    private Collider[] _colliders;
+    private Item[] _oldItems;
+    private Item[] _newItems;
 
     private CameraControl _camControl;
 
-    private List<Item> _itemsInside;
-
-
-
     private void Start()
     {
-        _itemsInside = new List<Item>();
         _camControl = FindObjectOfType<CameraControl>();
+        _newItems = new Item[0];
+        _oldItems = new Item[0];
     }
 
     private void Update()
     {
 
-        hits = Physics.OverlapSphere(transform.position, MathHelp.AbsBiggest(transform.localScale, ignoreY: false));
-
-        for(int i = 0; i < hits.Length; i++)
-        {
-            if(hits[i].GetComponent<Item>())
-            {
-
-
-
-            }
-        }
-
         if (!isVisible)
         {
-
-            if(transform.GetComponent<Renderer>().enabled || transform.GetComponent<Renderer>().enabled)
-            {
-                transform.GetComponent<Renderer>().enabled = false;
-                transform.GetComponent<Collider>().enabled = false;
-            }
+            return;
         }
-        else
+
+        _oldItems = _newItems;
+        _colliders = Physics.OverlapSphere(transform.position, MathHelp.AbsBiggest(transform.localScale, ignoreY: false) * 0.5f);
+        _newItems = new Item[_colliders.Length];
+
+        for(int i = 0; i < _colliders.Length; i++)
         {
+            _newItems[i] = _colliders[i].GetComponent<Item>();
+        }
 
-            if(!transform.GetComponent<Renderer>().enabled || !transform.GetComponent<Renderer>().enabled)
+        for (int i = 0; i < _oldItems.Length; i++)
+        {
+            if(_oldItems[i] != null)
             {
-                transform.GetComponent<Renderer>().enabled = true;
-                transform.GetComponent<Collider>().enabled = true;
-            }
+                bool found = false;
 
-            foreach (Item item in _itemsInside)
-            {
-                if (item.currentMode == Item.GravityMode.World)
+                for(int j = 0; j < _newItems.Length && !found; j++)
                 {
-                    item.SetGravityMode(Item.GravityMode.Self);
+
+                    if (_newItems[j] == null)
+                        continue;
+
+                    if (_oldItems[i].Equals(_newItems[j]))
+                    {
+                        found = true;
+                    }
                 }
-            }
 
-            MoveItems();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Item>())
-        {
-            Item enteredItem = other.GetComponent<Item>();
-            _itemsInside.Add(enteredItem);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<Item>())
-        {
-            Item exitedItem = other.GetComponent<Item>();
-
-            bool found = false;
-            int index = -1;
-
-            for (int i = 0; i < _itemsInside.Count && !found; i++)
-            {
-                if (exitedItem.Equals(_itemsInside[i]))
+                if(!found)
                 {
-                    index = i;
-                    found = true;
+                    _oldItems[i].SetGravityMode(Item.GravityMode.World);
                 }
-            }
 
-            if (index > -1)
-            {
-                _itemsInside.RemoveAt(index);
-                exitedItem.SetGravityMode(Item.GravityMode.World);
             }
-
         }
+
+        for(int i = 0; i < _newItems.Length; i++)
+        {
+            if (_newItems[i] == null)
+                continue;
+
+            if (_newItems[i].currentMode == Item.GravityMode.World)
+            {
+                _newItems[i].SetGravityMode(Item.GravityMode.Self);
+            }
+        }
+
+        MoveItems();
+        
     }
 
     public void ActivateItems()
     {
         
-        foreach(Item item in _itemsInside)
+        for(int i = 0; i < _newItems.Length; i++)
         {
-            if(item.currentMode == Item.GravityMode.World || item.currentMode == Item.GravityMode.Self)
+            Item item = _newItems[i];
+
+            if (item != null)
             {
-                item.SetGravityMode(Item.GravityMode.Player);
-                item.transform.position = new Vector3(item.transform.position.x, transform.position.y, item.transform.position.z);
+                if (item.currentMode == Item.GravityMode.Self)
+                {
+                    item.SetGravityMode(Item.GravityMode.Player);
+                    //item.transform.position = new Vector3(item.transform.position.x, transform.position.y, item.transform.position.z);
+                    item.offset = item.transform.position - transform.position;
+                }
             }
         }
 
@@ -121,9 +103,12 @@ public class PlayerManipulationArea : MonoBehaviour {
 
     public void DeactivateItems()
     {
-        foreach (Item item in _itemsInside)
+        for (int i = 0; i < _newItems.Length; i++)
         {
-            if (item.currentMode == Item.GravityMode.Player)
+
+            Item item = _newItems[i];
+
+            if (item != null && item.currentMode == Item.GravityMode.Player)
             {
                 item.SetGravityMode(Item.GravityMode.World);
             }
@@ -134,39 +119,57 @@ public class PlayerManipulationArea : MonoBehaviour {
 
     public void PushItems()
     {
-        foreach(Item item in _itemsInside)
-        {
-            item.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
-            item.SetGravityMode(Item.GravityMode.World);
-            _itemsInside.Remove(item);
-        }
+
     }
 
     public void PullItems()
     {
-        foreach (Item item in _itemsInside)
-        {
-            item.rb.AddForce(_camControl.transform.forward * -100, ForceMode.Impulse);
-            item.SetGravityMode(Item.GravityMode.World);
-            _itemsInside.Remove(item);
-        }
+
+    }
+
+    public void FreezeItems()
+    {
+
     }
 
     public void SetVisible(bool value)
     {
         isVisible = value;
+
+        transform.GetComponent<Renderer>().enabled = isVisible;
+        transform.GetComponent<Collider>().enabled = isVisible;
     }
 
     public void MoveItems()
     {
-        foreach(Item item in _itemsInside)
+
+        for(int i = 0; i < _newItems.Length; i++)
         {
-            if(item.currentMode == Item.GravityMode.Player)
+            Item item = _newItems[i];
+
+            if (item == null)
+                continue;
+
+            if (item.currentMode == Item.GravityMode.Player || item.currentMode == Item.GravityMode.ERROR)
             {
-                Vector3 offset = item.transform.position - transform.position;
-                item.transform.position = Vector3.Lerp(item.transform.position, transform.position + offset, 0.7f);
+                Vector3 lastPos = item.transform.position;
+                Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.1f);
+
+                Vector3 movement = newPos - lastPos;
+                
+                if (item.CanMoveCheck(movement))
+                {
+                    item.SetGravityMode(Item.GravityMode.Player);
+                    item.transform.position = newPos;
+                }
+                else
+                {
+                    item.transform.position = lastPos;
+                    item.SetGravityMode(Item.GravityMode.ERROR);
+                }
             }
         }
+
     }
 
     

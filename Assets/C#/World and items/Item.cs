@@ -11,6 +11,8 @@ public class Item : MonoBehaviour {
 
     private float _freezeTime;
 
+    public Vector3 offset;
+
     public Transform leftTrasform;
     public Transform rightTrasform;
     private float defLerpTime;
@@ -120,6 +122,9 @@ public class Item : MonoBehaviour {
             {
                 foreach (RaycastHit hit in hits)
                 {
+                    if (hit.point == Vector3.zero)
+                        continue;
+
                     if (hit.collider.GetComponent<StaticObject>() != null)
                         return false;
                 }
@@ -160,10 +165,14 @@ public class Item : MonoBehaviour {
         }
         else if(currentMode == GravityMode.Self)
         {
+            UnfreezeRigidbody();
+
             mr.material = highMaterial;
         }
         else
         {
+            FreezeRigidbody();
+
             mr.material = null;
         }
     }
