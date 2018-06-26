@@ -30,6 +30,9 @@ public class InputHandler : MonoBehaviour
     private float _newChangeInput;
     private float _lastChangeInput;
 
+    private float _newShootInput;
+    private float _lastShootInput;
+
     private float _newInput;
     private float _lastInput;
 
@@ -50,7 +53,8 @@ public class InputHandler : MonoBehaviour
         Jump = 2,
         Push = 3,
         Pull = 4,
-        Change = 5
+        Change = 5,
+        Shoot = 6
     }
 
     private void Start()
@@ -151,6 +155,9 @@ public class InputHandler : MonoBehaviour
 
             _lastChangeInput = _newChangeInput;
             _newChangeInput = Input.GetAxisRaw(controller + "Change Skill");
+
+            _lastShootInput = _newShootInput;
+            _newShootInput = Input.GetAxisRaw(controller + "Shoot");
         }
 
     }
@@ -188,6 +195,11 @@ public class InputHandler : MonoBehaviour
             case 5:
                 newInput = _newChangeInput;
                 lastInput = _lastChangeInput;
+                break;
+
+            case 6:
+                newInput = _newShootInput;
+                lastInput = _lastShootInput;
                 break;
 
             default:

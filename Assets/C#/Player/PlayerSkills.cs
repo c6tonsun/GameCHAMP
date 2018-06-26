@@ -61,6 +61,7 @@ public class PlayerSkills : MonoBehaviour
         {
             ChangeSkillMode();
             _useChange = false;
+            _alreadyActivated = false;
         }
 
         if(currentSkillMode == SkillMode.Magnesis)
@@ -126,6 +127,16 @@ public class PlayerSkills : MonoBehaviour
 
             #endregion
 
+            #region Throw Item
+
+            if(_inputHandler.KeyDown(InputHandler.Key.Shoot) && _alreadyActivated)
+            {
+                _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
+                _alreadyActivated = false;
+            }
+
+            #endregion
+
 
             MoveItem();
         }
@@ -146,16 +157,16 @@ public class PlayerSkills : MonoBehaviour
 
             if(_alreadyActivated)
             {
-                if(!_playerManipulationArea._activateItems)
+                if(!_playerManipulationArea.itemsActivated)
                 {
                     _playerManipulationArea.ActivateItems();
-                } else
-                {
-                    _playerManipulationArea.DeactivateItems();
                 }
-
-                _alreadyActivated = false;
             }
+            else
+            {
+                _playerManipulationArea.DeactivateItems();
+            }
+
 
             MoveArea();
         }
