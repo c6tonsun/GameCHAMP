@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour {
     private Vector3 _inputVector;
     private Vector3 _movement;
     [Range(0f, 1f)]
-    public float lerp;
+    public float rotationLerp;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class PlayerMove : MonoBehaviour {
         _movement += camTransform.forward * _inputVector.z * Time.deltaTime;
         _movement.y = 0f;
 
-        transform.forward = Vector3.Lerp(transform.forward, _movement.normalized, lerp);
+        transform.forward = Vector3.Slerp(transform.forward, _movement.normalized, rotationLerp);
 
         if (transform.position.y < -10)
             ResetPosition();
