@@ -21,156 +21,160 @@ public class PlayerSkills : MonoBehaviour
 
     private bool _useAim = false;
 
-    private bool _usePush = false;
-    private bool _usePull = false;
-
-    private bool _useChange = false;
-
-    private float _minDistance = 2f;
-    private float _maxDistance = 8f;
+    private float _minDistance = 3f;
+    private float _maxDistance = 10f;
 
     public SkillMode currentSkillMode;
     private int lastSkillIndex = 1;
 
     public enum SkillMode
     {
-        Magnesis = 0,
-        Area = 1
+        Area = 0,
+        Single = 1
     }
 
-    // Use this for initialization
     void Start()
     {
         _camControl = FindObjectOfType<CameraControl>();
         _playerMagnesis = GetComponent<PlayerMagnesis>();
         _playerGravity = GetComponent<PlayerGravity>();
         _inputHandler = FindObjectOfType<InputHandler>();
-        currentSkillMode = SkillMode.Magnesis;
-        _playerManipulationArea = GetComponentInChildren<PlayerManipulationArea>();
-    }
+        _playerManipulationArea = FindObjectOfType<PlayerManipulationArea>();
 
-    // Update is called once per frame
+        ChangeSkillMode();
+        _playerManipulationArea.transform.parent = null;
+    }
+    
     void Update()
     {
-        if(_inputHandler.KeyDown(InputHandler.Key.Change))
-        {
-            _useChange = !_useChange;
-        }
-
-        if(_useChange)
+        #region inputs
+        
+        // skill mode
+        if (_inputHandler.KeyDown(InputHandler.Key.Change))
         {
             ChangeSkillMode();
-            _useChange = false;
             _alreadyActivated = false;
         }
 
-        if(currentSkillMode == SkillMode.Magnesis)
+        // aim toggle
+        if (_inputHandler.KeyDown(InputHandler.Key.Aim) || !_playerGravity.isGrounded)
         {
-            _playerManipulationArea.SetVisible(false);
+            _useAim = !_useAim;
 
-            if (!_alreadyActivated && _useAim)
+            if (!_playerGravity.isGrounded)
+                _useAim = false;
+
+            if (_useAim)
             {
-                RaycastHandling();
-            }
-
-            #region aim
-
-            if (_inputHandler.KeyDown(InputHandler.Key.Aim) || !_playerGravity.isGrounded)
-            {
-                _useAim = !_useAim;
-
-                if (!_playerGravity.isGrounded)
-                    _useAim = false;
-
-                if (_useAim)
-                {
-                    _playerMagnesis.MagnesisOn();
-                }
-                else
-                {
-                    _alreadyActivated = false;
-                    _playerMagnesis.MagnesisOff();
-                    if (_currentItem != null)
-                    {
-                        _currentItem.SetGravityMode(Item.GravityMode.World);
-                        _currentItem = null;
-                    }
-                }
-            }
-
-            #endregion
-
-            if (_currentItem == null)
-            {
-                return;
-            }
-
-            #region activation
-
-            if (_inputHandler.KeyDown(InputHandler.Key.Activation) && _useAim)
-            {
-                _alreadyActivated = !_alreadyActivated;
-            }
-
-            if (_alreadyActivated)
-            {
-                if (_currentItem.currentMode == Item.GravityMode.World || _currentItem.currentMode == Item.GravityMode.Self)
-                {
-                    _currentItem.SetGravityMode(Item.GravityMode.Player);
-                    _distance = _hit.distance - _camControl.currentDistance;
-                }
+                _playerMagnesis.MagnesisOn();
             }
             else
             {
-                _currentItem.SetGravityMode(Item.GravityMode.Self);
-            }
-
-            #endregion
-
-            #region Throw Item
-
-            if(_inputHandler.KeyDown(InputHandler.Key.Shoot) && _alreadyActivated)
-            {
-                _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
                 _alreadyActivated = false;
+                _playerMagnesis.MagnesisOff();
             }
-
-            #endregion
-
-
-            MoveItem();
         }
 
-        if(currentSkillMode == SkillMode.Area)
+        // activation
+        if (_inputHandler.KeyDown(InputHandler.Key.Activation) && _useAim)
         {
-            if(_playerManipulationArea == null)
-            {
-                return;
-            }
-
-            _playerManipulationArea.SetVisible(true);
-
-            if(_inputHandler.KeyDown(InputHandler.Key.Activation))
-            {
-                _alreadyActivated = !_alreadyActivated;
-            }
-
-            if(_alreadyActivated)
-            {
-                if(!_playerManipulationArea.itemsActivated)
-                {
-                    _playerManipulationArea.ActivateItems();
-                }
-            }
-            else
-            {
-                _playerManipulationArea.DeactivateItems();
-            }
-
-
-            MoveArea();
+            _alreadyActivated = !_alreadyActivated;
         }
 
+        // distance
+        if (_useAim)
+            _distance = MathHelp.Clamp(_distance + _inputHandler.distanceInput, _minDistance, _maxDistance);
+
+        #endregion
+
+        if (currentSkillMode == SkillMode.Single)
+        {
+            DoSingle();
+        }
+        else if(currentSkillMode == SkillMode.Area)
+        {
+            DoArea();
+        }
+
+    }
+
+    private void DoSingle()
+    {
+        // check for new item
+        if (!_alreadyActivated && _useAim)
+        {
+            RaycastHandling();
+        }
+
+        // drop item
+        if (!_useAim && _currentItem != null)
+        {
+            _currentItem.SetGravityMode(Item.GravityMode.World);
+            _currentItem = null;
+        }
+
+        if (_currentItem == null)
+            return;
+
+        #region activate item
+
+        if (_alreadyActivated)
+        {
+            if (_currentItem.currentMode == Item.GravityMode.Self)
+            {
+                _currentItem.SetGravityMode(Item.GravityMode.Player);
+                _distance = _hit.distance - _camControl.currentDistance;
+            }
+        }
+        else
+        {
+            _currentItem.SetGravityMode(Item.GravityMode.Self);
+        }
+
+        #endregion
+
+        #region throw item
+
+        if (_inputHandler.KeyDown(InputHandler.Key.Shoot) && _alreadyActivated)
+        {
+            _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
+            _alreadyActivated = false;
+        }
+
+        #endregion
+
+        // move
+        if (_currentItem != null && _alreadyActivated)
+            Move(_currentItem.transform, isItem: true);
+    }
+
+    private void DoArea()
+    {
+        if (_playerManipulationArea == null)
+            return;
+
+        // visibility
+        _playerManipulationArea.SetVisible(_useAim);
+
+        #region activate items in area
+
+        if (_alreadyActivated)
+        {
+            if (!_playerManipulationArea.itemsActivated)
+            {
+                _playerManipulationArea.ActivateItems();
+            }
+        }
+        else
+        {
+            _playerManipulationArea.DeactivateItems();
+        }
+
+        #endregion
+
+        // move
+        if (_playerManipulationArea != null)
+            Move(_playerManipulationArea.transform, isItem: false);
     }
 
     private void RaycastHandling()
@@ -191,63 +195,33 @@ public class PlayerSkills : MonoBehaviour
             }
         }
     }
-
-    private void MoveItem()
+    
+    private void Move(Transform transform, bool isItem)
     {
-        if(_currentItem == null || !_alreadyActivated)
+        Vector3 lastPos = transform.position;
+        Vector3 targetPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
+        transform.position = Vector3.Lerp(lastPos, targetPos, _lerp);
+
+        #region item collision check
+
+        if (isItem)
         {
-            return;
+            if (_currentItem.CanMoveCheck(transform.position - lastPos))
+            {
+                _currentItem.SetGravityMode(Item.GravityMode.Player);
+            }
+            else
+            {
+                transform.position = lastPos;
+                _currentItem.SetGravityMode(Item.GravityMode.ERROR);
+            }
         }
 
-        Vector3 lastPos = _currentItem.transform.position;
-
-        _distance += _inputHandler.distanceInput;
-
-        if (_distance < _minDistance)
-            _distance = _minDistance;
-        else if (_distance > _maxDistance)
-            _distance = _maxDistance;
-
-        Vector3 pointerPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
-        _currentItem.transform.position = Vector3.Lerp(_currentItem.transform.position, pointerPos, _lerp);
-
-        Vector3 movement = _currentItem.transform.position - lastPos;
-
-        if (_currentItem.CanMoveCheck(movement))
-        {
-            _currentItem.SetGravityMode(Item.GravityMode.Player);
-        }
-        else
-        {
-            _currentItem.transform.position = lastPos;
-            _currentItem.SetGravityMode(Item.GravityMode.ERROR);
-        }
-
-    }
-
-    public void MoveArea()
-    {
-        if(_playerManipulationArea == null)
-        {
-            return;
-        }
-
-        Vector3 lastPos = _playerManipulationArea.transform.position;
-
-        _distance += _inputHandler.distanceInput;
-
-        if (_distance < _minDistance)
-            _distance = _minDistance;
-        else if (_distance > _maxDistance)
-            _distance = _maxDistance;
-
-        Vector3 pointerPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
-        _playerManipulationArea.transform.position = Vector3.Lerp(_playerManipulationArea.transform.position, pointerPos, _lerp);
+        #endregion
     }
 
     public void ChangeSkillMode()
     {
-
         int curIndex = (int)currentSkillMode + 1;
 
         if (curIndex > lastSkillIndex)
@@ -257,5 +231,6 @@ public class PlayerSkills : MonoBehaviour
 
         currentSkillMode = (SkillMode)curIndex;
 
+        _playerManipulationArea.SetVisible(currentSkillMode == SkillMode.Area);
     }
 }

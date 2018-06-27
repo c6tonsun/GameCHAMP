@@ -6,17 +6,13 @@ public class PlayerManipulationArea : MonoBehaviour {
 
     public bool isVisible = false;
     public bool itemsActivated = false;
-
-
+    
     private Collider[] _colliders;
     private Item[] _oldItems;
     private Item[] _newItems;
 
-    private CameraControl _camControl;
-
     private void Start()
     {
-        _camControl = FindObjectOfType<CameraControl>();
         _newItems = new Item[0];
         _oldItems = new Item[0];
     }
