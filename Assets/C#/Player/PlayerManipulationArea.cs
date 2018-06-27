@@ -150,23 +150,19 @@ public class PlayerManipulationArea : MonoBehaviour {
             {
                 Vector3 lastPos = item.transform.position;
                 Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.1f);
-
-                Vector3 movement = newPos - lastPos;
                 
-                if (item.CanMoveCheck(movement))
+                if (item.CanMoveCheck(newPos - lastPos))
                 {
                     item.SetGravityMode(Item.GravityMode.Player);
                     item.transform.position = newPos;
                 }
                 else
                 {
-                    item.transform.position = lastPos;
                     item.SetGravityMode(Item.GravityMode.ERROR);
+                    item.transform.position = lastPos;
                 }
             }
         }
 
     }
-
-    
 }
