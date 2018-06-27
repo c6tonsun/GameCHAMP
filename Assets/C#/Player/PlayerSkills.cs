@@ -15,8 +15,6 @@ public class PlayerSkills : MonoBehaviour
     private float _distance;
     private RaycastHit _hit;
 
-    private float _lerp = 0.1f;
-
     private bool _alreadyActivated = false;
 
     private bool _useAim = false;
@@ -200,24 +198,25 @@ public class PlayerSkills : MonoBehaviour
     {
         Vector3 lastPos = transform.position;
         Vector3 targetPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
-        transform.position = Vector3.Lerp(lastPos, targetPos, _lerp);
-
-        #region item collision check
-
+        Vector3 newPos = Vector3.Lerp(lastPos, targetPos, 0.1f);
+        
         if (isItem)
         {
-            if (_currentItem.CanMoveCheck(transform.position - lastPos))
+            if (_currentItem.CanMoveCheck(newPos - lastPos))
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
+                transform.position = newPos;
             }
             else
             {
-                transform.position = lastPos;
                 _currentItem.SetGravityMode(Item.GravityMode.ERROR);
+                transform.position = lastPos;
             }
         }
-
-        #endregion
+        else
+        {
+            transform.position = newPos;
+        }
     }
 
     public void ChangeSkillMode()

@@ -15,24 +15,19 @@ public class PlayerGravity : MonoBehaviour {
     public float factor = 0.7f;
     [Range(0.3f, 0.5f)]
     public float radius = 0.35f;
-
-    private Animator _anim;
     [HideInInspector]
     public bool isGrounded;
-    private float _yMovement;
 
     private void Start()
     {
         _playerMagnesis = GetComponent<PlayerMagnesis>();
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponentInChildren<Animator>();
         _inputHandler = FindObjectOfType<InputHandler>();
     }
 
     private void Update()
     {
         isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
-        _yMovement = _rb.velocity.y;
 
         StaticObject staticObject = null;
         if (isGrounded)
@@ -51,10 +46,6 @@ public class PlayerGravity : MonoBehaviour {
                 maxJumpTimer = 0f;
             }
         }
-
-        // animation
-        _anim.SetBool("isGrounded", isGrounded);
-        _anim.SetFloat("yMovement", _yMovement);
     }
 
     private void FixedUpdate()

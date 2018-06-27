@@ -94,7 +94,7 @@ public class Item : MonoBehaviour {
             {   // box info
                 _boxCol = col as BoxCollider;
                 Vector3 center = col.transform.position + _boxCol.center;
-                Vector3 fromCenterToCorner = MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * 0.5f;
+                Vector3 fromCenterToCorner = MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * (0.5f - float.Epsilon * 4);
                 Quaternion orientation = col.transform.rotation;
 
                 hits = Physics.BoxCastAll(center, fromCenterToCorner, direction, orientation, maxDistance);
@@ -104,6 +104,7 @@ public class Item : MonoBehaviour {
                 _sphereCol = col as SphereCollider;
                 Vector3 origin = col.transform.position + _sphereCol.center;
                 float radius = MathHelp.AbsBiggest(col.transform.localScale, false) * _sphereCol.radius;
+                radius -= float.Epsilon * 4;
 
                 hits = Physics.SphereCastAll(origin, radius, direction, maxDistance);
             }
@@ -111,6 +112,7 @@ public class Item : MonoBehaviour {
             {   // capsule info
                 float radius;
                 Vector3[] centers = MathHelp.CapsuleEndPoints(col as CapsuleCollider, out radius);
+                radius -= float.Epsilon * 4;
 
                 if (centers.Length == 1)
                     hits = Physics.SphereCastAll(centers[0], radius, direction, maxDistance);
@@ -123,7 +125,10 @@ public class Item : MonoBehaviour {
                 foreach (RaycastHit hit in hits)
                 {
                     if (hit.point == Vector3.zero)
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
                         continue;
+                    }
 
                     if (hit.collider.GetComponent<StaticObject>() != null)
                         return false;
@@ -191,6 +196,7 @@ public class Item : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
+        #region draw colliders
         /*
         if (_colliders == null)
             _colliders = GetComponentsInChildren<Collider>();
@@ -234,5 +240,6 @@ public class Item : MonoBehaviour {
         Gizmos.color = Color.white;
         Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
         */
+        #endregion
     }
 }
