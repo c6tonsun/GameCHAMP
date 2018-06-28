@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerManipulationArea : MonoBehaviour {
-
+public class PlayerManipulationArea : MonoBehaviour
+{
     public bool isVisible = false;
     public bool itemsActivated = false;
     
@@ -11,8 +9,12 @@ public class PlayerManipulationArea : MonoBehaviour {
     private Item[] _oldItems;
     private Item[] _newItems;
 
+    private InputHandler _inputHandler;
+
     private void Start()
     {
+        _inputHandler = FindObjectOfType<InputHandler>();
+
         _newItems = new Item[0];
         _oldItems = new Item[0];
     }
@@ -138,6 +140,7 @@ public class PlayerManipulationArea : MonoBehaviour {
 
     public void MoveItems()
     {
+        float rotationInput = _inputHandler.rotationInput;
 
         for(int i = 0; i < _newItems.Length; i++)
         {
@@ -148,10 +151,12 @@ public class PlayerManipulationArea : MonoBehaviour {
 
             if (item.currentMode == Item.GravityMode.Player || item.currentMode == Item.GravityMode.ERROR)
             {
-                Vector3 lastPos = item.transform.position;
-                Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.1f);
-                
-                if (item.CanMoveCheck(newPos - lastPos))
+                item.DoRotate(rotationInput);
+
+                Vector3 oldPos = item.transform.position;
+                Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.5f);
+
+                if (item.CanMoveCheck(newPos - oldPos))
                 {
                     item.SetGravityMode(Item.GravityMode.Player);
                     item.transform.position = newPos;
@@ -159,7 +164,7 @@ public class PlayerManipulationArea : MonoBehaviour {
                 else
                 {
                     item.SetGravityMode(Item.GravityMode.ERROR);
-                    item.transform.position = lastPos;
+                    item.transform.position = oldPos;
                 }
             }
         }

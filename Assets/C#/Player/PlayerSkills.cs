@@ -194,28 +194,31 @@ public class PlayerSkills : MonoBehaviour
         }
     }
     
-    private void Move(Transform transform, bool isItem)
+    private void Move(Transform toMove, bool isItem)
     {
-        Vector3 lastPos = transform.position;
         Vector3 targetPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
-        Vector3 newPos = Vector3.Lerp(lastPos, targetPos, 0.1f);
+
+        Vector3 oldPos = toMove.position;
+        Vector3 newPos = Vector3.Lerp(oldPos, targetPos, 0.1f);
         
         if (isItem)
         {
-            if (_currentItem.CanMoveCheck(newPos - lastPos))
+            _currentItem.DoRotate(_inputHandler.rotationInput);
+            
+            if (_currentItem.CanMoveCheck(newPos - oldPos))
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
-                transform.position = newPos;
+                toMove.position = newPos;
             }
             else
             {
                 _currentItem.SetGravityMode(Item.GravityMode.ERROR);
-                transform.position = lastPos;
+                toMove.position = oldPos;
             }
         }
         else
         {
-            transform.position = newPos;
+            toMove.position = newPos;
         }
     }
 

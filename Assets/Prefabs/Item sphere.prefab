@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135899554591771488}
   - component: {fileID: 54757663453093608}
   - component: {fileID: 114125444253251094}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Item sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4824411504535620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4889443330361372}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,16 +171,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
+  offsetArea: {x: 0, y: 0, z: 0}
   leftTrasform: {fileID: 4824411504535620}
   rightTrasform: {fileID: 4889443330361372}
-  degreesPerSecond: 15
-  amplitude: 0.5
-  frequency: 1
   defMaterial: {fileID: 2100000, guid: 2222a11ccdbe43c4cb5cecbe03d6e93f, type: 2}
   highMaterial: {fileID: 2100000, guid: cfdc6fae2571bf24bb238da94ca7e2b8, type: 2}
   actMaterial: {fileID: 2100000, guid: e3dc92445b08f5542bb6510d7c7f2739, type: 2}
-  freezeMaterial: {fileID: 0}
+  freezeMaterial: {fileID: 2100000, guid: e30ca4b518cb15d4bb45028af1138826, type: 2}
   currentMode: 0
 --- !u!135 &135899554591771488
 SphereCollider:
