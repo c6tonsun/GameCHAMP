@@ -1,26 +1,22 @@
 ﻿using UnityEngine;
 
-public class Item : MonoBehaviour {
-
-    private InputHandler _inputHandler;
-
+public class Item : MonoBehaviour
+{
     [HideInInspector]
     public Rigidbody rb;
-    private MeshRenderer mr;
+    private MeshRenderer _mr;
     private Collider[] _colliders;
 
     private float _freezeTime;
 
+    [HideInInspector]
     public Vector3 offset;
 
+    private float _defLerpTime;
+    private Quaternion _startRot;
+    private Quaternion _oldRot;
     public Transform leftTrasform;
     public Transform rightTrasform;
-    private float defLerpTime;
-
-    private Quaternion _startRot;
-    public float degreesPerSecond = 15.0f;
-    public float amplitude = 0.5f;
-    public float frequency = 1f;
 
     public Material defMaterial;
     public Material highMaterial;
@@ -41,42 +37,30 @@ public class Item : MonoBehaviour {
     private BoxCollider _boxCol;
     private SphereCollider _sphereCol;
     private CapsuleCollider _capsuleCol;
+    private float _castSizeFactor = 0.99f;
 
     private void Start ()
     {
         rb = GetComponent<Rigidbody>();
-        mr = GetComponent<MeshRenderer>();
+        _mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
-        _inputHandler = FindObjectOfType<InputHandler>();
 
         SetGravityMode(GravityMode.World);
     }
 	
 	private void Update ()
     {
-        if (currentMode == GravityMode.Player)
-        {
-            if (defLerpTime < 1)
-            {
-                defLerpTime += Time.deltaTime;
-                transform.rotation = Quaternion.Lerp(_startRot, transform.parent.rotation, defLerpTime);
-            }
-            else
-            {
-                float rotationInput = _inputHandler.rotationInput;
-
-                if (rotationInput > 0)
-                    transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
-                if (rotationInput < 0)
-                    transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
-            }
-        }
-
         if (_freezeTime > 0)
         {
             _freezeTime -= Time.deltaTime;
             if (_freezeTime <= 0)
                 UnfreezeRigidbody();
+        }
+
+        if (rb.constraints != RigidbodyConstraints.None)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
 
@@ -94,17 +78,16 @@ public class Item : MonoBehaviour {
             {   // box info
                 _boxCol = col as BoxCollider;
                 Vector3 center = col.transform.position + _boxCol.center;
-                Vector3 fromCenterToCorner = MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * (0.5f - float.Epsilon * 4);
+                Vector3 fromCenterToCorner = MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * 0.5f * _castSizeFactor;
                 Quaternion orientation = col.transform.rotation;
 
-                hits = Physics.BoxCastAll(center, fromCenterToCorner, direction, orientation, maxDistance);
+                hits = Physics.BoxCastAll(center, fromCenterToCorner, direction, orientation, maxDistance, LayerMask.NameToLayer("Item"));
             }
             else if (col is SphereCollider)
             {   // sphere info
                 _sphereCol = col as SphereCollider;
                 Vector3 origin = col.transform.position + _sphereCol.center;
-                float radius = MathHelp.AbsBiggest(col.transform.localScale, false) * _sphereCol.radius;
-                radius -= float.Epsilon * 4;
+                float radius = MathHelp.AbsBiggest(col.transform.localScale, false) * _sphereCol.radius * _castSizeFactor;
 
                 hits = Physics.SphereCastAll(origin, radius, direction, maxDistance);
             }
@@ -112,7 +95,7 @@ public class Item : MonoBehaviour {
             {   // capsule info
                 float radius;
                 Vector3[] centers = MathHelp.CapsuleEndPoints(col as CapsuleCollider, out radius);
-                radius -= float.Epsilon * 4;
+                radius *= _castSizeFactor;
 
                 if (centers.Length == 1)
                     hits = Physics.SphereCastAll(centers[0], radius, direction, maxDistance);
@@ -123,20 +106,94 @@ public class Item : MonoBehaviour {
             if (hits != null)
             {
                 foreach (RaycastHit hit in hits)
-                {
-                    if (hit.point == Vector3.zero)
-                    {
-                        Debug.Log(hit.collider.gameObject.name);
-                        continue;
-                    }
-
+                {   
                     if (hit.collider.GetComponent<StaticObject>() != null)
+                    {
+                        Debug.DrawLine(hit.point, hit.point + hit.normal, Color.white, 1f);
+
                         return false;
+                    }
                 }
             }
         }
 
         return true;
+    }
+
+    public bool CheckOverlap()
+    {
+        Collider[] collidersInside;
+
+        foreach (Collider col in _colliders)
+        {
+            collidersInside = null;
+
+            if (col is BoxCollider)
+            {
+                _boxCol = col as BoxCollider;
+                collidersInside = Physics.OverlapBox(
+                    col.transform.position + _boxCol.center, 
+                    MathHelp.MultiplyVector3(col.transform.localScale, _boxCol.size) * 0.5f,
+                    col.transform.rotation,
+                    LayerMask.NameToLayer("Item"));
+            }
+            else if (col is SphereCollider)
+            {
+                _sphereCol = col as SphereCollider;
+                collidersInside = Physics.OverlapSphere(
+                    col.transform.position + _sphereCol.center,
+                    MathHelp.AbsBiggest(col.transform.localScale, ignoreY: false) * _sphereCol.radius,
+                    LayerMask.NameToLayer("Item"));
+            }
+            else if (col is CapsuleCollider)
+            {
+                _capsuleCol = col as CapsuleCollider;
+                float radius;
+                Vector3[] points = MathHelp.CapsuleEndPoints(_capsuleCol, out radius);
+
+                if (points.Length == 2)
+                    collidersInside = Physics.OverlapCapsule(points[0], points[1], radius, LayerMask.NameToLayer("Item"));
+                else
+                    collidersInside = Physics.OverlapCapsule(points[0], points[0], radius, LayerMask.NameToLayer("Item"));
+            }
+
+            foreach (Collider c in collidersInside)
+                Debug.DrawLine(col.transform.position, c.transform.position, Color.black, 1f);
+
+            if (collidersInside.Length > 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    public void DoRotate(float rotationInput)
+    {
+        _oldRot = transform.rotation;
+
+        if (_defLerpTime < 1)
+        {
+            _defLerpTime += Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(_startRot, transform.parent.rotation, _defLerpTime);
+
+            if (CheckOverlap())
+            {
+                _defLerpTime -= Time.deltaTime;
+                transform.rotation = _oldRot;
+            }
+        }
+        else
+        {
+            if (rotationInput > 0)
+                transform.rotation = Quaternion.Lerp(transform.rotation, leftTrasform.rotation, 0.6f * Time.deltaTime);
+            if (rotationInput < 0)
+                transform.rotation = Quaternion.Lerp(transform.rotation, rightTrasform.rotation, 0.6f * Time.deltaTime);
+
+            if (CheckOverlap())
+            {
+                transform.rotation = _oldRot;
+            }
+        }
     }
 
     public void SetGravityMode(GravityMode mode)
@@ -151,47 +208,50 @@ public class Item : MonoBehaviour {
             FreezeRigidbody();
             _freezeTime = 5f;
 
-            mr.material = freezeMaterial;
+            _mr.material = freezeMaterial;
         }
         else if(currentMode == GravityMode.Player)
         {
-            defLerpTime = 0f;
+            _defLerpTime = 0f;
             _startRot = transform.rotation;
 
             FreezeRigidbody();
 
-            mr.material = actMaterial;
+            _mr.material = actMaterial;
         }
         else if (currentMode == GravityMode.World)
         {
             UnfreezeRigidbody();
 
-            mr.material = defMaterial;
+            _mr.material = defMaterial;
         }
         else if(currentMode == GravityMode.Self)
         {
             UnfreezeRigidbody();
 
-            mr.material = highMaterial;
+            _mr.material = highMaterial;
         }
         else
         {
             FreezeRigidbody();
 
-            mr.material = null;
+            _mr.material = null;
         }
     }
 
     public void FreezeRigidbody()
     {
         rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void UnfreezeRigidbody()
     {
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
+
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     private void OnDrawGizmos()
