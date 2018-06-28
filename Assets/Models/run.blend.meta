@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2be71092272691b41b1b7f69ee81eb6c
+guid: ca3176fb506550a449bb83acaa1a08c9
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -106,7 +106,7 @@ ModelImporter:
       name: Default Take
       takeName: Default Take
       firstFrame: -1
-      lastFrame: 54
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -246,7 +246,7 @@ ModelImporter:
       name: RUN
       takeName: RUN
       firstFrame: 0
-      lastFrame: 55
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -254,7 +254,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
