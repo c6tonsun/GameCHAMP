@@ -32,6 +32,26 @@ public static class MathHelp {
 
         return biggest;
     }
+
+    public static float AbsBiggest(float a, float b)
+    {
+        bool aNegative = a < 0;
+        bool bNegative = b < 0;
+
+        if (aNegative) a *= -1;
+        if (bNegative) b *= -1;
+
+        if (a > b)
+        {
+            if (aNegative) return -a;
+            else return a;
+        }
+        else
+        {
+            if (bNegative) return -b;
+            else return b;
+        }
+    }
     
     public static Vector3[] CapsuleEndPoints(CapsuleCollider capCol, out float radius)
     {

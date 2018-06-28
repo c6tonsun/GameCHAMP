@@ -1,41 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class InputHandler : MonoBehaviour
 {
-
-    [HideInInspector]
-    public float moveXInput, moveZInput;
-    [HideInInspector]
-    public float lookXInput, lookYInput;
-    [HideInInspector]
-    public float rotationInput;
-    [HideInInspector]
-    public float distanceInput;
-
-    private float _newAimInput;
-    private float _lastAimInput;
-
-    private float _newActivationInput;
-    private float _lastActivationInput;
-
-    private float _newJumpInput;
-    private float _lastJumpInput;
-
-    private float _newPushInput;
-    private float _lastPushInput;
-
-    private float _newPullInput;
-    private float _lastPullInput;
-
-    private float _newChangeInput;
-    private float _lastChangeInput;
-
-    private float _newShootInput;
-    private float _lastShootInput;
-
-    private float _newFreezeInput;
-    private float _lastFreezeInput;
-
     private float _newInput;
     private float _lastInput;
 
@@ -49,16 +16,36 @@ public class InputHandler : MonoBehaviour
     private const string PS_CONTROLLER = "PS ";
     private const string RP_CONTROLLER = "RumblePad ";
 
+    private const int OLD = 0;
+    private const int NEW = 1;
+
+    private string[] _buttonAxes = new string[] { "Jump", "Activation", "Aim", "Push", "Pull", "Shoot", "Change Skill", "Freeze"};
+    private float[,] _buttonInputs;
+    private string[] _axes = new string[] { "MoveX", "MoveZ", "LookX", "LookY", "Distance", "Rotation"};
+    private float[] _axisInputs; 
+
+    private float _tempInput;
+
     public enum Key
     {
-        Aim = 0,
+        Jump = 0,
         Activation = 1,
-        Jump = 2,
+        Aim = 2,
         Push = 3,
         Pull = 4,
-        Change = 5,
-        Shoot = 6,
+        Shoot = 5,
+        Change = 6,
         Freeze = 7
+    }
+
+    public enum Axis
+    {
+        MoveX = 0,
+        MoveZ = 1,
+        LookX = 2,
+        LookY = 3,
+        Distance = 4,
+        Rotation = 5
     }
 
     private void Start()
@@ -66,10 +53,14 @@ public class InputHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         CheckController();
+        _buttonInputs = new float[_buttonAxes.Length, 2];
+        _axisInputs = new float[_axes.Length];
     }
 
     private void Update()
     {
+
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = !Cursor.visible;
@@ -89,27 +80,24 @@ public class InputHandler : MonoBehaviour
             _lastCheck = Time.realtimeSinceStartup;
         }
 
-        if(_firstController.Length > 0)
+        ReadInput("", true);
+
+        if (_firstController.Length > 0)
         {
             if (_firstController.Contains("xbox"))
             {
-                ReadInput(XBOX_CONTROLLER);
+                ReadInput(XBOX_CONTROLLER, false);
             }
             else if (_firstController.Contains("wireless controller"))
             {
-                ReadInput(PS_CONTROLLER);
+                ReadInput(PS_CONTROLLER, false);
             }
             else if (_firstController.Contains("rumblepad"))
             {
-                ReadInput(RP_CONTROLLER);
+                ReadInput(RP_CONTROLLER, false);
             }
 
         }
-        else
-        {
-            ReadInput("");
-        }
-
     }
 
     public void CheckController()
@@ -127,99 +115,48 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void ReadInput(string controller)
+    private void ReadInput(string controller, bool isKeyboard)
     {
-        
-        moveXInput = Input.GetAxisRaw(controller + "MoveX");
-        moveZInput = Input.GetAxisRaw(controller + "MoveZ");
-
-        lookXInput = Input.GetAxisRaw(controller + "LookX");
-        lookYInput = Input.GetAxisRaw(controller + "LookY");
-
-        _lastAimInput = _newAimInput;
-        _newAimInput = Input.GetAxisRaw(controller + "Aim");
-
-        _lastActivationInput = _newActivationInput;
-        _newActivationInput = Input.GetAxisRaw(controller + "Activation");
-
-        _lastJumpInput = _newJumpInput;
-        _newJumpInput = Input.GetAxisRaw(controller + "Jump");
-
-        rotationInput = Input.GetAxisRaw(controller + "Rotation");
-
-        distanceInput = Input.GetAxisRaw(controller + "Distance");
-
-        if(controller == "")
+        // key mouse
+        if(isKeyboard)
         {
-            _lastPushInput = _newPushInput;
-            _newPushInput = Input.GetAxisRaw(controller + "Push");
+            for(int i = 0; i < _axes.Length; i++)
+            {
+                _axisInputs[i] = Input.GetAxisRaw(controller + _axes[i]);
+            }
 
-            _lastPullInput = _newPullInput;
-            _newPullInput = Input.GetAxisRaw(controller + "Pull");
+            for(int i = 0; i < _buttonAxes.Length; i++)
+            {
+                _buttonInputs[i, OLD] = _buttonInputs[i, NEW];
+                _buttonInputs[i, NEW] = Input.GetAxisRaw(controller + _buttonAxes[i]);
+            }
+        }
+        else // joy pad
+        {
+            for (int i = 0; i < _axes.Length; i++)
+            {
+                _axisInputs[i] = MathHelp.AbsBiggest(Input.GetAxisRaw(controller + _axes[i]), _axisInputs[i]);
+            }
 
-            _lastChangeInput = _newChangeInput;
-            _newChangeInput = Input.GetAxisRaw(controller + "Change Skill");
+            for (int i = 0; i < _buttonAxes.Length; i++)
+            {
+                _buttonInputs[i, OLD] = _buttonInputs[i, NEW];
 
-            _lastShootInput = _newShootInput;
-            _newShootInput = Input.GetAxisRaw(controller + "Shoot");
-
-            _lastFreezeInput = _newFreezeInput;
-            _newFreezeInput = Input.GetAxisRaw(controller + "Freeze");
+                _buttonInputs[i, NEW] = MathHelp.AbsBiggest(Input.GetAxisRaw(controller + _buttonAxes[i]), _buttonInputs[i, NEW]);
+            }
         }
 
     }
 
     private void GetKeyInputs(Key key, out float newInput, out float lastInput)
     {
+        newInput = _buttonInputs[(int)key, NEW];
+        lastInput = _buttonInputs[(int)key, OLD];
+    }
 
-        switch ((int)key)
-        {
-            case 0:
-                newInput = _newAimInput;
-                lastInput = _lastAimInput;
-                break;
-
-            case 1:
-                newInput = _newActivationInput;
-                lastInput = _lastActivationInput;
-                break;
-
-            case 2:
-                newInput = _newJumpInput;
-                lastInput = _lastJumpInput;
-                break;
-
-            case 3:
-                newInput = _newPushInput;
-                lastInput = _lastPushInput;
-                break;
-
-            case 4:
-                newInput = _newPullInput;
-                lastInput = _lastPullInput;
-                break;
-
-            case 5:
-                newInput = _newChangeInput;
-                lastInput = _lastChangeInput;
-                break;
-
-            case 6:
-                newInput = _newShootInput;
-                lastInput = _lastShootInput;
-                break;
-
-            case 7:
-                newInput = _newFreezeInput;
-                lastInput = _lastFreezeInput;
-                break;
-
-            default:
-                newInput = 0;
-                lastInput = 0;
-                break;
-        }
-        
+    public float GetAxisInput(Axis axis)
+    {
+        return _axisInputs[(int)axis];
     }
 
     public bool KeyUp(Key key)

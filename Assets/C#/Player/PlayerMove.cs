@@ -25,9 +25,9 @@ public class PlayerMove : MonoBehaviour {
     private void Update()
     {
         // read and normalize input
-        _inputVector.x = _inputHandler.moveXInput;
+        _inputVector.x = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
         _inputVector.y = 0f;
-        _inputVector.z = _inputHandler.moveZInput;
+        _inputVector.z = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
         _inputVector.Normalize();
 
         _movement += camTransform.right * _inputVector.x * Time.deltaTime;

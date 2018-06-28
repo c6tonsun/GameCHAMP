@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerSkills : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class PlayerSkills : MonoBehaviour
 
     public SkillMode currentSkillMode;
     private int lastSkillIndex = 1;
-
     public enum SkillMode
     {
         Area = 0,
@@ -81,7 +81,7 @@ public class PlayerSkills : MonoBehaviour
 
         // distance
         if (_useAim)
-            _distance = MathHelp.Clamp(_distance + _inputHandler.distanceInput, _minDistance, _maxDistance);
+            _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
 
         #endregion
 
@@ -93,7 +93,6 @@ public class PlayerSkills : MonoBehaviour
         {
             DoArea();
         }
-
     }
 
     private void DoSingle()
@@ -112,7 +111,10 @@ public class PlayerSkills : MonoBehaviour
         }
 
         if (_currentItem == null)
+        {
+            _alreadyActivated = false;
             return;
+        }      
 
         #region activate item
 
@@ -135,8 +137,8 @@ public class PlayerSkills : MonoBehaviour
 
         if (_inputHandler.KeyDown(InputHandler.Key.Shoot) && _alreadyActivated)
         {
-            _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
-            _alreadyActivated = false;
+            _currentItem.SetGravityMode(Item.GravityMode.World);
+            StartCoroutine(Shoot());
         }
 
         #endregion
@@ -160,7 +162,15 @@ public class PlayerSkills : MonoBehaviour
         {
             if (!_playerManipulationArea.itemsActivated)
             {
-                _playerManipulationArea.ActivateItems();
+                if(_playerManipulationArea.HasItems())
+                {
+                    _playerManipulationArea.ActivateItems();
+                }
+                else
+                {
+                    _alreadyActivated = false;
+                }
+                
             }
         }
         else
@@ -203,7 +213,7 @@ public class PlayerSkills : MonoBehaviour
         
         if (isItem)
         {
-            _currentItem.DoRotate(_inputHandler.rotationInput);
+            _currentItem.DoRotate(_inputHandler.GetAxisInput(InputHandler.Axis.Rotation));
             
             if (_currentItem.CanMoveCheck(newPos - oldPos))
             {
@@ -234,5 +244,12 @@ public class PlayerSkills : MonoBehaviour
         currentSkillMode = (SkillMode)curIndex;
 
         _playerManipulationArea.SetVisible(currentSkillMode == SkillMode.Area);
+    }
+
+    private IEnumerator Shoot()
+    {
+        yield return new WaitForFixedUpdate();
+        _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
+        _alreadyActivated = false;
     }
 }

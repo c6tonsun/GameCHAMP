@@ -34,8 +34,8 @@ public class CameraControl : MonoBehaviour
     {
         #region camera rotation
         // input and clamp
-        _rawRotationInput.x = MathHelp.Clamp(_inputHandler.lookXInput, -_maxRotationInput, _maxRotationInput);
-        _rawRotationInput.y = MathHelp.Clamp(_inputHandler.lookYInput, -_maxRotationInput, _maxRotationInput);
+        _rawRotationInput.x = MathHelp.Clamp(_inputHandler.GetAxisInput(InputHandler.Axis.LookX), -_maxRotationInput, _maxRotationInput);
+        _rawRotationInput.y = MathHelp.Clamp(_inputHandler.GetAxisInput(InputHandler.Axis.LookY), -_maxRotationInput, _maxRotationInput);
 
         transform.Rotate(Vector3.up, _rawRotationInput.x * rotationSpeed);
         transform.Rotate(Vector3.right, _rawRotationInput.y * rotationSpeed);

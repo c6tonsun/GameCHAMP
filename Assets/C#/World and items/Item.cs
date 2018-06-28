@@ -57,7 +57,7 @@ public class Item : MonoBehaviour
                 UnfreezeRigidbody();
         }
 
-        if (rb.constraints != RigidbodyConstraints.None)
+        if (!rb.useGravity)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
@@ -202,41 +202,39 @@ public class Item : MonoBehaviour
             return;
 
         currentMode = mode;
-        
-        if(currentMode == GravityMode.Freeze)
+
+        switch(currentMode)
         {
-            FreezeRigidbody();
-            _freezeTime = 5f;
+            case GravityMode.World:
+                UnfreezeRigidbody();
+                _mr.material = defMaterial;
+                break;
 
-            _mr.material = freezeMaterial;
+            case GravityMode.Player:
+                _defLerpTime = 0f;
+                _startRot = transform.rotation;
+                FreezeRigidbody();
+                _mr.material = actMaterial;
+                break;
+
+            case GravityMode.Self:
+                UnfreezeRigidbody();
+                _mr.material = highMaterial;
+                break;
+
+            case GravityMode.Freeze:
+                FreezeRigidbody();
+                _freezeTime = 5f;
+                _mr.material = freezeMaterial;
+                break;
+
+            default:
+                FreezeRigidbody();
+                _mr.material = null;
+                break;
+
         }
-        else if(currentMode == GravityMode.Player)
-        {
-            _defLerpTime = 0f;
-            _startRot = transform.rotation;
 
-            FreezeRigidbody();
-
-            _mr.material = actMaterial;
-        }
-        else if (currentMode == GravityMode.World)
-        {
-            UnfreezeRigidbody();
-
-            _mr.material = defMaterial;
-        }
-        else if(currentMode == GravityMode.Self)
-        {
-            UnfreezeRigidbody();
-
-            _mr.material = highMaterial;
-        }
-        else
-        {
-            FreezeRigidbody();
-
-            _mr.material = null;
-        }
     }
 
     public void FreezeRigidbody()
@@ -249,9 +247,6 @@ public class Item : MonoBehaviour
     {
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
-
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
     }
 
     private void OnDrawGizmos()

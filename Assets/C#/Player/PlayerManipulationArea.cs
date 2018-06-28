@@ -140,7 +140,7 @@ public class PlayerManipulationArea : MonoBehaviour
 
     public void MoveItems()
     {
-        float rotationInput = _inputHandler.rotationInput;
+        float rotationInput = _inputHandler.GetAxisInput(InputHandler.Axis.Rotation);
 
         for(int i = 0; i < _newItems.Length; i++)
         {
@@ -170,4 +170,19 @@ public class PlayerManipulationArea : MonoBehaviour
         }
 
     }
+
+    public bool HasItems()
+    {
+        
+        foreach(Item item in _newItems)
+        {
+            if(item != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
