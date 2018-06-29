@@ -107,14 +107,15 @@ public class PlayerManipulationArea : MonoBehaviour
 
     public void DeactivateItems()
     {
+        if (_newItems == null)
+            return;
+
         for (int i = 0; i < _newItems.Length; i++)
         {
-
             if(_newItems[i] != null)
             {
                 _newItems[i].SetGravityMode(Item.GravityMode.World);
             }
-                
         }
 
         itemsActivated = false;
