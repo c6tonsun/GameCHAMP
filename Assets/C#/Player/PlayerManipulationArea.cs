@@ -17,6 +17,8 @@ public class PlayerManipulationArea : MonoBehaviour
 
         _newItems = new Item[0];
         _oldItems = new Item[0];
+
+        transform.parent = null;
     }
 
     private void Update()
@@ -71,6 +73,10 @@ public class PlayerManipulationArea : MonoBehaviour
             {
                 _newItems[i].SetGravityMode(Item.GravityMode.Self);
             }
+            else if (_newItems[i].currentMode == Item.GravityMode.ERROR)
+            {
+                _newItems[i].offset = _newItems[i].transform.position - transform.position;
+            }
         }
 
         MoveItems();
@@ -104,12 +110,11 @@ public class PlayerManipulationArea : MonoBehaviour
         for (int i = 0; i < _newItems.Length; i++)
         {
 
-            Item item = _newItems[i];
-
-            if (item != null && item.currentMode == Item.GravityMode.Player)
+            if(_newItems[i] != null)
             {
-                item.SetGravityMode(Item.GravityMode.World);
+                _newItems[i].SetGravityMode(Item.GravityMode.World);
             }
+                
         }
 
         itemsActivated = false;
@@ -136,6 +141,11 @@ public class PlayerManipulationArea : MonoBehaviour
 
         transform.GetComponent<Renderer>().enabled = isVisible;
         transform.GetComponent<Collider>().enabled = isVisible;
+
+        if(!isVisible)
+        {
+            DeactivateItems();
+        }
     }
 
     public void MoveItems()
@@ -154,7 +164,7 @@ public class PlayerManipulationArea : MonoBehaviour
                 item.DoRotate(rotationInput);
 
                 Vector3 oldPos = item.transform.position;
-                Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.5f);
+                Vector3 newPos = Vector3.Lerp(item.transform.position, transform.position + item.offset, 0.3f);
 
                 if (item.CanMoveCheck(newPos - oldPos))
                 {

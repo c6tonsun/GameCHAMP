@@ -40,7 +40,6 @@ public class PlayerSkills : MonoBehaviour
         _playerManipulationArea = FindObjectOfType<PlayerManipulationArea>();
 
         ChangeSkillMode();
-        _playerManipulationArea.transform.parent = null;
     }
     
     void Update()
@@ -81,7 +80,27 @@ public class PlayerSkills : MonoBehaviour
 
         // distance
         if (_useAim)
-            _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
+        {
+
+            if(Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
+            {
+                if(_hit.distance - _camControl.currentDistance > _maxDistance)
+                {
+                    _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
+                }
+                else
+                {
+                    _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _hit.distance - _camControl.currentDistance);
+                }
+            }
+            else
+            {
+                _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
+            }
+
+
+        }
+            
 
         #endregion
 
