@@ -10,7 +10,7 @@ public static class MathHelp {
             return max;
         return value;
     }
-
+    
     public static Vector3 MultiplyVector3(Vector3 a, Vector3 b)
     {
         return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
@@ -33,7 +33,7 @@ public static class MathHelp {
         return biggest;
     }
 
-    public static float AbsBiggest(float a, float b)
+    public static float FartherFromZero(float a, float b)
     {
         bool aNegative = a < 0;
         bool bNegative = b < 0;

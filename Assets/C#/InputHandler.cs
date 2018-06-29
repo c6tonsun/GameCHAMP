@@ -59,8 +59,6 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-
-
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = !Cursor.visible;
@@ -117,32 +115,35 @@ public class InputHandler : MonoBehaviour
 
     private void ReadInput(string controller, bool isKeyboard)
     {
-        // key mouse
+        // keyboard and mouse
         if(isKeyboard)
         {
             for(int i = 0; i < _axes.Length; i++)
             {
-                _axisInputs[i] = Input.GetAxisRaw(controller + _axes[i]);
+                if (i < 2)
+                    _axisInputs[i] = Input.GetAxis(_axes[i]);
+                else
+                    _axisInputs[i] = Input.GetAxisRaw(_axes[i]);
             }
-
-            for(int i = 0; i < _buttonAxes.Length; i++)
+            
+            for (int i = 0; i < _buttonAxes.Length; i++)
             {
                 _buttonInputs[i, OLD] = _buttonInputs[i, NEW];
-                _buttonInputs[i, NEW] = Input.GetAxisRaw(controller + _buttonAxes[i]);
+                _buttonInputs[i, NEW] = Input.GetAxisRaw(_buttonAxes[i]);
             }
         }
-        else // joy pad
+        else // joypad
         {
             for (int i = 0; i < _axes.Length; i++)
             {
-                _axisInputs[i] = MathHelp.AbsBiggest(Input.GetAxisRaw(controller + _axes[i]), _axisInputs[i]);
+                _axisInputs[i] = MathHelp.FartherFromZero(Input.GetAxisRaw(controller + _axes[i]), _axisInputs[i]);
             }
 
             for (int i = 0; i < _buttonAxes.Length; i++)
             {
-                _buttonInputs[i, OLD] = _buttonInputs[i, NEW];
-
-                _buttonInputs[i, NEW] = MathHelp.AbsBiggest(Input.GetAxisRaw(controller + _buttonAxes[i]), _buttonInputs[i, NEW]);
+                // We do not asing old button input here because it is done when reading keyboard and mouse input.
+                // Doing it here would asing new keyboard and mouse input as old input breaking button input.
+                _buttonInputs[i, NEW] = MathHelp.FartherFromZero(Input.GetAxisRaw(controller + _buttonAxes[i]), _buttonInputs[i, NEW]);
             }
         }
 
