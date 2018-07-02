@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca3176fb506550a449bb83acaa1a08c9
+guid: 3600f590f5116bb4e98d6f750e87267e
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -69,8 +69,9 @@ ModelImporter:
     7400002: DECEND
     7400004: Default_Take
     7400006: IDLE
-    7400008: JUMPPI
-    7400010: RUN
+    7400008: IDLE_AIM
+    7400010: JUMPPI
+    7400012: RUN
     9500000: //RootNode
     13700000: body
     13700002: hiukset
@@ -106,7 +107,7 @@ ModelImporter:
       name: Default Take
       takeName: Default Take
       firstFrame: -1
-      lastFrame: 39
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -189,8 +190,36 @@ ModelImporter:
     - serializedVersion: 16
       name: IDLE
       takeName: IDLE
+      firstFrame: -3
+      lastFrame: 56
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: IDLE_AIM
+      takeName: IDLE_AIM
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -245,16 +274,16 @@ ModelImporter:
     - serializedVersion: 16
       name: RUN
       takeName: RUN
-      firstFrame: 0
-      lastFrame: 40
+      firstFrame: -1
+      lastFrame: 41
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
