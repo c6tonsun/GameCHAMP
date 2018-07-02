@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4384305315205180}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_ALA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4526185454974030}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OLKA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,8 +49,24 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4379492612061948}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1100644030175722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4718491956149788}
+  - component: {fileID: 119140964580675824}
+  m_Layer: 10
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +80,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4292731614310924}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JALKAPOYTA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +95,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4844684078856396}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: REISI_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +110,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4540439737464124}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SAARI_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +125,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4045760055478662}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SAARI_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +140,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4243027316442986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OLKA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +155,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4368525101063748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAMMEN_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +170,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4833176854625510}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BASE_SELK__ALA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +185,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4520343018525544}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: REISI_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +200,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4875514067986150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JALKAPOYTA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,9 +215,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4458628145637840}
-  - component: {fileID: 33711446211092616}
-  - component: {fileID: 23364916246525652}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wannabee_empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +230,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4743561910693986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAMMEN_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +251,7 @@ GameObject:
   - component: {fileID: 114026477587738174}
   - component: {fileID: 114739593530457074}
   - component: {fileID: 114726775692325770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +266,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4261992076282410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +281,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4439187757140300}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PAA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +296,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4935670000973034}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAULA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +311,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4983635932435274}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_ALA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +326,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4219238538427648}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HIP_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +335,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1568340497004030
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -331,7 +345,7 @@ GameObject:
   - component: {fileID: 23242357344903206}
   - component: {fileID: 135321491544076616}
   - component: {fileID: 114671570589313452}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +360,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4623259278672984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4031516670966554}
   - component: {fileID: 137829276997458748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: hiukset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +393,7 @@ GameObject:
   - component: {fileID: 4545365627906690}
   - component: {fileID: 95134123408526758}
   - component: {fileID: 114394732868767602}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: STARKID_ANIMATIONS1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +408,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4541575666241378}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HIP_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +423,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4148523561333780}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SELKA_KESKI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4754185494738658}
   - component: {fileID: 137817532644290676}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +454,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4614888379401812}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SELKA_YLA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,8 +484,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
-  m_Father: {fileID: 4545365627906690}
-  m_RootOrder: 3
+  m_Father: {fileID: 4904161493936932}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4045760055478662
 Transform:
@@ -695,9 +709,8 @@ Transform:
   - {fileID: 4754185494738658}
   - {fileID: 4031516670966554}
   - {fileID: 4458628145637840}
-  - {fileID: 4032580988008938}
   m_Father: {fileID: 4904161493936932}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4614888379401812
 Transform:
@@ -729,6 +742,19 @@ Transform:
   m_Father: {fileID: 4243027316442986}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4718491956149788
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100644030175722}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4904161493936932}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4743561910693986
 Transform:
   m_ObjectHideFlags: 1
@@ -803,9 +829,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0.29, y: 1.5, z: -3.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4718491956149788}
+  - {fileID: 4032580988008938}
   - {fileID: 4545365627906690}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -845,7 +873,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1568340497004030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -874,48 +902,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23364916246525652
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1346094850236886}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 92f7ec41264b7d9408fc247ad20377f9, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33711446211092616
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1346094850236886}
-  m_Mesh: {fileID: 4300000, guid: 92f7ec41264b7d9408fc247ad20377f9, type: 3}
 --- !u!33 &33798490911218446
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1031,10 +1017,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e3f2577ed2a3144a04896ac6e7ae97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimLerp: 0
   onSpeed: 3
   offSpeed: -5
   onV3: {x: 0.5, y: 2.25, z: 0}
   offV3: {x: 0, y: 1.25, z: 0}
+--- !u!119 &119140964580675824
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100644030175722}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.65
+  m_FarClipPlane: 15
+  m_FieldOfView: 30
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 0.75
+  m_Material: {fileID: 2100000, guid: e30ff3588e719f34bbf0c66f22d97487, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!135 &135321491544076616
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1043,7 +1048,7 @@ SphereCollider:
   m_GameObject: {fileID: 1568340497004030}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

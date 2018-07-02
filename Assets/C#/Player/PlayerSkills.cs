@@ -5,7 +5,7 @@ public class PlayerSkills : MonoBehaviour
 {
     private InputHandler _inputHandler;
 
-    private PlayerMagnesis _playerMagnesis;
+    private PlayerAim _playerAim;
     private PlayerGravity _playerGravity;
     private CameraControl _camControl;
     private PlayerManipulationArea _playerManipulationArea;
@@ -15,10 +15,11 @@ public class PlayerSkills : MonoBehaviour
 
     private float _distance;
     private RaycastHit _hit;
-
-    private bool _alreadyActivated = false;
-
+    
     private bool _useAim = false;
+    private bool _alreadyActivated;
+    private bool _doFreeze;
+    private bool _doShoot;
 
     private float _minDistance = 3f;
     private float _maxDistance = 10f;
@@ -34,7 +35,7 @@ public class PlayerSkills : MonoBehaviour
     void Start()
     {
         _camControl = FindObjectOfType<CameraControl>();
-        _playerMagnesis = GetComponent<PlayerMagnesis>();
+        _playerAim = GetComponent<PlayerAim>();
         _playerGravity = GetComponent<PlayerGravity>();
         _inputHandler = FindObjectOfType<InputHandler>();
         _playerManipulationArea = FindObjectOfType<PlayerManipulationArea>();
@@ -63,25 +64,30 @@ public class PlayerSkills : MonoBehaviour
 
             if (_useAim)
             {
-                _playerMagnesis.MagnesisOn();
+                _playerAim.MagnesisOn();
             }
             else
             {
                 _alreadyActivated = false;
-                _playerMagnesis.MagnesisOff();
+                _playerAim.MagnesisOff();
             }
         }
 
         // activation
         if (_inputHandler.KeyDown(InputHandler.Key.Activation) && _useAim)
-        {
             _alreadyActivated = !_alreadyActivated;
-        }
+
+        // freeze
+        if (_inputHandler.KeyDown(InputHandler.Key.Freeze) && _alreadyActivated)
+            _doFreeze = true;
+
+        // shoot
+        if (_inputHandler.KeyDown(InputHandler.Key.Shoot))
+            _doShoot = true;
 
         // distance
         if (_useAim)
         {
-
             if(Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
             {
                 if(_hit.distance - _camControl.currentDistance > _maxDistance)
@@ -97,10 +103,7 @@ public class PlayerSkills : MonoBehaviour
             {
                 _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
             }
-
-
         }
-            
 
         #endregion
 
@@ -135,8 +138,7 @@ public class PlayerSkills : MonoBehaviour
             return;
         }      
 
-        #region activate item
-
+        // activate item
         if (_alreadyActivated)
         {
             if (_currentItem.currentMode == Item.GravityMode.Self)
@@ -148,23 +150,28 @@ public class PlayerSkills : MonoBehaviour
         else
         {
             _currentItem.SetGravityMode(Item.GravityMode.Self);
+            return;
         }
 
-        #endregion
-
-        #region throw item
-
-        if (_inputHandler.KeyDown(InputHandler.Key.Shoot) && _alreadyActivated)
+        // shoot item
+        if (_doShoot)
         {
             _currentItem.SetGravityMode(Item.GravityMode.World);
             StartCoroutine(Shoot());
+            _doShoot = false;
         }
 
-        #endregion
+        // freeze item
+        if (_doFreeze)
+        {
+            _currentItem.SetGravityMode(Item.GravityMode.Freeze);
+            _alreadyActivated = false;
+            _doFreeze = false;
+            return;
+        }
 
-        // move
-        if (_currentItem != null && _alreadyActivated)
-            Move(_currentItem.transform, isItem: true);
+        // move item
+        Move(_currentItem.transform, isItem: true);
     }
 
     private void DoArea()
@@ -189,7 +196,6 @@ public class PlayerSkills : MonoBehaviour
                 {
                     _alreadyActivated = false;
                 }
-                
             }
         }
         else
@@ -206,20 +212,25 @@ public class PlayerSkills : MonoBehaviour
 
     private void RaycastHandling()
     {
+        _lastItem = _currentItem;
+
         if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
         {
-            _lastItem = _currentItem;
             _currentItem = _hit.collider.GetComponent<Item>();
 
-            if(_currentItem != null && !_alreadyActivated)
+            if(_currentItem != null)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Self);
             }
 
-            if (_lastItem != null && _currentItem != _lastItem && !_alreadyActivated)
+            if (_lastItem != null && _currentItem != _lastItem)
             {
                 _lastItem.SetGravityMode(Item.GravityMode.World);
             }
+        }
+        else
+        {
+            _currentItem = null;
         }
     }
     

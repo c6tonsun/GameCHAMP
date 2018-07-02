@@ -4,7 +4,7 @@ public class PlayerGravity : MonoBehaviour {
 
     private InputHandler _inputHandler;
 
-    private PlayerMagnesis _playerMagnesis;
+    private PlayerAim _playerAim;
     private Rigidbody _rb;
     private RaycastHit _hit;
     
@@ -20,7 +20,7 @@ public class PlayerGravity : MonoBehaviour {
 
     private void Start()
     {
-        _playerMagnesis = GetComponent<PlayerMagnesis>();
+        _playerAim = GetComponent<PlayerAim>();
         _rb = GetComponent<Rigidbody>();
         _inputHandler = FindObjectOfType<InputHandler>();
     }
@@ -42,7 +42,7 @@ public class PlayerGravity : MonoBehaviour {
             else if (isGrounded && (staticObject == null || staticObject != null && staticObject.isWalkable))
             {
                 _rb.useGravity = false;
-                _playerMagnesis.MagnesisOff();
+                _playerAim.MagnesisOff();
                 maxJumpTimer = 0f;
             }
         }

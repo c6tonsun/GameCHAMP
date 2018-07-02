@@ -54,7 +54,10 @@ public class Item : MonoBehaviour
         {
             _freezeTime -= Time.deltaTime;
             if (_freezeTime <= 0)
+            {
                 UnfreezeRigidbody();
+                SetGravityMode(GravityMode.World);
+            }
         }
 
         if (!rb.useGravity)
@@ -224,6 +227,7 @@ public class Item : MonoBehaviour
 
             case GravityMode.Freeze:
                 FreezeRigidbody();
+                rb.isKinematic = true;
                 _freezeTime = 5f;
                 _mr.material = freezeMaterial;
                 break;
@@ -245,6 +249,7 @@ public class Item : MonoBehaviour
 
     public void UnfreezeRigidbody()
     {
+        rb.isKinematic = false;
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
     }

@@ -6,6 +6,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _anim;
     private Rigidbody _rb;
     private PlayerGravity _playerGravity;
+    private PlayerAim _playerAim;
     private InputHandler _inputHandler;
 
     // local variables
@@ -14,12 +15,19 @@ public class PlayerAnimation : MonoBehaviour
     private float _xzMovement;
     private float _x, _z;
 
+    // layer weight
+    private int _aimLayer;
+
     private void Start()
     {
         _anim = GetComponent<Animator>();
         _rb = GetComponentInParent<Rigidbody>();
         _playerGravity = GetComponentInParent<PlayerGravity>();
+        _playerAim = GetComponentInParent<PlayerAim>();
         _inputHandler = FindObjectOfType<InputHandler>();
+
+        // Layer index does not change so getting this once is enough.
+        _aimLayer = _anim.GetLayerIndex("Aim");
     }
 
     private void Update()
@@ -41,5 +49,8 @@ public class PlayerAnimation : MonoBehaviour
         _anim.SetBool("isGrounded", _isGrounded);
         _anim.SetFloat("yMovement", _yMovement);
         _anim.SetFloat("xzMovement", _xzMovement);
+
+        // layer weight                            aimLerp: 0 = no aim, 1 = full aim
+        _anim.SetLayerWeight(_aimLayer, _playerAim.aimLerp);
     }
 }
