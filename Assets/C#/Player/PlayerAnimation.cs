@@ -18,6 +18,11 @@ public class PlayerAnimation : MonoBehaviour
     // layer weight
     private int _aimLayer;
 
+    // head look at object
+    public Transform head;
+    public Transform target;
+    public Vector3 correction;
+
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -30,6 +35,7 @@ public class PlayerAnimation : MonoBehaviour
         _aimLayer = _anim.GetLayerIndex("Aim");
     }
 
+    // Update is done before Unity's animation update
     private void Update()
     {
         // Our input can be from -1 to 1.
@@ -52,5 +58,20 @@ public class PlayerAnimation : MonoBehaviour
 
         // layer weight                            aimLerp: 0 = no aim, 1 = full aim
         _anim.SetLayerWeight(_aimLayer, _playerAim.aimLerp);
+    }
+
+    // LateUpdate is done after Unity's animation update
+    private void LateUpdate()
+    {
+        // if no target do nothing
+        if (target == null)
+            return;
+
+        // calculate vector that starts from head and points towards target
+        head.forward = target.position - head.position;
+        // manual correction because:
+        //  - different coordinate systems between 3D software and Unity
+        //  - head's forward pointing in wierd direction in editor
+        head.Rotate(correction);
     }
 }
