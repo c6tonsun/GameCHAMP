@@ -8,11 +8,10 @@ public class PlayerMove : MonoBehaviour {
     private Transform camTransform;
     private CapsuleCollider _col;
     
-    public float movementSpeed = 5;
+    private float movementSpeed = 5;
     private Vector3 _inputVector;
     private Vector3 _movement;
-    [Range(0f, 1f)]
-    public float rotationLerp;
+    private float rotationLerp = 0.2f;
 
     private void Start()
     {
