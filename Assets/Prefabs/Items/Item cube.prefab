@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  offsetArea: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   leftTrasform: {fileID: 4385038004823218}
   rightTrasform: {fileID: 4444782812996856}
   defMaterial: {fileID: 2100000, guid: 2222a11ccdbe43c4cb5cecbe03d6e93f, type: 2}

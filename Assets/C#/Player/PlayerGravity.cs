@@ -3,12 +3,10 @@
 public class PlayerGravity : MonoBehaviour {
 
     private InputHandler _inputHandler;
-
     private PlayerAim _playerAim;
     private Rigidbody _rb;
     private RaycastHit _hit;
     
-    public float maxUpMomentum = 7;
     private float maxJumpTime = 1f;
     private float maxJumpTimer;
     [Range(0.5f, 1f)]
@@ -29,17 +27,13 @@ public class PlayerGravity : MonoBehaviour {
     {
         isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
 
-        StaticObject staticObject = null;
-        if (isGrounded)
-             staticObject = _hit.collider.GetComponent<StaticObject>();
-
         if (_inputHandler.KeyDown(InputHandler.Key.Jump))
         {
             if (!_rb.useGravity)
             {
                 _rb.useGravity = true;
             }
-            else if (isGrounded && (staticObject == null || staticObject != null && staticObject.isWalkable))
+            else if (isGrounded)
             {
                 _rb.useGravity = false;
                 _playerAim.MagnesisOff();
@@ -52,7 +46,7 @@ public class PlayerGravity : MonoBehaviour {
     {
         maxJumpTimer += Time.fixedDeltaTime;
 
-        if (!_rb.useGravity && (_rb.velocity.y > maxUpMomentum || maxJumpTimer > maxJumpTime))
+        if (!_rb.useGravity && maxJumpTimer > maxJumpTime)
             _rb.useGravity = true;
 
         if (!_rb.useGravity)
