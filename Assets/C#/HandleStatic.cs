@@ -4,23 +4,28 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class HandleStatic : MonoBehaviour
 {
-    private GameObject[] objects;
-    private StaticObject staticObject;
-    private bool hasCollider;
+    private GameObject[] _objects;
+    private StaticObject _staticObject;
+    private SlideDoor _slideDoor;
+    private bool _hasCollider;
+    private bool _canNeedStatic;
 
     private void Update()
     {
-        objects = FindObjectsOfType<GameObject>();
+        _objects = FindObjectsOfType<GameObject>();
 
-        foreach (GameObject go in objects)
+        foreach (GameObject go in _objects)
         {
-            hasCollider = go.GetComponent<Collider>() != null;
-            staticObject = go.GetComponent<StaticObject>();
+            _hasCollider = go.GetComponent<Collider>() != null;
+            _staticObject = go.GetComponent<StaticObject>();
+            _slideDoor = go.GetComponent<SlideDoor>();
 
-            if (go.isStatic && hasCollider && staticObject == null)
+            _canNeedStatic = go.isStatic || _slideDoor != null;
+
+            if (_canNeedStatic && _hasCollider && _staticObject == null)
                 go.AddComponent<StaticObject>();
-            else if (!go.isStatic && staticObject != null)
-                DestroyImmediate(staticObject);
+            else if (!_canNeedStatic && _staticObject != null)
+                DestroyImmediate(_staticObject);
         }
     }
 }

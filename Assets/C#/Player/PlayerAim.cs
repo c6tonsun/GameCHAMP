@@ -19,16 +19,16 @@ public class PlayerAim : MonoBehaviour {
         _cameraRotation = FindObjectOfType<CameraControl>();
         _pointer = _cameraRotation.GetComponentInChildren<MeshRenderer>().material;
 
-        MagnesisOff();
+        AimOff();
     }
 
-    public void MagnesisOn()
+    public void AimOn()
     {
         _lerpSpeed = onSpeed;
         _isInTransition = true;
     }
 
-    public void MagnesisOff()
+    public void AimOff()
     {
         _lerpSpeed = offSpeed;
         _isInTransition = true;

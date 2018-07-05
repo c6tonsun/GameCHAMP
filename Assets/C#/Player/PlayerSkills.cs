@@ -12,12 +12,15 @@ public class PlayerSkills : MonoBehaviour
 
     private Item _currentItem;
     private Item _lastItem;
+    private SlideDoor _slideDoor;
 
     private float _distance;
     private RaycastHit _hit;
-    
+
+    public bool forceAimToFalse;
     private bool _useAim = false;
     private bool _alreadyActivated;
+    private bool _doActivation;
     private bool _doFreeze;
     private bool _doShoot;
 
@@ -55,26 +58,24 @@ public class PlayerSkills : MonoBehaviour
         }
 
         // aim toggle
-        if (_inputHandler.KeyDown(InputHandler.Key.Aim) || !_playerGravity.isGrounded)
-        {
+        if (forceAimToFalse || !_playerGravity.isGrounded)
+            _useAim = false;
+        else if (_inputHandler.KeyDown(InputHandler.Key.Aim))
             _useAim = !_useAim;
 
-            if (!_playerGravity.isGrounded)
-                _useAim = false;
-
-            if (_useAim)
-            {
-                _playerAim.MagnesisOn();
-            }
-            else
-            {
-                _alreadyActivated = false;
-                _playerAim.MagnesisOff();
-            }
+        if (_useAim)
+        {
+            _playerAim.AimOn();
+        }
+        else
+        {
+            _alreadyActivated = false;
+            _playerAim.AimOff();
         }
 
         // activation
-        if (_inputHandler.KeyDown(InputHandler.Key.Activation) && _useAim)
+        _doActivation = _inputHandler.KeyDown(InputHandler.Key.Activation);
+        if (_doActivation && _useAim)
             _alreadyActivated = !_alreadyActivated;
 
         // freeze
@@ -107,11 +108,17 @@ public class PlayerSkills : MonoBehaviour
 
         #endregion
 
-        if (currentSkillMode == SkillMode.Single)
+        if (!_useAim && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        {
+            _slideDoor = _hit.collider.GetComponent<SlideDoor>();
+            if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
+                _slideDoor.Interact();
+        }
+        else if (currentSkillMode == SkillMode.Single)
         {
             DoSingle();
         }
-        else if(currentSkillMode == SkillMode.Area)
+        else if (currentSkillMode == SkillMode.Area)
         {
             DoArea();
         }

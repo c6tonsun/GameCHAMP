@@ -36,7 +36,7 @@ public class PlayerGravity : MonoBehaviour {
             else if (isGrounded)
             {
                 _rb.useGravity = false;
-                _playerAim.MagnesisOff();
+                _playerAim.AimOff();
                 maxJumpTimer = 0f;
             }
         }

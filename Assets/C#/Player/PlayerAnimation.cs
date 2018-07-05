@@ -17,8 +17,10 @@ public class PlayerAnimation : MonoBehaviour
 
     // layer weight
     private int _aimLayer;
+    private float _aimWeight;
 
     // head look at object
+    private Quaternion _headRotationFromAnimation;
     public Transform head;
     public Transform target;
     public Vector3 correction;
@@ -56,8 +58,9 @@ public class PlayerAnimation : MonoBehaviour
         _anim.SetFloat("yMovement", _yMovement);
         _anim.SetFloat("xzMovement", _xzMovement);
 
-        // layer weight                            aimLerp: 0 = no aim, 1 = full aim
-        _anim.SetLayerWeight(_aimLayer, _playerAim.aimLerp);
+        // layer weight         aimLerp: 0 = no aim, 1 = full aim
+        _aimWeight = _playerAim.aimLerp;
+        _anim.SetLayerWeight(_aimLayer, _aimWeight);
     }
 
     // LateUpdate is done after Unity's animation update
@@ -66,6 +69,8 @@ public class PlayerAnimation : MonoBehaviour
         // if no target do nothing
         if (target == null)
             return;
+        
+        _headRotationFromAnimation = head.rotation;
 
         // calculate vector that starts from head and points towards target
         head.forward = target.position - head.position;
@@ -73,5 +78,8 @@ public class PlayerAnimation : MonoBehaviour
         //  - different coordinate systems between 3D software and Unity
         //  - head's forward pointing in wierd direction in editor
         head.Rotate(correction);
+
+        // Quaternion.Lerp = 0% rotation , 100% rotation , float %
+        head.rotation = Quaternion.Lerp(_headRotationFromAnimation, head.rotation, _aimWeight);
     }
 }
