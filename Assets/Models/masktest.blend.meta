@@ -1,0 +1,580 @@
+fileFormatVersion: 2
+guid: 92f7ec41264b7d9408fc247ad20377f9
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BASE_SELK__ALA
+    100004: body
+    100006: HIP_L
+    100008: HIP_R
+    100010: hiukset
+    100012: JALKAPOYTA_L
+    100014: JALKAPOYTA_R
+    100016: KAMMEN_L
+    100018: KAMMEN_R
+    100020: KASVAR_ALA_L
+    100022: KASVAR_ALA_R
+    100024: KASVAR_L
+    100026: KASVAR_R
+    100028: KAULA
+    100030: OLKA_L
+    100032: OLKA_R
+    100034: PAA
+    100036: REISI_L
+    100038: REISI_R
+    100040: SAARI_L
+    100042: SAARI_R
+    100044: SELKA_KESKI
+    100046: SELKA_YLA
+    100048: //RootNode
+    100050: wannabee_empty
+    400000: Armature
+    400002: BASE_SELK__ALA
+    400004: body
+    400006: HIP_L
+    400008: HIP_R
+    400010: hiukset
+    400012: JALKAPOYTA_L
+    400014: JALKAPOYTA_R
+    400016: KAMMEN_L
+    400018: KAMMEN_R
+    400020: KASVAR_ALA_L
+    400022: KASVAR_ALA_R
+    400024: KASVAR_L
+    400026: KASVAR_R
+    400028: KAULA
+    400030: OLKA_L
+    400032: OLKA_R
+    400034: PAA
+    400036: REISI_L
+    400038: REISI_R
+    400040: SAARI_L
+    400042: SAARI_R
+    400044: SELKA_KESKI
+    400046: SELKA_YLA
+    400048: //RootNode
+    400050: wannabee_empty
+    2100000: unnamed
+    2100002: clothes
+    2100004: skin
+    2100006: hairback_001
+    2100008: turkhius
+    2300000: wannabee_empty
+    3300000: wannabee_empty
+    4300000: wannabee_empty
+    4300002: body
+    4300004: hiukset
+    7400000: Default Take
+    7400002: DECEND
+    7400004: Default_Take
+    7400006: IDLE
+    7400008: JUMPPI
+    9500000: //RootNode
+    13700000: body
+    13700002: hiukset
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: "Avatar creation failed:\n\tTransform 'BASE_SELK__ALA' is not
+      an ancestor of 'HIP_L'\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DECEND
+      takeName: DECEND
+      firstFrame: -1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Default_Take
+      takeName: Default_Take
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: IDLE
+      takeName: IDLE
+      firstFrame: -1
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: JUMPPI
+      takeName: JUMPPI
+      firstFrame: -1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: HIP_L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: HIP_R
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SAARI_L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SAARI_R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: JALKAPOYTA_L
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: JALKAPOYTA_R
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SELKA_KESKI
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KAULA
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PAA
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: OLKA_L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: OLKA_R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KASVAR_L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KASVAR_R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KASVAR_ALA_L
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KASVAR_ALA_R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KAMMEN_L
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: KAMMEN_R
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BASE_SELK__ALA
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SELKA_YLA
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: masktest(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body
+      parentName: masktest(Clone)
+      position: {x: -0, y: -0.5196926, z: 0.37203217}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.41942066, y: 0.41942066, z: 0.43434775}
+    - name: hiukset
+      parentName: masktest(Clone)
+      position: {x: -0.010074116, y: 0.16690151, z: 4.7628856}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.41502368, y: 0.41942066, z: 0.4411313}
+    - name: wannabee_empty
+      parentName: masktest(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 0.1, y: 0.1, z: 0.1}
+    - name: Armature
+      parentName: wannabee_empty
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -1.4922565e-15, y: 0, z: -0, w: 1}
+      scale: {x: 2.384241, y: 2.384241, z: 2.384241}
+    - name: BASE_SELK__ALA
+      parentName: Armature
+      position: {x: -0, y: 0.23650938, z: 0}
+      rotation: {x: 0.4232127, y: 0.42321265, z: -0.5664725, w: 0.5664724}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SELKA_KESKI
+      parentName: BASE_SELK__ALA
+      position: {x: -0.9433512, y: 0.000000071221045, z: -0.000000014901161}
+      rotation: {x: 0.00000023985768, y: 0.1312234, z: -0.000000023268269, w: 0.9913528}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SELKA_YLA
+      parentName: SELKA_KESKI
+      position: {x: -0.97950804, y: 0.00000007395081, z: 0.000000029802326}
+      rotation: {x: 0.9944336, y: -0.00000010974528, z: -0.10536562, w: 0.00000011930216}
+      scale: {x: 1, y: 1, z: 1}
+    - name: KAULA
+      parentName: SELKA_YLA
+      position: {x: -1.2261604, y: 0.000000043241528, z: -0.000000059604645}
+      rotation: {x: -0.000000015629587, y: -0.20791502, z: -0.0000000020014626, w: 0.9781469}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: PAA
+      parentName: KAULA
+      position: {x: -0.5789745, y: 0.000000043711367, z: 0.000000018626451}
+      rotation: {x: -0.0000002958531, y: 0.374979, z: 0.00000010285506, w: 0.9270333}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: OLKA_L
+      parentName: SELKA_YLA
+      position: {x: -1.2261604, y: 0.000000043241528, z: -0.000000059604645}
+      rotation: {x: 0.3443747, y: -0.53417695, z: -0.56762654, w: 0.52331746}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: KASVAR_L
+      parentName: OLKA_L
+      position: {x: -0.85434747, y: 0.000000067055225, z: -0.00000016205013}
+      rotation: {x: -0.056646418, y: -0.27670947, z: -0.04236471, w: 0.95834666}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: KASVAR_ALA_L
+      parentName: KASVAR_L
+      position: {x: -1.267578, y: 0.00000010058284, z: -0.000000010244548}
+      rotation: {x: 0.004853751, y: 0.049847774, z: -0.017279657, w: 0.9985956}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: KAMMEN_L
+      parentName: KASVAR_ALA_L
+      position: {x: -1.6431024, y: 0.00000012665987, z: -0.00000009126961}
+      rotation: {x: -0.016056603, y: -0.2533055, z: 0.020447394, w: 0.96703696}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: OLKA_R
+      parentName: SELKA_YLA
+      position: {x: -1.2261604, y: 0.000000092572535, z: -0.000000059604645}
+      rotation: {x: -0.34437478, y: -0.53417695, z: 0.5676266, w: 0.5233174}
+      scale: {x: 0.99999976, y: 0.9999998, z: 0.9999998}
+    - name: KASVAR_R
+      parentName: OLKA_R
+      position: {x: -0.8543476, y: 0.00000008940697, z: 0.00000030291267}
+      rotation: {x: 0.056646418, y: -0.27670947, z: 0.042364724, w: 0.95834666}
+      scale: {x: 1, y: 1, z: 1}
+    - name: KASVAR_ALA_R
+      parentName: KASVAR_R
+      position: {x: -1.2675779, y: 0.00000009872019, z: 0.000000081025064}
+      rotation: {x: -0.004853721, y: 0.04984784, z: 0.017279666, w: 0.99859554}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: KAMMEN_R
+      parentName: KASVAR_ALA_R
+      position: {x: -1.6431025, y: 0.000000115484, z: 0.00000013504177}
+      rotation: {x: 0.01605657, y: -0.25330558, z: -0.0204474, w: 0.9670369}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: HIP_L
+      parentName: Armature
+      position: {x: -0, y: 0.23650938, z: 0}
+      rotation: {x: 0.003616342, y: -0.14249271, z: -0.025111416, w: 0.98947066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: REISI_L
+      parentName: HIP_L
+      position: {x: -0.7553436, y: 0.000000057742, z: 0.000000009152867}
+      rotation: {x: 0.78176016, y: 0.11926488, z: 0.6089586, w: 0.061613858}
+      scale: {x: 0.99999976, y: 0.9999999, z: 0.9999999}
+    - name: SAARI_L
+      parentName: REISI_L
+      position: {x: -1.9450349, y: 0.00000018952414, z: -0.000000020623702}
+      rotation: {x: 0.6873832, y: 0.15488613, z: 0.17793271, w: 0.68691677}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: JALKAPOYTA_L
+      parentName: SAARI_L
+      position: {x: -2.482972, y: 0.000000179155, z: 0.00000004430494}
+      rotation: {x: 0.6240287, y: 0.000000011667402, z: 0.78140146, w: 0.00000014144443}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: HIP_R
+      parentName: Armature
+      position: {x: -0, y: 0.23650938, z: 0}
+      rotation: {x: 0.14249271, y: -0.0036163374, z: 0.98947066, w: -0.025111599}
+      scale: {x: 1, y: 1, z: 1}
+    - name: REISI_R
+      parentName: HIP_R
+      position: {x: -0.7553436, y: 0.000000051688403, z: -0.000000005305754}
+      rotation: {x: 0.78176016, y: -0.11926494, z: 0.60895866, w: -0.061613962}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
+    - name: SAARI_R
+      parentName: REISI_R
+      position: {x: -1.9450347, y: 0.00000010523945, z: -0.000000013369572}
+      rotation: {x: -0.6873831, y: 0.15488625, z: -0.17793271, w: 0.68691677}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: JALKAPOYTA_R
+      parentName: SAARI_R
+      position: {x: -2.482972, y: 0.00000019926729, z: 0.00000004430494}
+      rotation: {x: 0.6240287, y: -0.00000010560156, z: 0.78140146, w: -0.00000014180944}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
