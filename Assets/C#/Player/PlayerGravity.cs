@@ -5,7 +5,6 @@ public class PlayerGravity : MonoBehaviour {
     private InputHandler _inputHandler;
     private PlayerAim _playerAim;
     private Rigidbody _rb;
-    private RaycastHit _hit;
     
     private float maxJumpTime = 1f;
     private float maxJumpTimer;
@@ -25,7 +24,7 @@ public class PlayerGravity : MonoBehaviour {
 
     private void Update()
     {
-        isGrounded = Physics.SphereCast(transform.position - transform.up * transform.localScale.y * 0.5f, radius, Vector3.down, out _hit, factor - 0.5f);
+        isGrounded = Physics.SphereCast(new Ray(transform.position - transform.up * transform.localScale.y * 0.5f, Vector3.down), radius, factor - 0.5f);
 
         if (_inputHandler.KeyDown(InputHandler.Key.Jump))
         {

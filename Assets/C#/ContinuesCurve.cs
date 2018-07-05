@@ -5,11 +5,14 @@ public class ContinuesCurve : MonoBehaviour
     // OnDrawGismos stuff
     public bool debugPosAndRot;
     public bool initDone = false;
+    public bool drawCurve = true;
+    public bool drawLines = false;
     public Transform[] curvePoints;
     public bool isLoop = false;
     public float angleTolerance = 1;
     [Range(0f, 1f)]
     public float maxVelocity = 0;
+    private Color color;
 
     [SerializeField]
     [Tooltip("Target you want object to turn to. Leave null if you want to keep rotation")]
@@ -39,96 +42,101 @@ public class ContinuesCurve : MonoBehaviour
             go.transform.position = curvePoints[0].position;
             go.transform.LookAt(LookAtTarget);
         }
-
-        Color color;
-        #region draw curve
-        for (int i = 0; i < curvePoints.Length - 1; i += 2)
+        
+        if (drawCurve)
         {
-            Vector3 start = curvePoints[i].position;
-            float t = 0f;
-
-            while (t < 1)
+            #region draw curve
+            for (int i = 0; i < curvePoints.Length - 1; i += 2)
             {
-                t += 0.015625f; // 1 divided by 64
+                Vector3 start = curvePoints[i].position;
+                float t = 0f;
 
-                Vector3 end = MathHelp.GetCurvePosition(
-                    curvePoints[i].position,
-                    curvePoints[i + 1].position,
-                    curvePoints[i + 2].position,
-                    t);
-
-                float velocity = Vector3.Distance(start, end);
-                float grayShade = Mathf.Clamp01(velocity / maxVelocity);
-                color = new Color(grayShade, grayShade, grayShade);
-
-                Debug.DrawLine(start, end, color);
-
-                start = end;
-            }
-        }
-        #endregion
-        return;
-        #region draw lines
-        for (int i = 0; i < curvePoints.Length; i += 2)
-        {
-            // draw straight line
-            {
-                if (i == 0)
+                while (t < 1)
                 {
-                    if (isLoop)
-                    {   // first and last lines with angle check
-                        float startEndAngle = MathHelp.AngleBetweenVector3(
-                            curvePoints[curvePoints.Length - 2].position,
-                            curvePoints[curvePoints.Length - 1].position,
-                            curvePoints[i].position,
-                            curvePoints[i + 1].position);
+                    t += 0.015625f; // 1 divided by 64
 
-                        if (startEndAngle > -angleTolerance && startEndAngle < angleTolerance)
-                        {
-                            color = Color.white;
-                        }
-                        else
-                        {
-                            color = Color.yellow;
-                        }
+                    Vector3 end = MathHelp.GetCurvePosition(
+                        curvePoints[i].position,
+                        curvePoints[i + 1].position,
+                        curvePoints[i + 2].position,
+                        t);
 
-                        Debug.DrawLine(curvePoints[curvePoints.Length - 2].position, curvePoints[curvePoints.Length - 1].position, color);
+                    float velocity = Vector3.Distance(start, end);
+                    float grayShade = Mathf.Clamp01(velocity / maxVelocity);
+                    color = new Color(grayShade, grayShade, grayShade);
+
+                    Debug.DrawLine(start, end, color);
+
+                    start = end;
+                }
+            }
+            #endregion
+        }
+
+        if (drawLines)
+        {
+            #region draw lines
+            for (int i = 0; i < curvePoints.Length; i += 2)
+            {
+                // draw straight line
+                {
+                    if (i == 0)
+                    {
+                        if (isLoop)
+                        {   // first and last lines with angle check
+                            float startEndAngle = MathHelp.AngleBetweenVector3(
+                                curvePoints[curvePoints.Length - 2].position,
+                                curvePoints[curvePoints.Length - 1].position,
+                                curvePoints[i].position,
+                                curvePoints[i + 1].position);
+
+                            if (startEndAngle > -angleTolerance && startEndAngle < angleTolerance)
+                            {
+                                color = Color.white;
+                            }
+                            else
+                            {
+                                color = Color.yellow;
+                            }
+
+                            Debug.DrawLine(curvePoints[curvePoints.Length - 2].position, curvePoints[curvePoints.Length - 1].position, color);
+                            Debug.DrawLine(curvePoints[i].position, curvePoints[i + 1].position, color);
+                            continue;
+                        }
+                        // first line no angle check needed
+                        color = Color.white;
                         Debug.DrawLine(curvePoints[i].position, curvePoints[i + 1].position, color);
                         continue;
                     }
-                    // first line no angle check needed
-                    color = Color.white;
-                    Debug.DrawLine(curvePoints[i].position, curvePoints[i + 1].position, color);
-                    continue;
-                }
-                else if (i == curvePoints.Length - 1)
-                {
-                    if (isLoop) continue;
-                    // last line no angle check needed
-                    color = Color.white;
+                    else if (i == curvePoints.Length - 1)
+                    {
+                        if (isLoop) continue;
+                        // last line no angle check needed
+                        color = Color.white;
+                        Debug.DrawLine(curvePoints[i - 1].position, curvePoints[i].position, color);
+                        continue;
+                    }
+                    // check angle and set correct color
+                    float angle = MathHelp.AngleBetweenVector3(
+                        curvePoints[i - 1].position,
+                        curvePoints[i].position,
+                        curvePoints[i + 1].position);
+
+                    if (angle > -angleTolerance && angle < angleTolerance)
+                    {
+                        color = Color.white;
+                    }
+                    else
+                    {
+                        color = Color.yellow;
+                    }
+
                     Debug.DrawLine(curvePoints[i - 1].position, curvePoints[i].position, color);
-                    continue;
+                    Debug.DrawLine(curvePoints[i].position, curvePoints[i + 1].position, color);
                 }
-                // check angle and set correct color
-                float angle = MathHelp.AngleBetweenVector3(
-                    curvePoints[i - 1].position,
-                    curvePoints[i].position,
-                    curvePoints[i + 1].position);
-
-                if (angle > -angleTolerance && angle < angleTolerance)
-                {
-                    color = Color.white;
-                }
-                else
-                {
-                    color = Color.yellow;
-                }
-
-                Debug.DrawLine(curvePoints[i - 1].position, curvePoints[i].position, color);
-                Debug.DrawLine(curvePoints[i].position, curvePoints[i + 1].position, color);
             }
+            #endregion
         }
-        #endregion
     }
 
     private void Update()
