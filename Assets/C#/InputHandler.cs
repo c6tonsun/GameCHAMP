@@ -15,6 +15,10 @@ public class InputHandler : MonoBehaviour
     private const string XBOX_CONTROLLER = "Xbox ";
     private const string PS_CONTROLLER = "PS ";
     private const string RP_CONTROLLER = "RumblePad ";
+    
+    private bool _isXboxController;
+    private bool _isPSController;
+    private bool _isRPController;
 
     private const int OLD = 0;
     private const int NEW = 1;
@@ -80,21 +84,17 @@ public class InputHandler : MonoBehaviour
 
         ReadInput("", true);
 
-        if (_firstController.Length > 0)
+        if (_isXboxController)
         {
-            if (_firstController.Contains("xbox"))
-            {
-                ReadInput(XBOX_CONTROLLER, false);
-            }
-            else if (_firstController.Contains("wireless controller"))
-            {
-                ReadInput(PS_CONTROLLER, false);
-            }
-            else if (_firstController.Contains("rumblepad"))
-            {
-                ReadInput(RP_CONTROLLER, false);
-            }
-
+            ReadInput(XBOX_CONTROLLER, false);
+        }
+        else if (_isPSController)
+        {
+            ReadInput(PS_CONTROLLER, false);
+        }
+        else if (_isRPController)
+        {
+            ReadInput(RP_CONTROLLER, false);
         }
     }
 
@@ -105,10 +105,16 @@ public class InputHandler : MonoBehaviour
         
         foreach(string str in _controllerNames)
         {
-            if(str != "" && str != null)
+            if(str.Length > 0)
             {
                 _firstController = str.ToLower();
-                break;
+
+                _isXboxController = _firstController.Contains("xbox");
+                _isPSController = _firstController.Contains("wireless controller");
+                _isRPController = _firstController.Contains("rumblepad");
+
+                if (_isXboxController || _isPSController || _isRPController)
+                    break;
             }
         }
     }
