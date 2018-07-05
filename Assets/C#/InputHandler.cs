@@ -23,9 +23,9 @@ public class InputHandler : MonoBehaviour
     private const int OLD = 0;
     private const int NEW = 1;
 
-    private string[] _buttonAxes = new string[] { "Jump", "Activation", "Aim", "Push", "Pull", "Shoot", "Change Skill", "Freeze"};
+    private string[] _buttonAxes = new string[] { "Jump", "Activation", "Aim", "Push", "Pull", "Throw", "Change Skill", "Freeze"};
     private float[,] _buttonInputs;
-    private string[] _axes = new string[] { "MoveX", "MoveZ", "LookX", "LookY", "Distance", "Rotation"};
+    private string[] _axes = new string[] { "MoveX", "MoveZ", "LookX", "LookY", "Distance", "Rotation"}; 
     private float[] _axisInputs; 
 
     private float _tempInput;
