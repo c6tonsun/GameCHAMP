@@ -4,11 +4,12 @@ using System.Collections;
 public class PlayerSkills : MonoBehaviour
 {
     private InputHandler _inputHandler;
+    private CameraControl _camControl;
+    private PlayerManipulationArea _playerManipulationArea;
 
     private PlayerAim _playerAim;
     private PlayerGravity _playerGravity;
-    private CameraControl _camControl;
-    private PlayerManipulationArea _playerManipulationArea;
+    private PlayerAnimation _playerAnimation;
 
     private Item _currentItem;
     private Item _lastItem;
@@ -17,6 +18,7 @@ public class PlayerSkills : MonoBehaviour
     private float _distance;
     private RaycastHit _hit;
 
+    [HideInInspector]
     public bool forceAimToFalse;
     private bool _useAim = false;
     private bool _alreadyActivated;
@@ -38,10 +40,12 @@ public class PlayerSkills : MonoBehaviour
     void Start()
     {
         _camControl = FindObjectOfType<CameraControl>();
-        _playerAim = GetComponent<PlayerAim>();
-        _playerGravity = GetComponent<PlayerGravity>();
         _inputHandler = FindObjectOfType<InputHandler>();
         _playerManipulationArea = FindObjectOfType<PlayerManipulationArea>();
+        
+        _playerAim = GetComponent<PlayerAim>();
+        _playerGravity = GetComponent<PlayerGravity>();
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
 
         ChangeSkillMode();
     }
@@ -113,6 +117,13 @@ public class PlayerSkills : MonoBehaviour
             _slideDoor = _hit.collider.GetComponent<SlideDoor>();
             if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
                 _slideDoor.Interact();
+
+            if (_currentItem != null)
+            {
+                _currentItem.SetGravityMode(Item.GravityMode.World);
+                _currentItem = null;
+            }
+            _playerManipulationArea.SetVisible(false);
         }
         else if (currentSkillMode == SkillMode.Single)
         {
@@ -142,12 +153,15 @@ public class PlayerSkills : MonoBehaviour
         if (_currentItem == null)
         {
             _alreadyActivated = false;
+            _playerAnimation.target = null;
             return;
-        }      
+        }
 
         // activate item
         if (_alreadyActivated)
         {
+            _playerAnimation.target = _currentItem.transform;
+
             if (_currentItem.currentMode == Item.GravityMode.Self)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
@@ -166,6 +180,7 @@ public class PlayerSkills : MonoBehaviour
             _currentItem.SetGravityMode(Item.GravityMode.World);
             StartCoroutine(Shoot());
             _doShoot = false;
+            return;
         }
 
         // freeze item
@@ -188,6 +203,12 @@ public class PlayerSkills : MonoBehaviour
 
         // visibility
         _playerManipulationArea.SetVisible(_useAim);
+
+        // head look at
+        if (_useAim)
+            _playerAnimation.target = _playerManipulationArea.transform;
+        else
+            _playerAnimation.target = null;
 
         #region activate items in area
 
@@ -281,6 +302,12 @@ public class PlayerSkills : MonoBehaviour
         currentSkillMode = (SkillMode)curIndex;
 
         _playerManipulationArea.SetVisible(currentSkillMode == SkillMode.Area);
+
+        // head look at
+        if (currentSkillMode == SkillMode.Area)
+            _playerAnimation.target = _playerManipulationArea.transform;
+        else
+            _playerAnimation.target = null;
     }
 
     private IEnumerator Shoot()

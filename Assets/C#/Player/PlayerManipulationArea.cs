@@ -23,7 +23,6 @@ public class PlayerManipulationArea : MonoBehaviour
 
     private void Update()
     {
-
         if (!isVisible)
         {
             return;
