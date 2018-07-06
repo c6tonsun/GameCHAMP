@@ -2,54 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour {
+public class PressurePlate : VisualizedOverlaps {
 
-    private Transform _button;
-    private Transform _base;
+    private Vector3 _pressedPos;
+    private Vector3 _unpressedPos;
 
-    private Vector3 _btnDefPos;
+    private float _lerpTime;
+    public float speed;
 
-    public bool isBall;
-    private float _ballRadius;
-
-    private Collider[] _colliders;
+    private int _itemCount = 1;
 
     private void Start()
     {
-        _button = transform.GetChild(0).transform;
-        _base = transform.GetChild(1).transform;
-        _colliders = new Collider[0];
+        _unpressedPos = transform.position;
+        _pressedPos = transform.parent.position;
+        _lerpTime = 1f;
     }
 
-    private void Update()
+    private new void Update()
     {
+        base.Update();
+        
+        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, 0, 1);
 
-        if(isBall)
-        {
-            _colliders = Physics.OverlapSphere(_button.position, _ballRadius);
-        }
-        else
-        {
-            _colliders = Physics.OverlapBox(_button.position, _button.localScale);
-        }
-
-        if(_colliders.Length == 0)
-        {
-            return;
-        }
-
-        float totalMass = 0;
+        int totalCount = 0;
 
         for (int i = 0; i < _colliders.Length; i++)
         {
-            if(_colliders[i] != null && _colliders[i].GetComponent<Item>())
+            if(_colliders[i].GetComponent<Item>())
             {
-                totalMass += _colliders[i].GetComponent<Rigidbody>().mass;
+                totalCount += 1;
             }            
         }
 
-        Debug.Log("mass: " + totalMass);
+        if(totalCount >= _itemCount)
+        {
+            if (speed > 0)
+            {
+                speed = -speed;
+            }
+        }
+        else
+        {
+            if (speed < 0)
+            {
+                speed = -speed;
+            }
+        }
 
+        transform.position = Vector3.Lerp(_pressedPos, _unpressedPos, _lerpTime);
+
+    }
+
+    public bool IsActivated()
+    {
+        return true;
     }
 
 }
