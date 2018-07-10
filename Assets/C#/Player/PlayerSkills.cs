@@ -123,7 +123,9 @@ public class PlayerSkills : MonoBehaviour
                 _currentItem.SetGravityMode(Item.GravityMode.World);
                 _currentItem = null;
             }
+
             _playerManipulationArea.SetVisible(false);
+            _playerAnimation.doLookAt = false;
         }
         else if (currentSkillMode == SkillMode.Single)
         {
@@ -150,18 +152,22 @@ public class PlayerSkills : MonoBehaviour
             _currentItem = null;
         }
 
+        // player look at + return
         if (_currentItem == null)
         {
             _alreadyActivated = false;
-            _playerAnimation.target = null;
+            _playerAnimation.doLookAt = false;
             return;
+        }
+        else
+        {
+            _playerAnimation.target = _currentItem.transform;
+            _playerAnimation.doLookAt = true;
         }
 
         // activate item
         if (_alreadyActivated)
         {
-            _playerAnimation.target = _currentItem.transform;
-
             if (_currentItem.currentMode == Item.GravityMode.Self)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
@@ -198,17 +204,12 @@ public class PlayerSkills : MonoBehaviour
 
     private void DoArea()
     {
-        if (_playerManipulationArea == null)
-            return;
-
         // visibility
         _playerManipulationArea.SetVisible(_useAim);
 
         // head look at
-        if (_useAim)
-            _playerAnimation.target = _playerManipulationArea.transform;
-        else
-            _playerAnimation.target = null;
+        _playerAnimation.target = _playerManipulationArea.transform;
+        _playerAnimation.doLookAt = _useAim;
 
         #region activate items in area
 
@@ -300,14 +301,6 @@ public class PlayerSkills : MonoBehaviour
         }
 
         currentSkillMode = (SkillMode)curIndex;
-
-        _playerManipulationArea.SetVisible(currentSkillMode == SkillMode.Area);
-
-        // head look at
-        if (currentSkillMode == SkillMode.Area)
-            _playerAnimation.target = _playerManipulationArea.transform;
-        else
-            _playerAnimation.target = null;
     }
 
     private IEnumerator Shoot()

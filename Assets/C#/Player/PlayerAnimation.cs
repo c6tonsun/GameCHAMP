@@ -19,15 +19,21 @@ public class PlayerAnimation : MonoBehaviour
     private int _aimLayer;
     private float _aimWeight;
 
-    // head look at object
-    private Quaternion _headRotationFromAnimation;
-    public Transform head;
+    // look at
+    [HideInInspector]
+    public bool doLookAt;
+    [HideInInspector]
     public Transform target;
-    public Vector3 correction;
-
-    // parent look
+    [HideInInspector]
+    public float lookAtProsent;
+    private Quaternion _oldRotation;
+    private Vector3 _lookAtDirection;
+    // parent
     public Vector3 correctionParent;
-
+    // head
+    public Transform head;
+    public Vector3 correctionHead;
+    
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -69,26 +75,49 @@ public class PlayerAnimation : MonoBehaviour
     // LateUpdate is done after Unity's animation update
     private void LateUpdate()
     {
-        // if no target do nothing
+        // no target do nothing
         if (target == null)
             return;
 
-        transform.parent.forward = new Vector3(
-            target.position.x - transform.parent.position.x,
-            0f,
-            target.position.z - transform.parent.position.z);
-        transform.parent.Rotate(correctionParent);
+        //
+        if (doLookAt)
+        {
+            if (lookAtProsent < 1)
+                lookAtProsent += Time.deltaTime;
+        }
+        else
+        {
+            if (lookAtProsent > 0)
+                lookAtProsent -= Time.deltaTime;
+        }
 
-        _headRotationFromAnimation = head.rotation;
+        // first rotate parent
+        transform.parent.rotation = RotateTransform(transform.parent, correctionParent, ignoreYAxis: true);
+        // then child
+        head.rotation = RotateTransform(head, correctionHead, ignoreYAxis: false);
+    }
 
-        // calculate vector that starts from head and points towards target
-        head.forward = target.position - head.position;
+    private Quaternion RotateTransform(Transform toRotate, Vector3 correction, bool ignoreYAxis)
+    {
+        // save old rotation
+        _oldRotation = toRotate.rotation;
+        
+        // calculate direction
+        _lookAtDirection = target.position - toRotate.position;
+        
+        // if we don't want to look up or down
+        if (ignoreYAxis)
+            _lookAtDirection.y = 0f;
+        
+        // set new forward vector (blue arrow in scene)
+        toRotate.forward = _lookAtDirection;
+        
         // manual correction because:
         //  - different coordinate systems between 3D software and Unity
         //  - head's forward pointing in wierd direction in editor
-        head.Rotate(correction);
+        toRotate.Rotate(correction);
 
         // Quaternion.Lerp = 0% rotation , 100% rotation , float %
-        head.rotation = Quaternion.Lerp(_headRotationFromAnimation, head.rotation, _aimWeight);
+        return Quaternion.Lerp(_oldRotation, toRotate.rotation, lookAtProsent);
     }
 }
