@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3600f590f5116bb4e98d6f750e87267e
+guid: fbbdfc5e35c0ce946aae92721b20a2ee
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -18,17 +18,17 @@ ModelImporter:
     100024: KASVAR_L
     100026: KASVAR_R
     100028: KAULA
-    100030: OLKA_L
-    100032: OLKA_R
-    100034: PAA
-    100036: REISI_L
-    100038: REISI_R
-    100040: SAARI_L
-    100042: SAARI_R
-    100044: SELKA_KESKI
-    100046: SELKA_YLA
-    100048: //RootNode
-    100050: wannabee_empty
+    100030: MOTHA
+    100032: OLKA_L
+    100034: OLKA_R
+    100036: PAA
+    100038: REISI_L
+    100040: REISI_R
+    100042: SAARI_L
+    100044: SAARI_R
+    100046: SELKA_KESKI
+    100048: SELKA_YLA
+    100050: //RootNode
     400000: Armature
     400002: BASE_SELK__ALA
     400004: body
@@ -44,34 +44,31 @@ ModelImporter:
     400024: KASVAR_L
     400026: KASVAR_R
     400028: KAULA
-    400030: OLKA_L
-    400032: OLKA_R
-    400034: PAA
-    400036: REISI_L
-    400038: REISI_R
-    400040: SAARI_L
-    400042: SAARI_R
-    400044: SELKA_KESKI
-    400046: SELKA_YLA
-    400048: //RootNode
-    400050: wannabee_empty
-    2100000: unnamed
-    2100002: clothes
-    2100004: skin
-    2100006: hairback_001
-    2100008: turkhius
-    2300000: wannabee_empty
-    3300000: wannabee_empty
-    4300000: wannabee_empty
-    4300002: body
-    4300004: hiukset
+    400030: MOTHA
+    400032: OLKA_L
+    400034: OLKA_R
+    400036: PAA
+    400038: REISI_L
+    400040: REISI_R
+    400042: SAARI_L
+    400044: SAARI_R
+    400046: SELKA_KESKI
+    400048: SELKA_YLA
+    400050: //RootNode
+    2100000: clothes
+    2100002: skin
+    2100004: hairback_001
+    2100006: turkhius
+    4300000: body
+    4300002: hiukset
     7400000: Default Take
     7400002: DECEND
     7400004: Default_Take
     7400006: IDLE
     7400008: IDLE_AIM
     7400010: JUMPPI
-    7400012: RUN
+    7400012: POWAH
+    7400014: RUN_001
     9500000: //RootNode
     13700000: body
     13700002: hiukset
@@ -107,7 +104,7 @@ ModelImporter:
       name: Default Take
       takeName: Default Take
       firstFrame: -1
-      lastFrame: 99
+      lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -142,7 +139,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -190,15 +187,15 @@ ModelImporter:
     - serializedVersion: 16
       name: IDLE
       takeName: IDLE
-      firstFrame: -3
-      lastFrame: 56
+      firstFrame: 0
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -218,7 +215,7 @@ ModelImporter:
     - serializedVersion: 16
       name: IDLE_AIM
       takeName: IDLE_AIM
-      firstFrame: 0
+      firstFrame: -3
       lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
@@ -254,7 +251,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -272,8 +269,36 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RUN
-      takeName: RUN
+      name: POWAH
+      takeName: POWAH
+      firstFrame: -2
+      lastFrame: 111
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RUN_001
+      takeName: RUN_001
       firstFrame: -1
       lastFrame: 41
       wrapMode: 0
@@ -282,7 +307,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
