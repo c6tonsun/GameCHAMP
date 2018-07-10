@@ -25,6 +25,9 @@ public class PlayerAnimation : MonoBehaviour
     public Transform target;
     public Vector3 correction;
 
+    // parent look
+    public Vector3 correctionParent;
+
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -69,7 +72,13 @@ public class PlayerAnimation : MonoBehaviour
         // if no target do nothing
         if (target == null)
             return;
-        
+
+        transform.parent.forward = new Vector3(
+            target.position.x - transform.parent.position.x,
+            0f,
+            target.position.z - transform.parent.position.z);
+        transform.parent.Rotate(correctionParent);
+
         _headRotationFromAnimation = head.rotation;
 
         // calculate vector that starts from head and points towards target

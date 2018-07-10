@@ -5,7 +5,7 @@ public class PlayerMove : MonoBehaviour {
     private InputHandler _inputHandler;
 
     private Rigidbody _rb;
-    private Transform camTransform;
+    private Transform _camTransform;
     private CapsuleCollider _col;
     
     private float movementSpeed = 5;
@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour {
     {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
-        camTransform = FindObjectOfType<Camera>().transform;
+        _camTransform = FindObjectOfType<Camera>().transform;
         _inputHandler = FindObjectOfType<InputHandler>();
     }
 
@@ -29,8 +29,8 @@ public class PlayerMove : MonoBehaviour {
         _inputVector.z = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
         _inputVector.Normalize();
 
-        _movement += camTransform.right * _inputVector.x * Time.deltaTime;
-        _movement += camTransform.forward * _inputVector.z * Time.deltaTime;
+        _movement += _camTransform.right * _inputVector.x * Time.deltaTime;
+        _movement += _camTransform.forward * _inputVector.z * Time.deltaTime;
         _movement.y = 0f;
 
         transform.forward = Vector3.Slerp(transform.forward, _movement.normalized, rotationLerp);
