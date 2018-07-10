@@ -24,15 +24,14 @@ public class PlayerAnimation : MonoBehaviour
     public bool doLookAt;
     [HideInInspector]
     public Transform target;
-    [HideInInspector]
-    public float lookAtProsent;
+    private float lookAtProsent;
     private Quaternion _oldRotation;
     private Vector3 _lookAtDirection;
     // parent
-    public Vector3 correctionParent;
+    private Vector3 _correctionParent = new Vector3(0f, 0f, 0f);
     // head
-    public Transform head;
-    public Vector3 correctionHead;
+    private Transform _head;
+    private Vector3 _correctionHead = new Vector3(0f, 180f, -90f);
     
     private void Start()
     {
@@ -44,6 +43,17 @@ public class PlayerAnimation : MonoBehaviour
 
         // Layer index does not change so getting this once is enough.
         _aimLayer = _anim.GetLayerIndex("Aim");
+
+        // get head
+        Transform[] bones = GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (Transform child in bones)
+        {
+            if (child.name.Contains("PAA"))
+            {
+                _head = child;
+                continue;
+            }
+        }
     }
 
     // Update is done before Unity's animation update
@@ -53,12 +63,12 @@ public class PlayerAnimation : MonoBehaviour
         _x = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
         _z = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
         // So we need to make them to positive numbers.
-        if (_x < 0) _x *= -1;
-        if (_z < 0) _z *= -1;
+        if (_x < 0) _x = -_x;
+        if (_z < 0) _z = -_z;
         // And then we add them.
         _xzMovement = _x + _z;
         
-        // we get iformation from other components
+        // we get information from other components
         _isGrounded = _playerGravity.isGrounded;
         _yMovement = _rb.velocity.y;
 
@@ -67,7 +77,7 @@ public class PlayerAnimation : MonoBehaviour
         _anim.SetFloat("yMovement", _yMovement);
         _anim.SetFloat("xzMovement", _xzMovement);
 
-        // layer weight         aimLerp: 0 = no aim, 1 = full aim
+        // layer weight         aimLerp = aim prosent
         _aimWeight = _playerAim.aimLerp;
         _anim.SetLayerWeight(_aimLayer, _aimWeight);
     }
@@ -79,7 +89,9 @@ public class PlayerAnimation : MonoBehaviour
         if (target == null)
             return;
 
-        //
+        // we don't set target to null
+        // instead we just set new target when needed
+        // this boolean is used for smoothing look at
         if (doLookAt)
         {
             if (lookAtProsent < 1)
@@ -92,9 +104,9 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         // first rotate parent
-        transform.parent.rotation = RotateTransform(transform.parent, correctionParent, ignoreYAxis: true);
+        transform.parent.rotation = RotateTransform(transform.parent, _correctionParent, ignoreYAxis: true);
         // then child
-        head.rotation = RotateTransform(head, correctionHead, ignoreYAxis: false);
+        _head.rotation = RotateTransform(_head, _correctionHead, ignoreYAxis: false);
     }
 
     private Quaternion RotateTransform(Transform toRotate, Vector3 correction, bool ignoreYAxis)
