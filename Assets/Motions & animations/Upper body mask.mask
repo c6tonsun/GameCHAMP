@@ -10,53 +10,53 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/MOTHA
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA/PAA
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L/KASVAR_ALA_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L/KASVAR_ALA_L/KAMMEN_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R/KASVAR_ALA_R
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R/KASVAR_ALA_R/KAMMEN_R
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/HIP_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/HIP_L/REISI_L
+    m_Weight: 1
+  - m_Path: Armature/MOTHA/HIP_L/REISI_L/SAARI_L
+    m_Weight: 0
+  - m_Path: Armature/MOTHA/HIP_L/REISI_L/SAARI_L/JALKAPOYTA_L
+    m_Weight: 0
+  - m_Path: Armature/MOTHA/HIP_R
+    m_Weight: 0
+  - m_Path: Armature/MOTHA/HIP_R/REISI_R
+    m_Weight: 0
+  - m_Path: Armature/MOTHA/HIP_R/REISI_R/SAARI_R
+    m_Weight: 0
+  - m_Path: Armature/MOTHA/HIP_R/REISI_R/SAARI_R/JALKAPOYTA_R
+    m_Weight: 0
   - m_Path: body
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: hiukset
-    m_Weight: 1
-  - m_Path: wannabee_empty
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA/PAA
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L/KASVAR_ALA_L
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_L/KASVAR_L/KASVAR_ALA_L/KAMMEN_L
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R/KASVAR_ALA_R
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/OLKA_R/KASVAR_R/KASVAR_ALA_R/KAMMEN_R
-    m_Weight: 1
-  - m_Path: wannabee_empty/Armature/HIP_L
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_L/REISI_L
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_L/REISI_L/SAARI_L
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_L/REISI_L/SAARI_L/JALKAPOYTA_L
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_R
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_R/REISI_R
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_R/REISI_R/SAARI_R
-    m_Weight: 0
-  - m_Path: wannabee_empty/Armature/HIP_R/REISI_R/SAARI_R/JALKAPOYTA_R
     m_Weight: 0
