@@ -4,7 +4,6 @@ public class Item : MonoBehaviour
 {
     [HideInInspector]
     public Rigidbody rb;
-    private MeshRenderer _mr;
     private Collider[] _colliders;
 
     private float _freezeTime;
@@ -17,11 +16,6 @@ public class Item : MonoBehaviour
     private Quaternion _oldRot;
     public Transform leftTrasform;
     public Transform rightTrasform;
-
-    public Material defMaterial;
-    public Material highMaterial;
-    public Material actMaterial;
-    public Material freezeMaterial;
 
     public enum GravityMode
     {
@@ -42,7 +36,6 @@ public class Item : MonoBehaviour
     private void Start ()
     {
         rb = GetComponent<Rigidbody>();
-        _mr = GetComponent<MeshRenderer>();
         _colliders = GetComponentsInChildren<Collider>();
 
         SetGravityMode(GravityMode.World);
@@ -210,31 +203,26 @@ public class Item : MonoBehaviour
         {
             case GravityMode.World:
                 UnfreezeRigidbody();
-                _mr.material = defMaterial;
                 break;
 
             case GravityMode.Player:
                 _defLerpTime = 0f;
                 _startRot = transform.rotation;
                 FreezeRigidbody();
-                _mr.material = actMaterial;
                 break;
 
             case GravityMode.Self:
                 UnfreezeRigidbody();
-                _mr.material = highMaterial;
                 break;
 
             case GravityMode.Freeze:
                 FreezeRigidbody();
                 rb.isKinematic = true;
                 _freezeTime = 5f;
-                _mr.material = freezeMaterial;
                 break;
 
             default:
                 FreezeRigidbody();
-                _mr.material = null;
                 break;
 
         }
