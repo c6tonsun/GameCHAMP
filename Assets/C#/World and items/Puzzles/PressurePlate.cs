@@ -7,23 +7,30 @@ public class PressurePlate : VisualizedOverlaps {
     private Vector3 _pressedPos;
     private Vector3 _unpressedPos;
 
-    private float _lerpTime;
+    protected float _maxClamp;
+    protected float _minClamp;
+
+    protected float _lerpTime;
     public float speed;
+
+    protected bool _hasWeight;
 
     private int _itemCount = 1;
 
-    private void Start()
+    protected void Start()
     {
+        _maxClamp = 1;
+        _minClamp = 0;
         _unpressedPos = transform.position;
         _pressedPos = transform.parent.position;
         _lerpTime = 1f;
     }
 
-    private new void Update()
+    protected new void Update()
     {
         base.Update();
         
-        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, 0, 1);
+        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, _minClamp, _maxClamp);
 
         int totalCount = 0;
 
@@ -35,8 +42,10 @@ public class PressurePlate : VisualizedOverlaps {
             }            
         }
 
-        if(totalCount >= _itemCount)
+        if (totalCount >= _itemCount)
         {
+            if (!_hasWeight) _hasWeight = true;
+
             if (speed > 0)
             {
                 speed = -speed;
@@ -49,14 +58,9 @@ public class PressurePlate : VisualizedOverlaps {
                 speed = -speed;
             }
         }
-
+        
         transform.position = Vector3.Lerp(_pressedPos, _unpressedPos, _lerpTime);
 
-    }
-
-    public bool IsActivated()
-    {
-        return true;
     }
 
 }
