@@ -271,7 +271,7 @@ ModelImporter:
     - serializedVersion: 16
       name: POWAH
       takeName: POWAH
-      firstFrame: -2
+      firstFrame: 0
       lastFrame: 111
       wrapMode: 0
       orientationOffsetY: 0
@@ -299,8 +299,8 @@ ModelImporter:
     - serializedVersion: 16
       name: RUN_001
       takeName: RUN_001
-      firstFrame: -1
-      lastFrame: 41
+      firstFrame: 0
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
