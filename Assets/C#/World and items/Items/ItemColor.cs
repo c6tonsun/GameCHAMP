@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ItemColorByMass : MonoBehaviour
+public class ItemColor : MonoBehaviour
 {
     private GameManager _gameManager;
     private MeshRenderer _mr;
