@@ -28,6 +28,11 @@ public class PlayerManipulationArea : MonoBehaviour
             return;
         }
 
+        if(_newItems.Length == 0)
+        {
+            itemsActivated = false;
+        }
+
         _oldItems = _newItems;
         _colliders = Physics.OverlapSphere(transform.position, MathHelp.AbsBiggest(transform.localScale, ignoreY: false) * 0.5f);
         _newItems = new Item[_colliders.Length];
@@ -61,6 +66,8 @@ public class PlayerManipulationArea : MonoBehaviour
                 }
 
             }
+
+
         }
 
         for(int i = 0; i < _newItems.Length; i++)
@@ -91,7 +98,7 @@ public class PlayerManipulationArea : MonoBehaviour
 
             if (item != null)
             {
-                if (item.currentMode == Item.GravityMode.Self)
+                if (item.currentMode == Item.GravityMode.Self || item.currentMode == Item.GravityMode.Freeze)
                 {
                     item.SetGravityMode(Item.GravityMode.Player);
                     //item.transform.position = new Vector3(item.transform.position.x, transform.position.y, item.transform.position.z);

@@ -5,6 +5,10 @@ public class PlayerGravity : MonoBehaviour {
     private InputHandler _inputHandler;
     private PlayerAim _playerAim;
     private Rigidbody _rb;
+    private PlayerSkills _playerSkills;
+
+    [HideInInspector]
+    public bool ignoreJumpInput;
     
     private float maxJumpTime = 1f;
     private float maxJumpTimer;
@@ -20,14 +24,22 @@ public class PlayerGravity : MonoBehaviour {
         _playerAim = GetComponent<PlayerAim>();
         _rb = GetComponent<Rigidbody>();
         _inputHandler = FindObjectOfType<InputHandler>();
+        _playerSkills = GetComponent<PlayerSkills>();
     }
 
     private void Update()
     {
         isGrounded = Physics.SphereCast(new Ray(transform.position - transform.up * transform.localScale.y * 0.5f, Vector3.down), radius, factor - 0.5f);
 
-        if (_inputHandler.KeyDown(InputHandler.Key.Jump))
+        if (!_playerSkills.useAim && _inputHandler.KeyDown(InputHandler.Key.Jump))
         {
+
+            if(ignoreJumpInput)
+            {
+                ignoreJumpInput = false;
+                return;
+            }
+
             if (!_rb.useGravity)
             {
                 _rb.useGravity = true;
