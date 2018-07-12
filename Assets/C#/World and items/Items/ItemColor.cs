@@ -18,14 +18,14 @@ public class ItemColor : MonoBehaviour
         float mass = GetComponent<Rigidbody>().mass;
 
         int shorter;
-        if (_gameManager.itemMassTreshholds.Length > _gameManager.itemColorsByMass.Length)
+        if (_gameManager.itemMassLessThan.Length > _gameManager.itemColorsByMass.Length)
             shorter = _gameManager.itemColorsByMass.Length;
         else
-            shorter = _gameManager.itemMassTreshholds.Length;
+            shorter = _gameManager.itemMassLessThan.Length;
 
         for (int i = 0; i < shorter; i++)
         {
-            if (mass < _gameManager.itemMassTreshholds[i])
+            if (mass < _gameManager.itemMassLessThan[i])
             {
                 _defaultColor = _gameManager.itemColorsByMass[i];
                 mass = -1;
@@ -39,5 +39,10 @@ public class ItemColor : MonoBehaviour
         #endregion
 
         _mr.materials[materialIndex].color = _defaultColor;
+    }
+
+    public void SetModeColor(int mode)
+    {
+        _mr.materials[materialIndex].color = _gameManager.itemModeColors[mode];
     }
 }

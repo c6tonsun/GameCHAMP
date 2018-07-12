@@ -3,6 +3,6 @@
 public class GameManager : MonoBehaviour
 {
     public Color[] itemColorsByMass;
-    public float[] itemMassTreshholds;
+    public float[] itemMassLessThan;
     public Color[] itemModeColors;
 }
