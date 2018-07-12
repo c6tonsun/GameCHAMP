@@ -23,7 +23,7 @@ public class InputHandler : MonoBehaviour
     private const int OLD = 0;
     private const int NEW = 1;
 
-    private string[] _buttonAxes = new string[] { "Jump", "Activation", "Aim", "Push", "Pull", "Throw", "Change Skill", "Freeze"};
+    private string[] _buttonAxes = new string[] { "Jump", "Activation", "Aim", "Throw", "Change Skill", "Freeze"};
     private float[,] _buttonInputs;
     private string[] _axes = new string[] { "MoveX", "MoveZ", "LookX", "LookY", "Distance", "Rotation"}; 
     private float[] _axisInputs; 
@@ -35,11 +35,9 @@ public class InputHandler : MonoBehaviour
         Jump = 0,
         Activation = 1,
         Aim = 2,
-        Push = 3,
-        Pull = 4,
-        Shoot = 5,
-        Change = 6,
-        Freeze = 7
+        Shoot = 3,
+        Change = 4,
+        Freeze = 5
     }
 
     public enum Axis

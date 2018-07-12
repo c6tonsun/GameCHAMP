@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToggleButton : PressurePlate, IButton {
+public class SwitchButton : PressurePlate, IButton {
 
-    private bool _isSendingSignal;
+    public bool _isSendingSignal;
     private bool _isButtonLocked;
+
+    public bool _isInverted;
 
     private bool _isLocked;
     private bool _alreadyPressed;
@@ -24,12 +26,14 @@ public class ToggleButton : PressurePlate, IButton {
             return;
         }
 
-        if (base._lerpTime == base._maxClamp)
+        base.Update();
+
+        if (base._isUp)
         {
             _hasBeenUp = true;
         }
 
-        if (base._lerpTime == base._minClamp)
+        if (base._isDown)
         {
             if (_hasBeenUp)
                 _alreadyPressed = !_alreadyPressed;
@@ -38,11 +42,11 @@ public class ToggleButton : PressurePlate, IButton {
 
             if (_alreadyPressed)
             {
-                _isLocked = false;
+                _isLocked = true;
             }
             else
             {
-                _isLocked = true;
+                _isLocked = false;
             }
         }
 
@@ -50,14 +54,19 @@ public class ToggleButton : PressurePlate, IButton {
         {
             base._maxClamp = 0.5f;
             _isSendingSignal = true;
+
+            if (!base._hasWeight) base.GoUp();
+
         }
         else
         {
             base._maxClamp = 1f;
             _isSendingSignal = false;
+
+            if (!base._hasWeight) base.GoUp();
         }
 
-        base.Update();
+        if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
     }
 
