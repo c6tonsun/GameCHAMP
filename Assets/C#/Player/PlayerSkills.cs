@@ -22,7 +22,8 @@ public class PlayerSkills : MonoBehaviour
     public bool forceAimToFalse;
     [HideInInspector]
     public bool useAim = false;
-    private bool _alreadyActivated;
+    [HideInInspector]
+    public bool alreadyActivated;
     private bool _doActivation;
     private bool _doFreeze;
     private bool _doShoot;
@@ -56,7 +57,7 @@ public class PlayerSkills : MonoBehaviour
         #region inputs
         
         // skill mode
-        if (!_alreadyActivated && _inputHandler.KeyDown(InputHandler.Key.Change))
+        if (!alreadyActivated && _inputHandler.KeyDown(InputHandler.Key.Change))
         {
             ChangeSkillMode();
         }
@@ -73,17 +74,17 @@ public class PlayerSkills : MonoBehaviour
         }
         else
         {
-            _alreadyActivated = false;
+            alreadyActivated = false;
             _playerAim.AimOff();
         }
 
         // activation
         _doActivation = _inputHandler.KeyDown(InputHandler.Key.Activation);
         if (_doActivation && useAim)
-            _alreadyActivated = !_alreadyActivated;
+            alreadyActivated = !alreadyActivated;
 
         // freeze
-        if (_inputHandler.KeyDown(InputHandler.Key.Freeze) && _alreadyActivated)
+        if (_inputHandler.KeyDown(InputHandler.Key.Freeze) && alreadyActivated)
             _doFreeze = true;
 
         // shoot
@@ -144,7 +145,7 @@ public class PlayerSkills : MonoBehaviour
     private void DoSingle()
     {
         // check for new item
-        if (!_alreadyActivated && useAim)
+        if (!alreadyActivated && useAim)
         {
             RaycastHandling();
         }
@@ -159,7 +160,7 @@ public class PlayerSkills : MonoBehaviour
         // player look at + return
         if (_currentItem == null)
         {
-            _alreadyActivated = false;
+            alreadyActivated = false;
             _playerAnimation.doLookAt = false;
             return;
         }
@@ -170,7 +171,7 @@ public class PlayerSkills : MonoBehaviour
         }
 
         // activate item
-        if (_alreadyActivated)
+        if (alreadyActivated)
         {
             if (_currentItem.currentMode == Item.GravityMode.Self)
             {
@@ -197,7 +198,7 @@ public class PlayerSkills : MonoBehaviour
         if (_doFreeze)
         {
             _currentItem.SetGravityMode(Item.GravityMode.Freeze);
-            _alreadyActivated = false;
+            alreadyActivated = false;
             _doFreeze = false;
             return;
         }
@@ -214,7 +215,7 @@ public class PlayerSkills : MonoBehaviour
 
         #region activate items in area
 
-        if (_alreadyActivated)
+        if (alreadyActivated)
         {
             if (!_playerManipulationArea.itemsActivated)
             {
@@ -224,7 +225,7 @@ public class PlayerSkills : MonoBehaviour
                 }
                 else
                 {
-                    _alreadyActivated = false;
+                    alreadyActivated = false;
                 }
             }
         }
@@ -318,6 +319,6 @@ public class PlayerSkills : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
-        _alreadyActivated = false;
+        alreadyActivated = false;
     }
 }

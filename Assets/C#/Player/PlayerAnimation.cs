@@ -6,6 +6,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _anim;
     private Rigidbody _rb;
     private PlayerGravity _playerGravity;
+    private PlayerSkills _playerSkills;
     private PlayerAim _playerAim;
     private InputHandler _inputHandler;
 
@@ -13,11 +14,14 @@ public class PlayerAnimation : MonoBehaviour
     private bool _isGrounded;
     private float _yMovement;
     private float _xzMovement;
-    private float _x, _z;
+    private float _xMovement, _zMovement;
+    private bool _xNegative, _zNegative;
 
     // layer weight
     private int _aimLayer;
     private float _aimWeight;
+    private int _xLowerBodLayer;
+    private int _zLowerBodLayer;
 
     // look at
     [HideInInspector]
@@ -39,10 +43,13 @@ public class PlayerAnimation : MonoBehaviour
         _rb = GetComponentInParent<Rigidbody>();
         _playerGravity = GetComponentInParent<PlayerGravity>();
         _playerAim = GetComponentInParent<PlayerAim>();
+        _playerSkills = GetComponentInParent<PlayerSkills>();
         _inputHandler = FindObjectOfType<InputHandler>();
 
         // Layer index does not change so getting this once is enough.
         _aimLayer = _anim.GetLayerIndex("Aim");
+        _xLowerBodLayer = _anim.GetLayerIndex("XLowerbod");
+        _zLowerBodLayer = _anim.GetLayerIndex("ZLowerbod");
 
         // get head
         Transform[] bones = GetComponentsInChildren<Transform>(includeInactive: true);
@@ -60,14 +67,20 @@ public class PlayerAnimation : MonoBehaviour
     private void Update()
     {
         // Our input can be from -1 to 1.
-        _x = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
-        _z = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
+        _xMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
+        _zMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
+        /*
         // So we need to make them to positive numbers.
-        if (_x < 0) _x = -_x;
-        if (_z < 0) _z = -_z;
+        _xNegative = _xMovement < 0;
+        if (_xNegative)
+            _xMovement = -_xMovement;
+
+        _zNegative = _zMovement < 0;
+        if (_zNegative)
+            _zMovement = -_zMovement;
         // And then we add them.
-        _xzMovement = _x + _z;
-        
+        _xzMovement = _xMovement + _zMovement;
+        */
         // we get information from other components
         _isGrounded = _playerGravity.isGrounded;
         _yMovement = _rb.velocity.y;
@@ -75,7 +88,12 @@ public class PlayerAnimation : MonoBehaviour
         // set parameters to animator
         _anim.SetBool("isGrounded", _isGrounded);
         _anim.SetFloat("yMovement", _yMovement);
-        _anim.SetFloat("xzMovement", _xzMovement);
+        _anim.SetBool("xNegative", _xNegative);
+        _anim.SetBool("zNegative", _zNegative);
+        _anim.SetFloat("xMovement", _xMovement);
+        _anim.SetFloat("zMovement", _zMovement);
+        _anim.SetBool("Power", _playerSkills.alreadyActivated);
+        //_anim.SetFloat("xzMovement", _xzMovement);
 
         // layer weight         aimLerp = aim prosent
         _aimWeight = _playerAim.aimLerp;

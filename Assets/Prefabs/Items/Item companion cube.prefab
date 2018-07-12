@@ -149,10 +149,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b9f3745c7eb56a245ae8080a8d1b0a00, type: 3}
-  - {fileID: 2100002, guid: b9f3745c7eb56a245ae8080a8d1b0a00, type: 3}
+  - {fileID: 2100012, guid: b9f3745c7eb56a245ae8080a8d1b0a00, type: 3}
   - {fileID: 2100004, guid: b9f3745c7eb56a245ae8080a8d1b0a00, type: 3}
-  - {fileID: 2100006, guid: b9f3745c7eb56a245ae8080a8d1b0a00, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f480cd52762d3459e25b66f335dee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialIndex: 2
+  materialIndex: 1
 --- !u!114 &114608154109230630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,10 +242,6 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   leftTrasform: {fileID: 4011795823888994}
   rightTrasform: {fileID: 4208076021675526}
-  defMaterial: {fileID: 2100000, guid: 2222a11ccdbe43c4cb5cecbe03d6e93f, type: 2}
-  highMaterial: {fileID: 2100000, guid: cfdc6fae2571bf24bb238da94ca7e2b8, type: 2}
-  actMaterial: {fileID: 2100000, guid: e3dc92445b08f5542bb6510d7c7f2739, type: 2}
-  freezeMaterial: {fileID: 2100000, guid: e30ca4b518cb15d4bb45028af1138826, type: 2}
   currentMode: 0
 --- !u!119 &119574116778772908
 Projector:
