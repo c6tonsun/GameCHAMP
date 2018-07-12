@@ -15,11 +15,11 @@ AvatarMask:
   - m_Path: Armature/MOTHA
     m_Weight: 1
   - m_Path: Armature/MOTHA/BASE_SELK__ALA
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA
     m_Weight: 0
   - m_Path: Armature/MOTHA/BASE_SELK__ALA/SELKA_KESKI/SELKA_YLA/KAULA/PAA
