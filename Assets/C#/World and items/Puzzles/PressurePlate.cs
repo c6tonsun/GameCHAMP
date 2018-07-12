@@ -15,11 +15,14 @@ public class PressurePlate : VisualizedOverlaps {
 
     protected bool _hasWeight;
 
-    private int _itemCount = 1;
+    private float _massThreshold = 10f;
+
+    protected bool _isUp;
+    protected bool _isDown;
 
     protected void Start()
     {
-        _maxClamp = 1;
+        _maxClamp = 1f;
         _minClamp = 0;
         _unpressedPos = transform.position;
         _pressedPos = transform.parent.position;
@@ -32,35 +35,41 @@ public class PressurePlate : VisualizedOverlaps {
         
         _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, _minClamp, _maxClamp);
 
-        int totalCount = 0;
+        _isUp = _lerpTime == _maxClamp;
+        _isDown = _lerpTime == _minClamp;
+
+        float totalMass = 0;
 
         for (int i = 0; i < _colliders.Length; i++)
         {
             if(_colliders[i].GetComponent<Item>())
             {
-                totalCount += 1;
+                totalMass += _colliders[i].GetComponent<Rigidbody>().mass;
             }            
         }
 
-        if (totalCount >= _itemCount)
+        if(totalMass >= _massThreshold)
         {
-            if (!_hasWeight) _hasWeight = true;
-
-            if (speed > 0)
-            {
-                speed = -speed;
-            }
-        }
+            _hasWeight = true;
+            GoDown();
+        } 
         else
         {
-            if (speed < 0)
-            {
-                speed = -speed;
-            }
+            _hasWeight = false;
         }
-        
+
         transform.position = Vector3.Lerp(_pressedPos, _unpressedPos, _lerpTime);
 
+    }
+
+    protected void GoUp()
+    {
+        if (speed < 0) speed = -speed;
+    }
+
+    protected void GoDown()
+    {
+        if (speed > 0) speed = -speed;
     }
 
 }
