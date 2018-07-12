@@ -55,10 +55,9 @@ public class PlayerSkills : MonoBehaviour
         #region inputs
         
         // skill mode
-        if (_inputHandler.KeyDown(InputHandler.Key.Change))
+        if (!_alreadyActivated && _inputHandler.KeyDown(InputHandler.Key.Change))
         {
             ChangeSkillMode();
-            _alreadyActivated = false;
         }
 
         // aim toggle
@@ -117,7 +116,7 @@ public class PlayerSkills : MonoBehaviour
             _slideDoor = _hit.collider.GetComponent<SlideDoor>();
             if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
                 _slideDoor.Interact();
-
+            
             if (_currentItem != null)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.World);
@@ -199,14 +198,11 @@ public class PlayerSkills : MonoBehaviour
         }
 
         // move item
-        Move(_currentItem.transform, isItem: true);
+        Move(_currentItem.transform, 0.1f, isItem: true);
     }
 
     private void DoArea()
     {
-        // visibility
-        _playerManipulationArea.SetVisible(_useAim);
-
         // head look at
         _playerAnimation.target = _playerManipulationArea.transform;
         _playerAnimation.doLookAt = _useAim;
@@ -236,7 +232,7 @@ public class PlayerSkills : MonoBehaviour
 
         // move
         if (_playerManipulationArea != null)
-            Move(_playerManipulationArea.transform, isItem: false);
+            Move(_playerManipulationArea.transform, 0.1f, isItem: false);
     }
 
     private void RaycastHandling()
@@ -263,12 +259,12 @@ public class PlayerSkills : MonoBehaviour
         }
     }
     
-    private void Move(Transform toMove, bool isItem)
+    private void Move(Transform toMove, float lerp, bool isItem)
     {
         Vector3 targetPos = _camControl.transform.position + (_camControl.transform.forward * (_distance + _camControl.currentDistance));
 
         Vector3 oldPos = toMove.position;
-        Vector3 newPos = Vector3.Lerp(oldPos, targetPos, 0.1f);
+        Vector3 newPos = Vector3.Lerp(oldPos, targetPos, lerp);
         
         if (isItem)
         {
@@ -301,6 +297,16 @@ public class PlayerSkills : MonoBehaviour
         }
 
         currentSkillMode = (SkillMode)curIndex;
+        
+        if (currentSkillMode == SkillMode.Area)
+        {
+            _playerManipulationArea.SetVisible(true);
+            Move(_playerManipulationArea.transform, 1f, isItem: false);
+        }
+        else
+        {
+            _playerManipulationArea.SetVisible(false);
+        }
     }
 
     private IEnumerator Shoot()
