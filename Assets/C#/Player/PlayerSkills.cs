@@ -20,7 +20,8 @@ public class PlayerSkills : MonoBehaviour
 
     [HideInInspector]
     public bool forceAimToFalse;
-    private bool _useAim = false;
+    [HideInInspector]
+    public bool useAim = false;
     private bool _alreadyActivated;
     private bool _doActivation;
     private bool _doFreeze;
@@ -62,11 +63,11 @@ public class PlayerSkills : MonoBehaviour
 
         // aim toggle
         if (forceAimToFalse || !_playerGravity.isGrounded)
-            _useAim = false;
+            useAim = false;
         else if (_inputHandler.KeyDown(InputHandler.Key.Aim))
-            _useAim = !_useAim;
+            useAim = !useAim;
 
-        if (_useAim)
+        if (useAim)
         {
             _playerAim.AimOn();
         }
@@ -78,7 +79,7 @@ public class PlayerSkills : MonoBehaviour
 
         // activation
         _doActivation = _inputHandler.KeyDown(InputHandler.Key.Activation);
-        if (_doActivation && _useAim)
+        if (_doActivation && useAim)
             _alreadyActivated = !_alreadyActivated;
 
         // freeze
@@ -90,7 +91,7 @@ public class PlayerSkills : MonoBehaviour
             _doShoot = true;
 
         // distance
-        if (_useAim)
+        if (useAim)
         {
             if(Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
             {
@@ -111,12 +112,16 @@ public class PlayerSkills : MonoBehaviour
 
         #endregion
 
-        if (!_useAim && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        if (!useAim && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
         {
             _slideDoor = _hit.collider.GetComponent<SlideDoor>();
             if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
+            {
                 _slideDoor.Interact();
-            
+                _playerGravity.ignoreJumpInput = true;
+            }
+                
+
             if (_currentItem != null)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.World);
@@ -139,13 +144,13 @@ public class PlayerSkills : MonoBehaviour
     private void DoSingle()
     {
         // check for new item
-        if (!_alreadyActivated && _useAim)
+        if (!_alreadyActivated && useAim)
         {
             RaycastHandling();
         }
 
         // drop item
-        if (!_useAim && _currentItem != null)
+        if (!useAim && _currentItem != null)
         {
             _currentItem.SetGravityMode(Item.GravityMode.World);
             _currentItem = null;
@@ -205,7 +210,7 @@ public class PlayerSkills : MonoBehaviour
     {
         // head look at
         _playerAnimation.target = _playerManipulationArea.transform;
-        _playerAnimation.doLookAt = _useAim;
+        _playerAnimation.doLookAt = useAim;
 
         #region activate items in area
 

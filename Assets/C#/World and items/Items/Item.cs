@@ -194,7 +194,7 @@ public class Item : MonoBehaviour
 
     public void SetGravityMode(GravityMode mode)
     {
-        if (currentMode == mode || _freezeTime > 0)
+        if (currentMode == mode || (_freezeTime > 0 && mode != GravityMode.Player))
             return;
 
         currentMode = mode;
