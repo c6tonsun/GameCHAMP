@@ -43,6 +43,7 @@ public class Item : MonoBehaviour
 	
 	private void Update ()
     {
+
         if (_freezeTime > 0)
         {
             _freezeTime -= Time.deltaTime;
