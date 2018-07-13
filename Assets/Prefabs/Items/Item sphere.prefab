@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54757663453093608}
   - component: {fileID: 114125444253251094}
   - component: {fileID: 114171952969167204}
+  - component: {fileID: 114970018778470046}
   m_Layer: 9
   m_Name: Item sphere
   m_TagString: Untagged
@@ -98,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026280157174322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.14, y: -1.06, z: 15.6}
+  m_LocalPosition: {x: 2.75, y: 3.8, z: -4.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4824411504535620}
@@ -205,10 +206,6 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   leftTrasform: {fileID: 4824411504535620}
   rightTrasform: {fileID: 4889443330361372}
-  defMaterial: {fileID: 2100000, guid: 2222a11ccdbe43c4cb5cecbe03d6e93f, type: 2}
-  highMaterial: {fileID: 2100000, guid: cfdc6fae2571bf24bb238da94ca7e2b8, type: 2}
-  actMaterial: {fileID: 2100000, guid: e3dc92445b08f5542bb6510d7c7f2739, type: 2}
-  freezeMaterial: {fileID: 2100000, guid: e30ca4b518cb15d4bb45028af1138826, type: 2}
   currentMode: 0
 --- !u!114 &114171952969167204
 MonoBehaviour:
@@ -221,6 +218,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af489d607629a554281c72e0cecaaa02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114970018778470046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1026280157174322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f480cd52762d3459e25b66f335dee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialIndex: 0
 --- !u!119 &119033342672336032
 Projector:
   m_ObjectHideFlags: 1

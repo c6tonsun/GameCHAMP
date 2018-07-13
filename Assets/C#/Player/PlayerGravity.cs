@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
 
-public class PlayerGravity : MonoBehaviour {
-
-    private InputHandler _inputHandler;
+public class PlayerGravity : MonoBehaviour
+{
     private PlayerAim _playerAim;
     private Rigidbody _rb;
-    private PlayerSkills _playerSkills;
 
     [HideInInspector]
     public bool ignoreJumpInput;
     
     private float maxJumpTime = 1f;
     private float maxJumpTimer;
-    [Range(0.5f, 1f)]
-    public float factor = 0.7f;
-    [Range(0.3f, 0.5f)]
+    [HideInInspector]
+    public float factor = 0.75f;
+    [HideInInspector]
     public float radius = 0.35f;
     [HideInInspector]
     public bool isGrounded;
@@ -23,23 +21,18 @@ public class PlayerGravity : MonoBehaviour {
     {
         _playerAim = GetComponent<PlayerAim>();
         _rb = GetComponent<Rigidbody>();
-        _inputHandler = FindObjectOfType<InputHandler>();
-        _playerSkills = GetComponent<PlayerSkills>();
     }
 
-    private void Update()
+    public void DoUpdate(bool isAiming, bool jumpInput)
     {
         isGrounded = Physics.SphereCast(new Ray(transform.position - transform.up * transform.localScale.y * 0.5f, Vector3.down), radius, factor - 0.5f);
 
-        if (!_playerSkills.useAim && _inputHandler.KeyDown(InputHandler.Key.Jump))
+        if (ignoreJumpInput)
         {
-
-            if(ignoreJumpInput)
-            {
-                ignoreJumpInput = false;
-                return;
-            }
-
+            ignoreJumpInput = false;
+        }
+        else if (!isAiming && jumpInput)
+        {
             if (!_rb.useGravity)
             {
                 _rb.useGravity = true;

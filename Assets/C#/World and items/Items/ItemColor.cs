@@ -43,6 +43,9 @@ public class ItemColor : MonoBehaviour
 
     public void SetModeColor(int mode)
     {
-        _mr.materials[materialIndex].color = _gameManager.itemModeColors[mode];
+        if (mode == 0)
+            _mr.materials[materialIndex].color = _defaultColor;
+        else
+            _mr.materials[materialIndex].color = _gameManager.itemModeColors[mode - 1];
     }
 }

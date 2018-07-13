@@ -11,17 +11,12 @@ public class PlayerAnimation : MonoBehaviour
     private InputHandler _inputHandler;
 
     // local variables
-    private bool _isGrounded;
-    private float _yMovement;
     private float _xzMovement;
     private float _xMovement, _zMovement;
-    private bool _xNegative, _zNegative;
 
     // layer weight
     private int _aimLayer;
-    private float _aimWeight;
-    private int _xLowerBodLayer;
-    private int _zLowerBodLayer;
+    private int _powerLayer;
 
     // look at
     [HideInInspector]
@@ -48,8 +43,7 @@ public class PlayerAnimation : MonoBehaviour
 
         // Layer index does not change so getting this once is enough.
         _aimLayer = _anim.GetLayerIndex("Aim");
-        _xLowerBodLayer = _anim.GetLayerIndex("XLowerbod");
-        _zLowerBodLayer = _anim.GetLayerIndex("ZLowerbod");
+        _powerLayer = _anim.GetLayerIndex("Power");
 
         // get head
         Transform[] bones = GetComponentsInChildren<Transform>(includeInactive: true);
@@ -69,35 +63,27 @@ public class PlayerAnimation : MonoBehaviour
         // Our input can be from -1 to 1.
         _xMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
         _zMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
-        /*
-        // So we need to make them to positive numbers.
-        _xNegative = _xMovement < 0;
-        if (_xNegative)
-            _xMovement = -_xMovement;
 
-        _zNegative = _zMovement < 0;
-        if (_zNegative)
+        // Make sure that our floats are positive.
+        if (_xMovement < 0)
+            _xMovement = -_xMovement;
+        if (_zMovement < 0)
             _zMovement = -_zMovement;
-        // And then we add them.
+
+        // Add our positive float.
         _xzMovement = _xMovement + _zMovement;
-        */
-        // we get information from other components
-        _isGrounded = _playerGravity.isGrounded;
-        _yMovement = _rb.velocity.y;
 
         // set parameters to animator
-        _anim.SetBool("isGrounded", _isGrounded);
-        _anim.SetFloat("yMovement", _yMovement);
-        _anim.SetBool("xNegative", _xNegative);
-        _anim.SetBool("zNegative", _zNegative);
+        _anim.SetBool("isGrounded", _playerGravity.isGrounded);
+        _anim.SetFloat("yMovement", _rb.velocity.y);
         _anim.SetFloat("xMovement", _xMovement);
         _anim.SetFloat("zMovement", _zMovement);
+        _anim.SetFloat("xzMovement", _xzMovement);
         _anim.SetBool("Power", _playerSkills.alreadyActivated);
-        //_anim.SetFloat("xzMovement", _xzMovement);
 
-        // layer weight         aimLerp = aim prosent
-        _aimWeight = _playerAim.aimLerp;
-        _anim.SetLayerWeight(_aimLayer, _aimWeight);
+        // layer weight                            aimLerp = aim prosent
+        _anim.SetLayerWeight(_aimLayer, _playerAim.aimLerp);
+        _anim.SetLayerWeight(_powerLayer, lookAtProsent);
     }
 
     // LateUpdate is done after Unity's animation update

@@ -121,7 +121,6 @@ public class PlayerSkills : MonoBehaviour
                 _slideDoor.Interact();
                 _playerGravity.ignoreJumpInput = true;
             }
-                
 
             if (_currentItem != null)
             {
@@ -140,6 +139,8 @@ public class PlayerSkills : MonoBehaviour
         {
             DoArea();
         }
+
+        _playerGravity.DoUpdate(useAim, _inputHandler.KeyDown(InputHandler.Key.Jump));
     }
 
     private void DoSingle()
@@ -213,6 +214,8 @@ public class PlayerSkills : MonoBehaviour
         _playerAnimation.target = _playerManipulationArea.transform;
         _playerAnimation.doLookAt = useAim;
 
+        _playerManipulationArea.DoUpdate(_inputHandler.GetAxisInput(InputHandler.Axis.Rotation));
+
         #region activate items in area
 
         if (alreadyActivated)
@@ -237,8 +240,7 @@ public class PlayerSkills : MonoBehaviour
         #endregion
 
         // move
-        if (_playerManipulationArea != null)
-            Move(_playerManipulationArea.transform, 0.1f, isItem: false);
+        Move(_playerManipulationArea.transform, 0.1f, isItem: false);
     }
 
     private void RaycastHandling()
@@ -259,8 +261,9 @@ public class PlayerSkills : MonoBehaviour
                 _lastItem.SetGravityMode(Item.GravityMode.World);
             }
         }
-        else
+        else if (_currentItem != null)
         {
+            _currentItem.SetGravityMode(Item.GravityMode.World);
             _currentItem = null;
         }
     }

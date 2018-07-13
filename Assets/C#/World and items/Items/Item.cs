@@ -4,6 +4,7 @@ public class Item : MonoBehaviour
 {
     [HideInInspector]
     public Rigidbody rb;
+    private ItemColor _itemColor;
     private Collider[] _colliders;
 
     private float _freezeTime;
@@ -19,8 +20,8 @@ public class Item : MonoBehaviour
 
     public enum GravityMode
     {
-        ERROR = 0,
-        World = 1,
+        World = 0,
+        ERROR = 1,
         Player = 2,
         Self = 3,
         Freeze = 4
@@ -36,9 +37,8 @@ public class Item : MonoBehaviour
     private void Start ()
     {
         rb = GetComponent<Rigidbody>();
+        _itemColor = GetComponent<ItemColor>();
         _colliders = GetComponentsInChildren<Collider>();
-
-        SetGravityMode(GravityMode.World);
     }
 	
 	private void Update ()
@@ -198,6 +198,7 @@ public class Item : MonoBehaviour
             return;
 
         currentMode = mode;
+        _itemColor.SetModeColor((int)mode);
 
         switch(currentMode)
         {
@@ -224,9 +225,7 @@ public class Item : MonoBehaviour
             default:
                 FreezeRigidbody();
                 break;
-
         }
-
     }
 
     public void FreezeRigidbody()

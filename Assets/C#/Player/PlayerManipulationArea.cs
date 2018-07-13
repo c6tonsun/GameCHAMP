@@ -2,74 +2,74 @@
 
 public class PlayerManipulationArea : MonoBehaviour
 {
+    [HideInInspector]
     public bool isVisible = false;
+    [HideInInspector]
     public bool itemsActivated = false;
-    
+
     private Collider[] _colliders;
+    private float _radius;
     private Item[] _oldItems;
     private Item[] _newItems;
+    private int _itemCount;
 
-    private InputHandler _inputHandler;
-
-    private void Start()
+    private void Awake()
     {
-        _inputHandler = FindObjectOfType<InputHandler>();
-
-        _newItems = new Item[0];
-        _oldItems = new Item[0];
-
         transform.parent = null;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (!isVisible)
-        {
-            return;
-        }
+        _radius = MathHelp.AbsBiggest(transform.localScale, ignoreY: false) * 0.5f;
+        _newItems = new Item[0];
+        _oldItems = new Item[0];
+    }
 
-        if(_newItems.Length == 0)
-        {
-            itemsActivated = false;
-        }
-
+    public void DoUpdate(float rotationInput)
+    {
         _oldItems = _newItems;
-        _colliders = Physics.OverlapSphere(transform.position, MathHelp.AbsBiggest(transform.localScale, ignoreY: false) * 0.5f);
+        _colliders = Physics.OverlapSphere(transform.position, _radius);
         _newItems = new Item[_colliders.Length];
 
+        _itemCount = 0;
+
+        // set items to array, item count
         for(int i = 0; i < _colliders.Length; i++)
         {
             _newItems[i] = _colliders[i].GetComponent<Item>();
+            if (_newItems[i] != null)
+                _itemCount++;
         }
 
+        if (_itemCount == 0)
+            itemsActivated = false;
+
+        // find items that exited area
+        bool found;
         for (int i = 0; i < _oldItems.Length; i++)
         {
-            if(_oldItems[i] != null)
+            if (_oldItems[i] == null)
+                continue;
+
+            found = false;
+
+            for (int j = 0; j < _newItems.Length && !found; j++)
             {
-                bool found = false;
+                if (_newItems[j] == null)
+                    continue;
 
-                for(int j = 0; j < _newItems.Length && !found; j++)
-                {
-
-                    if (_newItems[j] == null)
-                        continue;
-
-                    if (_oldItems[i].Equals(_newItems[j]))
-                    {
-                        found = true;
-                    }
-                }
-
-                if(!found)
-                {
-                    _oldItems[i].SetGravityMode(Item.GravityMode.World);
-                }
-
+                if (_oldItems[i] == _newItems[j])
+                    found = true;
             }
 
+            if (!found)
+            {
+                _oldItems[i].SetGravityMode(Item.GravityMode.World);
+            }
 
         }
 
+        // item mode handling
         for(int i = 0; i < _newItems.Length; i++)
         {
             if (_newItems[i] == null)
@@ -85,8 +85,7 @@ public class PlayerManipulationArea : MonoBehaviour
             }
         }
 
-        MoveItems();
-        
+        MoveItems(rotationInput);
     }
 
     public void ActivateItems()
@@ -127,16 +126,6 @@ public class PlayerManipulationArea : MonoBehaviour
         itemsActivated = false;
     }
 
-    public void PushItems()
-    {
-
-    }
-
-    public void PullItems()
-    {
-
-    }
-
     public void FreezeItems()
     {
 
@@ -152,13 +141,13 @@ public class PlayerManipulationArea : MonoBehaviour
         if(!isVisible)
         {
             DeactivateItems();
+            _newItems = new Item[0];
+            _oldItems = new Item[0];
         }
     }
 
-    public void MoveItems()
+    public void MoveItems(float rotationInput)
     {
-        float rotationInput = _inputHandler.GetAxisInput(InputHandler.Axis.Rotation);
-
         for(int i = 0; i < _newItems.Length; i++)
         {
             Item item = _newItems[i];

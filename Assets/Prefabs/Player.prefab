@@ -828,7 +828,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4718491956149788}
@@ -953,6 +953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030bbf072b6efbb4787a561a4b062111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreJumpInput: 0
   factor: 0.75
   radius: 0.35
   isGrounded: 1
@@ -992,6 +993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAimToFalse: 0
+  useAim: 0
+  alreadyActivated: 0
   currentSkillMode: 0
 --- !u!114 &114739593530457074
 MonoBehaviour:

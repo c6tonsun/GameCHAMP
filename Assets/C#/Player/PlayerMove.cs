@@ -13,12 +13,17 @@ public class PlayerMove : MonoBehaviour {
     private Vector3 _movement;
     private float rotationLerp = 0.2f;
 
+    private Vector3 _checkPointPos;
+    private Quaternion _checkPointRot;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _camTransform = FindObjectOfType<Camera>().transform;
         _inputHandler = FindObjectOfType<InputHandler>();
+
+        SetCheckPoint(transform);
     }
 
     private void Update()
@@ -36,7 +41,7 @@ public class PlayerMove : MonoBehaviour {
         transform.forward = Vector3.Slerp(transform.forward, _movement.normalized, rotationLerp);
 
         if (transform.position.y < -10)
-            ResetPosition();
+            PlayerToLastCheckPoint();
     }
 
     private void FixedUpdate()
@@ -70,9 +75,17 @@ public class PlayerMove : MonoBehaviour {
         return true;
     }
 
-    private void ResetPosition()
+    public void SetCheckPoint(Transform checkPoint)
     {
-        transform.position = new Vector3(0f, 2f, 0f);
+        _checkPointPos = checkPoint.position;
+        _checkPointRot = checkPoint.rotation;
+    }
+
+    public void PlayerToLastCheckPoint()
+    {
+        transform.position = _checkPointPos;
+        transform.rotation = _checkPointRot;
+
         _rb.velocity = Vector3.zero;
     }
 }
