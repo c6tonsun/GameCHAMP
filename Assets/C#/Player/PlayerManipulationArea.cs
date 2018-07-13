@@ -13,6 +13,8 @@ public class PlayerManipulationArea : MonoBehaviour
     private Item[] _newItems;
     private int _itemCount;
 
+    private Item _item;
+
     private void Awake()
     {
         transform.parent = null;
@@ -72,7 +74,7 @@ public class PlayerManipulationArea : MonoBehaviour
         // item mode handling
         for(int i = 0; i < _newItems.Length; i++)
         {
-            if (_newItems[i] == null)
+            if (_newItems[i] == null || itemsActivated)
                 continue;
 
             if (_newItems[i].currentMode == Item.GravityMode.World)
@@ -90,24 +92,21 @@ public class PlayerManipulationArea : MonoBehaviour
 
     public void ActivateItems()
     {
-        
         for(int i = 0; i < _newItems.Length; i++)
         {
-            Item item = _newItems[i];
+            _item = _newItems[i];
 
-            if (item != null)
+            if (_item == null)
+                continue;
+
+            if (_item.currentMode == Item.GravityMode.Self || _item.currentMode == Item.GravityMode.Freeze)
             {
-                if (item.currentMode == Item.GravityMode.Self || item.currentMode == Item.GravityMode.Freeze)
-                {
-                    item.SetGravityMode(Item.GravityMode.Player);
-                    //item.transform.position = new Vector3(item.transform.position.x, transform.position.y, item.transform.position.z);
-                    item.offset = item.transform.position - transform.position;
-                }
+                _item.SetGravityMode(Item.GravityMode.Player);
+                _item.offset = _item.transform.position - transform.position;
             }
         }
 
         itemsActivated = true;
-
     }
 
     public void DeactivateItems()
@@ -128,7 +127,27 @@ public class PlayerManipulationArea : MonoBehaviour
 
     public void FreezeItems()
     {
+        foreach (Item item in _newItems)
+            item.SetGravityMode(Item.GravityMode.Freeze);
 
+        itemsActivated = false;
+    }
+
+    public void ShootItems(Vector3 camPos)
+    {
+        Vector3[] directions = new Vector3[_newItems.Length];
+        for (int i = 0; i < _newItems.Length; i++)
+        {
+            if (_newItems[i] == null)
+                continue;
+
+            _newItems[i].SetGravityMode(Item.GravityMode.World);
+            directions[i] = (_newItems[i].transform.position - camPos).normalized;
+        }
+
+        StartCoroutine(GameManager.ShootAll(_newItems, directions));
+
+        itemsActivated = false;
     }
 
     public void SetVisible(bool value)
@@ -179,16 +198,12 @@ public class PlayerManipulationArea : MonoBehaviour
 
     public bool HasItems()
     {
-        
         foreach(Item item in _newItems)
         {
             if(item != null)
-            {
                 return true;
-            }
         }
 
         return false;
     }
-
 }

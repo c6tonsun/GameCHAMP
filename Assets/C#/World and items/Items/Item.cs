@@ -210,6 +210,7 @@ public class Item : MonoBehaviour
             case GravityMode.Player:
                 _defLerpTime = 0f;
                 _startRot = transform.rotation;
+                _freezeTime = 0f;
                 FreezeRigidbody();
                 break;
 

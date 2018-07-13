@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerSkills : MonoBehaviour
 {
@@ -113,13 +112,16 @@ public class PlayerSkills : MonoBehaviour
 
         #endregion
 
-        if (!useAim && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        if (!useAim)
         {
-            _slideDoor = _hit.collider.GetComponent<SlideDoor>();
-            if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
+            if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
             {
-                _slideDoor.Interact();
-                _playerGravity.ignoreJumpInput = true;
+                _slideDoor = _hit.collider.GetComponent<SlideDoor>();
+                if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
+                {
+                    _slideDoor.Interact();
+                    _playerGravity.ignoreJumpInput = true;
+                }
             }
 
             if (_currentItem != null)
@@ -190,7 +192,8 @@ public class PlayerSkills : MonoBehaviour
         if (_doShoot)
         {
             _currentItem.SetGravityMode(Item.GravityMode.World);
-            StartCoroutine(Shoot());
+            StartCoroutine(GameManager.Shoot(_currentItem, _camControl.transform.forward));
+            alreadyActivated = false;
             _doShoot = false;
             return;
         }
@@ -213,31 +216,46 @@ public class PlayerSkills : MonoBehaviour
         // head look at
         _playerAnimation.target = _playerManipulationArea.transform;
         _playerAnimation.doLookAt = useAim;
-
+        
+        _playerManipulationArea.SetVisible(true);
         _playerManipulationArea.DoUpdate(_inputHandler.GetAxisInput(InputHandler.Axis.Rotation));
 
         #region activate items in area
 
-        if (alreadyActivated)
+        if (_doActivation)
         {
-            if (!_playerManipulationArea.itemsActivated)
+            if (alreadyActivated)
             {
-                if(_playerManipulationArea.HasItems())
-                {
+                if (_playerManipulationArea.HasItems())
                     _playerManipulationArea.ActivateItems();
-                }
                 else
-                {
                     alreadyActivated = false;
-                }
             }
-        }
-        else
-        {
-            _playerManipulationArea.DeactivateItems();
+            else
+            {
+                _playerManipulationArea.DeactivateItems();
+            }
         }
 
         #endregion
+
+        // freeze
+        if (_doFreeze)
+        {
+            _playerManipulationArea.FreezeItems();
+            alreadyActivated = false;
+            _doFreeze = false;
+            return;
+        }
+
+        // shoot
+        if (_doShoot)
+        {
+            _playerManipulationArea.ShootItems(_camControl.transform.position);
+            alreadyActivated = false;
+            _doShoot = false;
+            return;
+        }
 
         // move
         Move(_playerManipulationArea.transform, 0.1f, isItem: false);
@@ -316,12 +334,5 @@ public class PlayerSkills : MonoBehaviour
         {
             _playerManipulationArea.SetVisible(false);
         }
-    }
-
-    private IEnumerator Shoot()
-    {
-        yield return new WaitForFixedUpdate();
-        _currentItem.rb.AddForce(_camControl.transform.forward * 100, ForceMode.Impulse);
-        alreadyActivated = false;
     }
 }
