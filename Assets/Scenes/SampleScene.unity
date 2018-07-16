@@ -796,8 +796,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 578963972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000081946455, y: 0, z: 0.2368416}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.53}
+  m_LocalScale: {x: 1, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 1013969704}
   m_RootOrder: 0
@@ -808,7 +808,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 578963972}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -971,8 +971,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 671037145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.98, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.4, y: -1.99, z: 0}
+  m_LocalScale: {x: 1.8, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 897201037}
   m_RootOrder: 0
@@ -1038,6 +1038,8 @@ MonoBehaviour:
   isBall: 0
   ballRadius: 0
   boxSize: {x: 1.1, y: 0.5, z: 1.1}
+  offsetIngoresLocalRotation: 0
+  offset: {x: 0, y: 0, z: 0}
   speed: 8
   _isSendingSignal: 0
   _isInverted: 0
@@ -1456,9 +1458,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 897201036}
-  m_LocalRotation: {x: -0, y: -0.25881907, z: -0, w: 0.9659259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -18.415451, y: -2.4, z: 1.43}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 671037149}
   - {fileID: 1951838351}
@@ -1467,7 +1469,7 @@ Transform:
   - {fileID: 1013969704}
   m_Father: {fileID: 339369569}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -30.000002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935454567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,8 +1550,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 935454567}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.99, y: -0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1.8, z: 3}
   m_Children: []
   m_Father: {fileID: 897201037}
   m_RootOrder: 3
@@ -1673,7 +1675,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1013969703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: -0.387}
+  m_LocalPosition: {x: 0, y: -1, z: -1.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 578963973}
@@ -1694,6 +1696,8 @@ MonoBehaviour:
   isBall: 0
   ballRadius: 0
   boxSize: {x: 1.5, y: 1.5, z: 1.5}
+  offsetIngoresLocalRotation: 0
+  offset: {x: -3.53, y: 0, z: 0}
 --- !u!1 &1023249470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,9 +2893,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1951838347}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.33333272, y: -1.01, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.01, z: 0}
+  m_LocalScale: {x: 1.8, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 897201037}
   m_RootOrder: 1
@@ -2993,8 +2997,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1978841920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.33333397, y: -1.01, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
+  m_LocalPosition: {x: 0.99, y: -1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1.8, z: 3}
   m_Children: []
   m_Father: {fileID: 897201037}
   m_RootOrder: 2
