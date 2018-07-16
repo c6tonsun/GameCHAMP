@@ -19,16 +19,16 @@ public class VisualizedOverlaps : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (offsetIngoresLocalRotation)
+            center = transform.position + offset;
+        else
+            center = transform.position +
+                transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
+
         if (isBall)
-            Gizmos.DrawWireSphere(transform.position, ballRadius);
+            Gizmos.DrawWireSphere(center, ballRadius);
         else
         {
-            if (offsetIngoresLocalRotation)
-                center = transform.position + offset;
-            else
-                center = transform.position + 
-                    transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
-
             // when object is rotated recalculate corners
             if (transform.rotation != rotation || corners == null)
             {
@@ -70,9 +70,15 @@ public class VisualizedOverlaps : MonoBehaviour
 
     protected void Update()
     {
-        if (isBall)
-            _colliders = Physics.OverlapSphere(transform.position, ballRadius);
+        if (offsetIngoresLocalRotation)
+            center = transform.position + offset;
         else
-            _colliders = Physics.OverlapBox(transform.position, boxSize * 0.5f, transform.rotation);
+            center = transform.position +
+                transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
+
+        if (isBall)
+            _colliders = Physics.OverlapSphere(center, ballRadius);
+        else
+            _colliders = Physics.OverlapBox(center, boxSize * 0.5f, transform.rotation);
     }
 }
