@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchButton : PressurePlate, IButton {
+public class SwitchButton : PressurePlate, IPuzzlePiece {
 
     public bool _isSendingSignal;
     private bool _isButtonLocked;
@@ -12,6 +12,12 @@ public class SwitchButton : PressurePlate, IButton {
     private bool _isLocked;
     private bool _alreadyPressed;
     private bool _hasBeenUp;
+
+    public PuzzleMaster PuzzleMaster
+    {
+        get { return PuzzleMaster; }
+        set { PuzzleMaster = value; }
+    }
 
     private new void Start()
     {

@@ -1,22 +1,33 @@
 ﻿using UnityEngine;
 
-public class SlideDoor : MonoBehaviour
+public class SlideDoor : VisualizedOverlaps
 {
+    [Header("Door stuff")]
     public bool isInteractable;
     public Transform close, open;
     public float speed;
     private float _lerpTime;
 
-    private void Update()
+    private new void Update()
     {
+        base.Update();
+        
+        foreach (Collider col in _colliders)
+        {
+            if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+                return;
+        }
+
         _lerpTime += Time.deltaTime * speed;
         transform.position = Vector3.Lerp(close.position, open.position, _lerpTime);
+
+        offset = close.position - transform.position;
 
         if (_lerpTime < 0 || _lerpTime > 1)
             enabled = false;
     }
-
-    private void Close()
+    
+    public void Close()
     {
         if (speed > 0)
             speed = -speed;
@@ -24,7 +35,7 @@ public class SlideDoor : MonoBehaviour
         enabled = true;
     }
 
-    private void Open()
+    public void Open()
     {
         if (speed < 0)
             speed = -speed;

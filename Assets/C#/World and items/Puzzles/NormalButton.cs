@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalButton : PressurePlate, IButton {
+public class NormalButton : PressurePlate, IPuzzlePiece {
 
     public bool _isSendingSignal;
     private bool _isButtonLocked;
@@ -12,6 +12,12 @@ public class NormalButton : PressurePlate, IButton {
     private bool _isLocked;
     public float _delay;
     private float _delayTimer;
+    
+    public PuzzleMaster PuzzleMaster
+    {
+        get { return PuzzleMaster; }
+        set { PuzzleMaster = value; }
+    }
 
     private new void Start()
     {
