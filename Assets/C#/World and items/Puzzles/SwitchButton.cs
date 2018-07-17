@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchButton : PressurePlate, IButton {
+public class SwitchButton : BaseSwitch, IButton {
 
     public bool _isSendingSignal;
     private bool _isButtonLocked;
@@ -13,9 +13,15 @@ public class SwitchButton : PressurePlate, IButton {
     private bool _alreadyPressed;
     private bool _hasBeenUp;
 
+    public float massThreshold;
+
     private new void Start()
     {
         base.Start();
+        base.SetMovable(true);
+
+        if (massThreshold < 1f)
+            massThreshold = 1f;
     }
 
     private new void Update()
@@ -28,19 +34,23 @@ public class SwitchButton : PressurePlate, IButton {
 
         base.Update();
 
-        if (base._isUp)
+        float totalMass = base.GetMassOfItems();
+
+        if(totalMass < massThreshold)
         {
+            base.GoUp();
             _hasBeenUp = true;
         }
-
-        if (base._isDown)
+        else
         {
+            base.GoDown();
+
             if (_hasBeenUp)
                 _alreadyPressed = !_alreadyPressed;
 
             _hasBeenUp = false;
 
-            if (_alreadyPressed)
+            if(_alreadyPressed)
             {
                 _isLocked = true;
             }
@@ -52,18 +62,18 @@ public class SwitchButton : PressurePlate, IButton {
 
         if (_isLocked)
         {
-            base._maxClamp = 0.5f;
+            base._minClamp = 0.5f;
             _isSendingSignal = true;
 
-            if (!base._hasWeight) base.GoUp();
+            if (totalMass < massThreshold) base.GoUp();
 
         }
         else
         {
-            base._maxClamp = 1f;
+            base._minClamp = 0f;
             _isSendingSignal = false;
 
-            if (!base._hasWeight) base.GoUp();
+            if (totalMass < massThreshold) base.GoUp();
         }
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
