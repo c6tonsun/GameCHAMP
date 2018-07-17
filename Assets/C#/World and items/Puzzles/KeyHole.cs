@@ -27,7 +27,6 @@ public class KeyHole : VisualizedOverlaps {
             {
                 if (_colliders[i].GetComponent<Item>() && _colliders[i].GetComponent<Key>())
                 {
-                    _colliders[i].GetComponent<Item>().SetGravityMode(Item.GravityMode.World);
                     _itemKey = _colliders[i].GetComponent<Item>().transform;
                     _startPos = _itemKey.position;
                     _startRot = _itemKey.rotation;
@@ -35,6 +34,20 @@ public class KeyHole : VisualizedOverlaps {
                     break;
                 }
             }
+
+            
+            if(_itemKey != null)
+            {
+                if (_startRot.eulerAngles.y > 45 || _startRot.eulerAngles.y < -45)
+                {
+                    _itemKey = null;
+                }
+                else
+                {
+                    _itemKey.GetComponent<Item>().SetGravityMode(Item.GravityMode.World);
+                }
+            }
+             
         }
         else
         {
@@ -42,8 +55,13 @@ public class KeyHole : VisualizedOverlaps {
 
             _itemKey.position = Vector3.Lerp(_startPos, _target.position, _timer);
             _itemKey.rotation = Quaternion.Lerp(_startRot, _target.rotation, _timer);
-
-
+            
+            /*
+            if(_timer > 1)
+            {
+                Quaternion testRot = Quaternion.Euler(_itemKey.eulerAngles.x, _itemKey.eulerAngles.y, _itemKey.eulerAngles.z - 90);
+                _itemKey.rotation = Quaternion.Lerp(_itemKey.rotation, testRot, _timer);
+            }*/
         }
 
     }

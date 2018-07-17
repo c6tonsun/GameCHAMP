@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalButton : PressurePlate, IPuzzlePiece {
+public class NormalButton : BaseSwitch, IPuzzlePiece
+{
 
     public bool _isSendingSignal;
     private bool _isButtonLocked;
@@ -19,24 +20,39 @@ public class NormalButton : PressurePlate, IPuzzlePiece {
         set { PuzzleMaster = value; }
     }
 
+    public float massThreshold;
+
     private new void Start()
     {
         base.Start();
+        base.SetMovable(true);
+
+        if (massThreshold < 1f)
+            massThreshold = 1f;
     }
 
     private new void Update()
     {
+        if(_isButtonLocked)
+        {
+            return;
+        }
+            
         base.Update();
 
-        if (base._isUp)
+        float totalMass = base.GetMassOfItems();
+
+        if(totalMass < massThreshold && !_isLocked)
         {
+            base.GoUp();
             if (_isSendingSignal) _isSendingSignal = false;
         }
-        else if(base._isDown)
+        else
         {
+            base.GoDown();
             if (!_isSendingSignal) _isSendingSignal = true;
 
-            if(base._hasWeight)
+            if(totalMass >= massThreshold)
             {
                 _delayTimer = 0;
                 _isLocked = true;
@@ -51,10 +67,6 @@ public class NormalButton : PressurePlate, IPuzzlePiece {
         }
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
-
-        if (!_isLocked && base._isDown) base.GoUp(); 
-
-        
 
     }
 
