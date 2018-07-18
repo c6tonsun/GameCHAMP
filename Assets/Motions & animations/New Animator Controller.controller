@@ -420,7 +420,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: yMovement
-    m_EventTreshold: 0
+    m_EventTreshold: -6
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102363702079446984}
   m_Solo: 0
