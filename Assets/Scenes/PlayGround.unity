@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -629,6 +629,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f881e1de91daa4d97cbb4ae7e27d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 1024
   isBall: 0
   ballRadius: 0
   boxSize: {x: 10, y: 10, z: 10}
@@ -902,6 +905,11 @@ Prefab:
         type: 2}
       propertyPath: isInteractable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387300387704014, guid: e363907f749dc0a499c02104ef11ceeb,
+        type: 2}
+      propertyPath: layersToHit.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e363907f749dc0a499c02104ef11ceeb, type: 2}

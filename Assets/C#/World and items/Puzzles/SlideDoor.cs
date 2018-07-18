@@ -12,11 +12,8 @@ public class SlideDoor : VisualizedOverlaps
     {
         base.Update();
         
-        foreach (Collider col in _colliders)
-        {
-            if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
-                return;
-        }
+        if (_colliders.Length > 0)
+            return;
 
         _lerpTime += Time.deltaTime * speed;
         transform.position = Vector3.Lerp(close.position, open.position, _lerpTime);

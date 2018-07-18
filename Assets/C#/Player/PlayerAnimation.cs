@@ -64,14 +64,8 @@ public class PlayerAnimation : MonoBehaviour
         _xMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveX);
         _zMovement = _inputHandler.GetAxisInput(InputHandler.Axis.MoveZ);
 
-        // Make sure that our floats are positive.
-        if (_xMovement < 0)
-            _xMovement = -_xMovement;
-        if (_zMovement < 0)
-            _zMovement = -_zMovement;
-
-        // Add our positive float.
-        _xzMovement = _xMovement + _zMovement;
+        // Get absolute values and add them.
+        _xzMovement = Mathf.Abs(_xMovement) + Mathf.Abs(_zMovement);
 
         // set parameters to animator
         _anim.SetBool("isGrounded", _playerGravity.isGrounded);

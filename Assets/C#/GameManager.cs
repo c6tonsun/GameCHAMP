@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public Color[] itemColorsByMass;
     public float[] itemMassLessThan;
     public Color[] itemModeColors;
-
+    
     public static IEnumerator Shoot(Item item, Vector3 direction)
     {
         yield return new WaitForFixedUpdate();

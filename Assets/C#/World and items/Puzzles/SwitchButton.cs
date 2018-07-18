@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SwitchButton : BaseSwitch, IPuzzlePiece
+﻿public class SwitchButton : BaseSwitch, IPuzzlePiece, IButton
 {
-
-    public bool _isSendingSignal;
+    private bool _isSendingSignal;
+    private bool _oldIsSendingSignal;
     private bool _isButtonLocked;
 
     public bool _isInverted;
@@ -13,37 +9,32 @@ public class SwitchButton : BaseSwitch, IPuzzlePiece
     private bool _isLocked;
     private bool _alreadyPressed;
     private bool _hasBeenUp;
-    
+
+    private PuzzleMaster _puzzleMaster;
     public PuzzleMaster PuzzleMaster
     {
-        get { return PuzzleMaster; }
-        set { PuzzleMaster = value; }
+        get { return _puzzleMaster; }
+        set { _puzzleMaster = value; }
     }
-
-    public float massThreshold;
 
     private new void Start()
     {
         base.Start();
         base.SetMovable(true);
-
-        if (massThreshold < 1f)
-            massThreshold = 1f;
     }
 
     private new void Update()
     {
-
-        if(_isButtonLocked)
+        if (_isButtonLocked)
         {
             return;
         }
 
+        _oldIsSendingSignal = _isSendingSignal;
+
         base.Update();
 
-        float totalMass = base.GetMassOfItems();
-
-        if(totalMass < massThreshold)
+        if (!_isEnoughMass)
         {
             base.GoUp();
             _hasBeenUp = true;
@@ -57,7 +48,7 @@ public class SwitchButton : BaseSwitch, IPuzzlePiece
 
             _hasBeenUp = false;
 
-            if(_alreadyPressed)
+            if (_alreadyPressed)
             {
                 _isLocked = true;
             }
@@ -72,7 +63,7 @@ public class SwitchButton : BaseSwitch, IPuzzlePiece
             base._minClamp = 0.5f;
             _isSendingSignal = true;
 
-            if (totalMass < massThreshold) base.GoUp();
+            if (!_isEnoughMass) base.GoUp();
 
         }
         else
@@ -80,17 +71,30 @@ public class SwitchButton : BaseSwitch, IPuzzlePiece
             base._minClamp = 0f;
             _isSendingSignal = false;
 
-            if (totalMass < massThreshold) base.GoUp();
+            if (!_isEnoughMass) base.GoUp();
         }
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
+        CheckSingalChanged();
     }
+
+    #region IPuzzlePiece
 
     public bool IsSendingSignal()
     {
         return _isSendingSignal;
     }
+
+    public void CheckSingalChanged()
+    {
+        if (_oldIsSendingSignal != _isSendingSignal)
+            _puzzleMaster.CheckPuzzlePieces();
+    }
+
+    #endregion
+
+    #region IButton
 
     public bool IsButtonLocked()
     {
@@ -102,4 +106,5 @@ public class SwitchButton : BaseSwitch, IPuzzlePiece
         _isButtonLocked = value;
     }
 
+    #endregion
 }

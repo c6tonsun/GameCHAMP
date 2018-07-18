@@ -477,23 +477,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114222613894608354, guid: a32cb700cf37de0469d0b04be76bf35c,
-        type: 2}
-      propertyPath: boxSize.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114222613894608354, guid: a32cb700cf37de0469d0b04be76bf35c,
-        type: 2}
-      propertyPath: movementSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114222613894608354, guid: a32cb700cf37de0469d0b04be76bf35c,
-        type: 2}
-      propertyPath: massThreshold
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114222613894608354, guid: a32cb700cf37de0469d0b04be76bf35c, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a32cb700cf37de0469d0b04be76bf35c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &170076733
@@ -561,31 +545,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &181117936 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1694153922483462, guid: a32cb700cf37de0469d0b04be76bf35c,
-    type: 2}
-  m_PrefabInternal: {fileID: 163865086}
---- !u!114 &181117938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 181117936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23c950f0b89cf749b1b3cbd9a726d28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBall: 0
-  ballRadius: 1
-  boxSize: {x: 1.1, y: 0.5, z: 1.1}
-  offsetIngoresLocalRotation: 0
-  offset: {x: 0, y: 0, z: 0}
-  speed: 8
-  _isSendingSignal: 0
-  _isInverted: 0
-  massThreshold: 5
 --- !u!1 &224308745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f354bfad56a4efa40967dfb62ef63e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 0
   isBall: 0
   ballRadius: 0
   boxSize: {x: 1.1, y: 0.5, z: 1.1}
@@ -1730,6 +1692,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90dcce8da5c800489a8e6b12a4371f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 512
   isBall: 0
   ballRadius: 0
   boxSize: {x: 1.5, y: 1.5, z: 1.5}
@@ -2394,18 +2359,6 @@ Prefab:
     - target: {fileID: 4592755133904210, guid: 4641caadcb6f4ea429f02b058b3d3066, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592755133904210, guid: 4641caadcb6f4ea429f02b058b3d3066, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592755133904210, guid: 4641caadcb6f4ea429f02b058b3d3066, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592755133904210, guid: 4641caadcb6f4ea429f02b058b3d3066, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4641caadcb6f4ea429f02b058b3d3066, type: 2}

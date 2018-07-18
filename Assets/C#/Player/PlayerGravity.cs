@@ -8,8 +8,8 @@ public class PlayerGravity : MonoBehaviour
     [HideInInspector]
     public bool ignoreJumpInput;
     
-    private float maxJumpTime = 1f;
-    private float maxJumpTimer;
+    private float _maxJumpTime = 0.75f;
+    private float _maxJumpTimer;
     [HideInInspector]
     public float factor = 0.75f;
     [HideInInspector]
@@ -41,16 +41,16 @@ public class PlayerGravity : MonoBehaviour
             {
                 _rb.useGravity = false;
                 _playerAim.AimOff();
-                maxJumpTimer = 0f;
+                _maxJumpTimer = 0f;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        maxJumpTimer += Time.fixedDeltaTime;
+        _maxJumpTimer += Time.fixedDeltaTime;
 
-        if (!_rb.useGravity && maxJumpTimer > maxJumpTime)
+        if (!_rb.useGravity && _maxJumpTimer > _maxJumpTime)
             _rb.useGravity = true;
 
         if (!_rb.useGravity)

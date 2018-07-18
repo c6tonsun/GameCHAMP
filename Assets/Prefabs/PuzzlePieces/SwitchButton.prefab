@@ -54,14 +54,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747609795864952}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.73, y: 2.26, z: -9.69}
-  m_LocalScale: {x: 1.1999999, y: 0.3000001, z: 1.2000004}
+  m_LocalRotation: {x: -0.00000019371507, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.35, y: 0.5, z: 1.06}
+  m_LocalScale: {x: 1.1999999, y: 0.3, z: 1.2000004}
   m_Children:
   - {fileID: 4749838746378782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4749838746378782
 Transform:
   m_ObjectHideFlags: 1
@@ -194,9 +194,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23c950f0b89cf749b1b3cbd9a726d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 1536
   isBall: 0
   ballRadius: 0
   boxSize: {x: 1.1, y: 0.5, z: 1.1}
+  offsetIngoresLocalRotation: 0
+  offset: {x: 0, y: 0, z: 0}
   speed: 8
-  _isSendingSignal: 0
+  massThreshold: 5
   _isInverted: 0

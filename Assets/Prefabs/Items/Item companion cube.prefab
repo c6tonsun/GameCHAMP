@@ -35,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4683783592353274}
   - component: {fileID: 119574116778772908}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114383520699314134}
   - component: {fileID: 114608154109230630}
   - component: {fileID: 114516335113566222}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Item companion cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730158802149826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 5.2, z: -12}
+  m_LocalPosition: {x: -8.55, y: 1.926, z: 11.52}
   m_LocalScale: {x: 0.5065256, y: 0.5065257, z: 0.5065257}
   m_Children:
   - {fileID: 4011795823888994}

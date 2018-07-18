@@ -2,19 +2,24 @@
 
 public class PuzzleMaster : MonoBehaviour
 {
-    public IPuzzlePiece[] pieces;
-    public SlideDoor door;
+    private SlideDoor _door;
     private bool openDoor;
+    private IPuzzlePiece[] _pieces;
 
     private void Start()
     {
-        foreach (IPuzzlePiece piece in pieces)
+        _door = GetComponentInChildren<SlideDoor>();
+        _pieces = GetComponentsInChildren<IPuzzlePiece>();
+
+        foreach (IPuzzlePiece piece in _pieces)
             piece.PuzzleMaster = this;
     }
 
     public void CheckPuzzlePieces()
     {
-        foreach (IPuzzlePiece piece in pieces)
+        openDoor = true;
+
+        foreach (IPuzzlePiece piece in _pieces)
         {
             if (!piece.IsSendingSignal())
             {
@@ -24,8 +29,8 @@ public class PuzzleMaster : MonoBehaviour
         }
 
         if (openDoor)
-            door.Open();
+            _door.Open();
         else
-            door.Close();
+            _door.Close();
     }
 }

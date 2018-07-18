@@ -14,12 +14,19 @@ public class BaseSwitch : VisualizedOverlaps
     private Quaternion _flickedRot;
     private Quaternion _unflickedRot;
 
+    [Header("Switch stuff")]
     public float speed;
 
     private float _lerpTime;
 
     protected float _maxClamp;
     protected float _minClamp;
+
+    [Range(0.01f, 100f)]
+    public float massThreshold;
+    private float _totalMass;
+    protected bool _isEnoughMass;
+    private Rigidbody _rbForMass;
 
     protected void Start()
     {
@@ -35,13 +42,26 @@ public class BaseSwitch : VisualizedOverlaps
     {
         base.Update();
 
+        #region mass calculation
+
+        _totalMass = 0f;
+        foreach (Collider col in _colliders)
+        {
+            _rbForMass = col.GetComponent<Rigidbody>();
+            if (_rbForMass != null)
+                _totalMass += _rbForMass.mass;
+        }
+        _isEnoughMass = _totalMass >= massThreshold;
+
+        #endregion
+
         _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, _minClamp, _maxClamp);
 
         if (_isMovable)
         {
             transform.position = Vector3.Lerp(_unpressedPos, _pressedPos, _lerpTime);
         }
-        else if (_isRotable)
+        if (_isRotable)
         {
             transform.rotation = Quaternion.Lerp(_unflickedRot, _flickedRot, _lerpTime);
         }
@@ -55,21 +75,6 @@ public class BaseSwitch : VisualizedOverlaps
     public void GoDown()
     {
         if (speed < 0) speed = -speed;
-    }
-
-    public float GetMassOfItems()
-    {
-        float totalMass = 0;
-
-        for (int i = 0; i < _colliders.Length; i++)
-        {
-            if (_colliders[i].GetComponent<Item>())
-            {
-                totalMass += _colliders[i].GetComponent<Rigidbody>().mass;
-            }
-        }
-
-        return totalMass;
     }
 
     public void SetMovable(bool value)

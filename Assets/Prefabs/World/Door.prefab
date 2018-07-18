@@ -440,6 +440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2201b046f84d16445a194564689d1110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 1024
   isBall: 0
   ballRadius: 1
   boxSize: {x: 2, y: 4, z: 1}

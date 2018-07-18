@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalButton : BaseSwitch, IPuzzlePiece
+public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
 {
 
-    public bool _isSendingSignal;
+    private bool _isSendingSignal;
+    private bool _oldIsSendingSignal;
     private bool _isButtonLocked;
 
     public bool _isInverted;
@@ -13,36 +14,32 @@ public class NormalButton : BaseSwitch, IPuzzlePiece
     private bool _isLocked;
     public float _delay;
     private float _delayTimer;
-    
+
+    private PuzzleMaster _puzzleMaster;
     public PuzzleMaster PuzzleMaster
     {
-        get { return PuzzleMaster; }
-        set { PuzzleMaster = value; }
+        get { return _puzzleMaster; }
+        set { _puzzleMaster = value; }
     }
-
-    public float massThreshold;
 
     private new void Start()
     {
         base.Start();
         base.SetMovable(true);
-
-        if (massThreshold < 1f)
-            massThreshold = 1f;
     }
 
     private new void Update()
     {
-        if(_isButtonLocked)
+        if (_isButtonLocked)
         {
             return;
         }
-            
+
+        _oldIsSendingSignal = _isSendingSignal;
+
         base.Update();
 
-        float totalMass = base.GetMassOfItems();
-
-        if(totalMass < massThreshold && !_isLocked)
+        if (!_isEnoughMass && !_isLocked)
         {
             base.GoUp();
             if (_isSendingSignal) _isSendingSignal = false;
@@ -52,7 +49,7 @@ public class NormalButton : BaseSwitch, IPuzzlePiece
             base.GoDown();
             if (!_isSendingSignal) _isSendingSignal = true;
 
-            if(totalMass >= massThreshold)
+            if (_isEnoughMass)
             {
                 _delayTimer = 0;
                 _isLocked = true;
@@ -68,12 +65,25 @@ public class NormalButton : BaseSwitch, IPuzzlePiece
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
+        CheckSingalChanged();
     }
+
+    #region IPuzzlePiece
 
     public bool IsSendingSignal()
     {
         return _isSendingSignal;
     }
+
+    public void CheckSingalChanged()
+    {
+        if (_oldIsSendingSignal != _isSendingSignal)
+            _puzzleMaster.CheckPuzzlePieces();
+    }
+
+    #endregion
+
+    #region IButton
 
     public bool IsButtonLocked()
     {
@@ -85,4 +95,5 @@ public class NormalButton : BaseSwitch, IPuzzlePiece
         _isButtonLocked = value;
     }
 
+    #endregion
 }

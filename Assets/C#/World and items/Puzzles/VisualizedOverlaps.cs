@@ -2,6 +2,7 @@
 
 public class VisualizedOverlaps : MonoBehaviour
 {
+    public LayerMask layersToHit;
     public bool isBall;
     public float ballRadius = 1f;
     public Vector3 boxSize = Vector3.one;
@@ -16,7 +17,7 @@ public class VisualizedOverlaps : MonoBehaviour
     private Vector3 _localZ;
     private Vector3[] _corners;
     
-    protected Collider[] _colliders;
+    protected Collider[] _colliders = new Collider[0];
 
     private void OnDrawGizmos()
     {
@@ -81,8 +82,8 @@ public class VisualizedOverlaps : MonoBehaviour
                 transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
 
         if (isBall)
-            _colliders = Physics.OverlapSphere(_center, ballRadius);
+            _colliders = Physics.OverlapSphere(_center, ballRadius, layersToHit);
         else
-            _colliders = Physics.OverlapBox(_center, boxSize * 0.5f, transform.rotation);
+            _colliders = Physics.OverlapBox(_center, boxSize * 0.5f, transform.rotation, layersToHit);
     }
 }

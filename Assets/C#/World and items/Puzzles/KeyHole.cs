@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class KeyHole : VisualizedOverlaps {
-
+public class KeyHole : VisualizedOverlaps
+{
     private Transform _target;
     private float _timer;
     private Vector3 _startPos;
