@@ -21,9 +21,9 @@ ModelImporter:
     400014: seina
     2100000: unnamed
     2100002: Material_001
-    2100004: metal_2_001
-    2100006: Material
-    2100008: emit
+    2100004: emit
+    2100006: metal_2_001
+    2100008: Material
     2300000: Circle_001
     2300002: Circle_002
     2300004: Circle_003
