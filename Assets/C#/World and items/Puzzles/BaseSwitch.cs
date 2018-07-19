@@ -8,10 +8,13 @@ public class BaseSwitch : VisualizedOverlaps
     private bool _isMovable;
     private bool _isRotable;
 
+    protected bool _isUsedInPuzzle;
+
     private Vector3 _pressedPos;
     private Vector3 _unpressedPos;
 
-    private Quaternion _flickedRot;
+    public Transform _flicked;
+    private Vector3 _unflickedPos;
     private Quaternion _unflickedRot;
 
     [Header("Switch stuff")]
@@ -34,8 +37,8 @@ public class BaseSwitch : VisualizedOverlaps
         _minClamp = 0;
         _unpressedPos = transform.position;
         _pressedPos = transform.parent.position;
+        _unflickedPos = transform.position;
         _unflickedRot = transform.rotation;
-        _flickedRot = transform.parent.rotation;
     }
 
     protected new void Update()
@@ -63,7 +66,8 @@ public class BaseSwitch : VisualizedOverlaps
         }
         if (_isRotable)
         {
-            transform.rotation = Quaternion.Lerp(_unflickedRot, _flickedRot, _lerpTime);
+            transform.position = Vector3.Lerp(_unflickedPos, _flicked.position, _lerpTime);
+            transform.rotation = Quaternion.Lerp(_unflickedRot, _flicked.rotation, _lerpTime);
         }
     }
 

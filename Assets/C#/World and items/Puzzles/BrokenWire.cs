@@ -49,7 +49,7 @@ public class BrokenWire : VisualizedOverlaps, IPuzzlePiece
     public void CheckSingalChanged()
     {
         if (_oldIsConnected != isConnected)
-            PuzzleMaster.CheckPuzzlePieces();
+            _puzzleMaster.CheckPuzzlePieces();
     }
 
     #endregion

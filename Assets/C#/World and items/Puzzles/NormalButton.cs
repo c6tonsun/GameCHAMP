@@ -7,7 +7,7 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
 
     private bool _isSendingSignal;
     private bool _oldIsSendingSignal;
-    private bool _isButtonLocked;
+    public bool _isButtonLocked;
 
     public bool _isInverted;
 
@@ -34,6 +34,8 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
         {
             return;
         }
+
+        _isUsedInPuzzle = _puzzleMaster != null;
 
         _oldIsSendingSignal = _isSendingSignal;
 
@@ -65,7 +67,7 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
-        CheckSingalChanged();
+        if(_isUsedInPuzzle) CheckSingalChanged(); 
     }
 
     #region IPuzzlePiece
