@@ -15,12 +15,12 @@ public class SlideDoor : VisualizedOverlaps
         if (_colliders.Length > 0)
             return;
 
-        _lerpTime += Time.deltaTime * speed;
+        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, 0f, 1f);
         transform.position = Vector3.Lerp(close.position, open.position, _lerpTime);
 
         offset = close.position - transform.position;
 
-        if (_lerpTime < 0 || _lerpTime > 1)
+        if (_lerpTime == 0f || _lerpTime == 1f)
             enabled = false;
     }
     
