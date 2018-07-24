@@ -12,7 +12,7 @@ public class PlayerSkills : MonoBehaviour
 
     private Item _currentItem;
     private Item _lastItem;
-    private SlideDoor _slideDoor;
+    private IInteractable _interactable;
 
     private float _distance;
     private RaycastHit _hit;
@@ -116,10 +116,10 @@ public class PlayerSkills : MonoBehaviour
         {
             if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
             {
-                _slideDoor = _hit.collider.GetComponent<SlideDoor>();
-                if (_slideDoor != null && _slideDoor.isInteractable && _doActivation)
+                _interactable = _hit.collider.GetComponent<IInteractable>();
+                if (_interactable != null && _doActivation)
                 {
-                    _slideDoor.Interact();
+                    _interactable.Interact();
                     _playerGravity.ignoreJumpInput = true;
                 }
             }

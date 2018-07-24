@@ -12,7 +12,7 @@ public class SlideDoor : VisualizedOverlaps, IInteractable
     {
         base.Update();
         
-        if (_colliders.Length > 0)
+        if (_colliders.Length > 0 && speed < 0)
             return;
 
         _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, 0f, 1f);

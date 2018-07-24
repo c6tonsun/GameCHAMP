@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23c950f0b89cf749b1b3cbd9a726d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideGizmos: 0
   layersToHit:
     serializedVersion: 2
     m_Bits: 1536
@@ -202,6 +203,8 @@ MonoBehaviour:
   boxSize: {x: 1.1, y: 0.5, z: 1.1}
   offsetIngoresLocalRotation: 0
   offset: {x: 0, y: 0, z: 0}
+  _flicked: {fileID: 0}
   speed: 8
   massThreshold: 5
+  _isButtonLocked: 0
   _isInverted: 0

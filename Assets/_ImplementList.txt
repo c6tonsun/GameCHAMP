@@ -1,0 +1,11 @@
+TODO:
+lamp
+key
+lever
+lock
+pressure plate
+
+Done:
+door
+cube
+pointer

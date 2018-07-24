@@ -6,7 +6,6 @@ public class HandleStatic : MonoBehaviour
 {
     private GameObject[] _objects;
     private StaticObject _staticObject;
-    private SlideDoor _slideDoor;
     private bool _hasCollider;
     private bool _canNeedStatic;
 
@@ -18,9 +17,8 @@ public class HandleStatic : MonoBehaviour
         {
             _hasCollider = go.GetComponent<Collider>() != null;
             _staticObject = go.GetComponent<StaticObject>();
-            _slideDoor = go.GetComponent<SlideDoor>();
 
-            _canNeedStatic = go.isStatic || _slideDoor != null;
+            _canNeedStatic = go.isStatic || go.tag.Contains("Door");
 
             if (_canNeedStatic && _hasCollider && _staticObject == null)
                 go.AddComponent<StaticObject>();

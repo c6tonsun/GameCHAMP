@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e16f89d193a694e96fbff7fa65aa17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideGizmos: 0
   layersToHit:
     serializedVersion: 2
     m_Bits: 1536
@@ -303,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e16f89d193a694e96fbff7fa65aa17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideGizmos: 0
   layersToHit:
     serializedVersion: 2
     m_Bits: 1536
