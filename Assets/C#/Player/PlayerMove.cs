@@ -47,13 +47,14 @@ public class PlayerMove : MonoBehaviour {
     private void FixedUpdate()
     {
         _movement *= movementSpeed;
+
         Vector3 velocity = _rb.velocity;
+        velocity.x = 0f;
+        velocity.z = 0f;
+        _rb.velocity = velocity;
 
         if (_movement != Vector3.zero && CheckMovementCollisions())
-        {
             _rb.MovePosition(transform.position + _movement);
-            _rb.velocity = velocity;
-        }
 
         _movement = Vector3.zero;
     }
@@ -63,7 +64,7 @@ public class PlayerMove : MonoBehaviour {
         float radius;
         Vector3[] centers = MathHelp.CapsuleEndPoints(_col, out radius);
 
-        RaycastHit[] hits = Physics.CapsuleCastAll(centers[0], centers[1], radius - float.Epsilon * 4, _movement.normalized, _movement.magnitude);
+        RaycastHit[] hits = Physics.CapsuleCastAll(centers[0], centers[1], radius * 0.99f, _movement.normalized, _movement.magnitude);
 
         foreach (RaycastHit hit in hits)
         {

@@ -179,7 +179,7 @@ public class PlayerSkills : MonoBehaviour
             if (_currentItem.currentMode == Item.GravityMode.Self)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Player);
-                _distance = _hit.distance - _camControl.currentDistance;
+                _distance = Vector3.Distance(_currentItem.transform.position, _camControl.transform.position) - _camControl.currentDistance;
             }
         }
         else
@@ -192,7 +192,7 @@ public class PlayerSkills : MonoBehaviour
         if (_doShoot)
         {
             _currentItem.SetGravityMode(Item.GravityMode.World);
-            StartCoroutine(GameManager.Shoot(_currentItem, _camControl.transform.forward));
+            StartCoroutine(GameManager.ShootItem(_currentItem, _camControl.transform.forward));
             alreadyActivated = false;
             _doShoot = false;
             return;

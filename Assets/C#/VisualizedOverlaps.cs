@@ -2,6 +2,7 @@
 
 public class VisualizedOverlaps : MonoBehaviour
 {
+    public bool hideGizmos;
     public LayerMask layersToHit;
     public bool isBall;
     public float ballRadius = 1f;
@@ -21,6 +22,9 @@ public class VisualizedOverlaps : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (hideGizmos)
+            return;
+
         if (offsetIngoresLocalRotation)
             _center = transform.position + offset;
         else

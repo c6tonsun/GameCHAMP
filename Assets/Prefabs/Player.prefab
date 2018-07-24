@@ -828,7 +828,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.74, y: 2, z: 16.86}
+  m_LocalPosition: {x: -1.1, y: 2, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4718491956149788}
@@ -954,7 +954,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreJumpInput: 0
-  maxJumpTime: 0.75
   factor: 0.75
   radius: 0.35
   isGrounded: 0
@@ -1062,7 +1061,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e09776a344993484ca0ccbec7bc2ef51, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

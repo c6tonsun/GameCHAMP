@@ -145,7 +145,7 @@ public class PlayerManipulationArea : MonoBehaviour
             directions[i] = (_newItems[i].transform.position - camPos).normalized;
         }
 
-        StartCoroutine(GameManager.ShootAll(_newItems, directions));
+        StartCoroutine(GameManager.ShootItems(_newItems, directions));
 
         itemsActivated = false;
     }
