@@ -6,14 +6,16 @@ public class Interactable : MonoBehaviour, IInteractable
     public float speed;
     private float _lerpTime;
 
+    private float _minLerp = 0f, _maxLerp = 1f;
+
     private void Update()
     {
-        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, 0f, 1f);
+        _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, _minLerp, _maxLerp);
 
         transform.position = Vector3.Lerp(off.position, on.position, _lerpTime);
         transform.rotation = Quaternion.Lerp(off.rotation, on.rotation, _lerpTime);
 
-        if (_lerpTime == 0f || _lerpTime == 1f)
+        if (_lerpTime == _minLerp || _lerpTime == _maxLerp)
             enabled = false;
     }
 
