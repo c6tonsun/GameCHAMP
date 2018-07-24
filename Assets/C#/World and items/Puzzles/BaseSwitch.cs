@@ -20,7 +20,8 @@ public class BaseSwitch : VisualizedOverlaps
     [Header("Switch stuff")]
     public float speed;
 
-    private float _lerpTime;
+    protected float _lerpTime;
+    protected bool _inPosition;
 
     protected float _maxClamp;
     protected float _minClamp;
@@ -69,6 +70,8 @@ public class BaseSwitch : VisualizedOverlaps
             transform.position = Vector3.Lerp(_unflickedPos, _flicked.position, _lerpTime);
             transform.rotation = Quaternion.Lerp(_unflickedRot, _flicked.rotation, _lerpTime);
         }
+
+        
     }
 
     public void GoUp()
