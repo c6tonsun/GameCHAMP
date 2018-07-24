@@ -1,50 +1,52 @@
 fileFormatVersion: 2
-guid: 13d1afe38c8073346b5521c4da17fb35
+guid: 4717a4bffcffa2c4d91cc9083c316b31
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: Circle_001
     100002: Circle_002
     100004: Circle_003
-    100006: karmit
-    100008: //RootNode
-    100010: ovi
+    100006: //RootNode
+    100008: karmit
+    100010: ovi_001
     100012: Plane
     100014: seina
     400000: Circle_001
     400002: Circle_002
     400004: Circle_003
-    400006: karmit
-    400008: //RootNode
-    400010: ovi
+    400006: //RootNode
+    400008: karmit
+    400010: ovi_001
     400012: Plane
     400014: seina
     2100000: unnamed
     2100002: Material_001
-    2100004: emit
-    2100006: metal_2_001
-    2100008: Material
+    2100004: metal_2_001
+    2100006: Material
+    2100008: emit
+    2100010: Material_002
+    2100012: emit_001
     2300000: Circle_001
     2300002: Circle_002
     2300004: Circle_003
     2300006: karmit
-    2300008: ovi
+    2300008: ovi_001
     2300010: Plane
     2300012: seina
     3300000: Circle_001
     3300002: Circle_002
     3300004: Circle_003
     3300006: karmit
-    3300008: ovi
+    3300008: ovi_001
     3300010: Plane
     3300012: seina
     4300000: seina
-    4300002: ovi
-    4300004: karmit
-    4300006: Circle_003
-    4300008: Circle_001
-    4300010: Circle_002
-    4300012: Plane
+    4300002: karmit
+    4300004: Circle_003
+    4300006: Circle_001
+    4300008: Circle_002
+    4300010: Plane
+    4300012: ovi_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
