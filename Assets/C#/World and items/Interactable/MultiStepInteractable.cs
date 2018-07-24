@@ -19,7 +19,7 @@ public class MultiStepInteractable : MonoBehaviour, IInteractable, IPuzzlePiece 
     public Transform On, Off;
     public float Speed;
 
-    [Range(1, 6)]
+    [Range(3, 6)]
     public int Steps;
 
     [Range(1,6)]
@@ -38,6 +38,11 @@ public class MultiStepInteractable : MonoBehaviour, IInteractable, IPuzzlePiece 
     {
          _stepDifference = 1f / (Steps-1);
         _isGoingDown = true;
+
+        if(ActiveStep > Steps)
+        {
+            Debug.LogError("Active step is too great. Max should be " + Steps);
+        }
     }
 
     private void Update()
