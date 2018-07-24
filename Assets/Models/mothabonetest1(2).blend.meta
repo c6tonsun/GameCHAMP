@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f984096abd91884aa90319858e3315d
+guid: f76c7be7d37b6ff45915c1e73316eb7e
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -137,7 +137,7 @@ ModelImporter:
       name: AIM_BACKWARD
       takeName: AIM_BACKWARD
       firstFrame: 0
-      lastFrame: 111
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -165,7 +165,7 @@ ModelImporter:
       name: AIM_FORWARD
       takeName: AIM_FORWARD
       firstFrame: 0
-      lastFrame: 111
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -193,7 +193,7 @@ ModelImporter:
       name: AIM_TILT_L
       takeName: AIM_TILT_L
       firstFrame: 0
-      lastFrame: 111
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -221,14 +221,14 @@ ModelImporter:
       name: AIM_TILT_R
       takeName: AIM_TILT_R
       firstFrame: 0
-      lastFrame: 111
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -248,7 +248,7 @@ ModelImporter:
     - serializedVersion: 16
       name: DECEND
       takeName: DECEND
-      firstFrame: 0
+      firstFrame: -3
       lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
@@ -256,7 +256,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -305,7 +305,7 @@ ModelImporter:
       name: IDLE
       takeName: IDLE
       firstFrame: 0
-      lastFrame: 56
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -332,7 +332,7 @@ ModelImporter:
     - serializedVersion: 16
       name: IDLE_AIM
       takeName: IDLE_AIM
-      firstFrame: -3
+      firstFrame: 0
       lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
@@ -340,7 +340,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -360,8 +360,8 @@ ModelImporter:
     - serializedVersion: 16
       name: JUMPPI
       takeName: JUMPPI
-      firstFrame: -3
-      lastFrame: 32
+      firstFrame: 0
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -388,15 +388,15 @@ ModelImporter:
     - serializedVersion: 16
       name: POWAH
       takeName: POWAH
-      firstFrame: -2
-      lastFrame: 111
+      firstFrame: 0
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -416,15 +416,15 @@ ModelImporter:
     - serializedVersion: 16
       name: RUN_001
       takeName: RUN_001
-      firstFrame: -1
-      lastFrame: 41
+      firstFrame: 0
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
