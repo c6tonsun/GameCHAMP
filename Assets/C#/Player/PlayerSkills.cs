@@ -114,10 +114,13 @@ public class PlayerSkills : MonoBehaviour
 
         if (!useAim)
         {
-            if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+            if (_doActivation && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
             {
                 _interactable = _hit.collider.GetComponent<IInteractable>();
-                if (_interactable != null && _doActivation)
+                if (_interactable == null)
+                    _interactable = _hit.collider.transform.GetComponentInChildren<IInteractable>();
+
+                if (_interactable != null)
                 {
                     _interactable.Interact();
                     _playerGravity.ignoreJumpInput = true;
