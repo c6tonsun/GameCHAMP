@@ -4,6 +4,7 @@ key
 lever
 lock
 pressure plate
+- cube or ball shape
 
 Done:
 door
