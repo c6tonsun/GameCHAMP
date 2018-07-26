@@ -1,15 +1,17 @@
 fileFormatVersion: 2
-guid: 2fe1c74ed04c43345b50b3bccbdd9adb
+guid: d0a202217f0392347aa5fc77c9eaf07c
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Material_028
-    2100002: Material_029
+    2100000: Material_211
+    2100002: Material_212
+    2100004: Material_210
+    2100006: Material_209
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Icosphere
+    4300000: Cylinder_008
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

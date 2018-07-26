@@ -164,10 +164,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   isBall: 0
-  ballRadius: 1
-  boxSize: {x: 1.1, y: 0.5, z: 1.1}
-  offsetIngoresLocalRotation: 0
-  offset: {x: 0, y: 0, z: 0}
+  ballRadius: 1.13
+  boxSize: {x: 1.89, y: 1.86, z: 0.8}
+  offsetIngoresLocalRotation: 1
+  offset: {x: 0, y: 0.63, z: 0}
   _flicked: {fileID: 0}
   speed: 8
   massThreshold: 5
