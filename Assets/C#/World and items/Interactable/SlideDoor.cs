@@ -8,6 +8,12 @@ public class SlideDoor : VisualizedOverlaps, IInteractable
     public float speed;
     private float _lerpTime;
 
+    private void Start()
+    {
+        if (speed > 0)
+            speed = -speed;
+    }
+
     private new void Update()
     {
         base.Update();
