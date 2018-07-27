@@ -2,7 +2,6 @@
 
 public class CameraControl : MonoBehaviour
 {
-
     private InputHandler _inputHandler;
 
     [Header("Rotating")]

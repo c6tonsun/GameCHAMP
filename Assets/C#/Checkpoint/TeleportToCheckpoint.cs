@@ -12,6 +12,6 @@
         base.Update();
 
         if (_colliders.Length > 0)
-            _playerMove.PlayerToLastCheckPoint();
+            _playerMove.PlayerToLastCheckpoint();
     }
 }
