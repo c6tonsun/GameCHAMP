@@ -91,7 +91,7 @@ public class PlayerSkills : MonoBehaviour
             _doShoot = true;
 
         // distance
-        if (useAim)
+        if (useAim && !alreadyActivated)
         {
             if(Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
             {
