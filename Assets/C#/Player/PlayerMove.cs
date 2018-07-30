@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour {
     {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
-        _camTransform = FindObjectOfType<Camera>().transform;
+        _camTransform = FindObjectOfType<CameraControl>().transform;
         _inputHandler = FindObjectOfType<InputHandler>();
 
         PlayerToLastCheckpoint();
