@@ -2,10 +2,12 @@
 
 public class TextureScaler : MonoBehaviour
 {
+    public Vector2 offset;
     [Space(-10), Header("N times per meter.")]
     public Vector2 tiling;
     [Space(-10), Header("Select two axis for scaling.")]
-    public bool x = true, y = true, z = false;
+    public bool x = true;
+    public bool y = true, z = false;
 
     private Material _material;
     private Vector2 scale;
@@ -36,5 +38,6 @@ public class TextureScaler : MonoBehaviour
 
 
         _material.mainTextureScale = tiling * scale;
+        _material.mainTextureOffset = offset;
     }
 }
