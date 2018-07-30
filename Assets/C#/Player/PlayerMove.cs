@@ -115,7 +115,8 @@ public class PlayerMove : MonoBehaviour {
     {
         if (checkpointID == _checkpointID)
             return;
-        
+
+        _checkpointID = checkpointID;
         _checkPointPos = checkPoint.position;
         _checkPointRot = checkPoint.rotation;
 

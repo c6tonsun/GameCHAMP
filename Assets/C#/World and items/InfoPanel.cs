@@ -27,7 +27,8 @@ public class InfoPanel : MonoBehaviour
         _infoMaterial = GetComponent<MeshRenderer>().material;
         _defaultColor = _infoMaterial.color;
 
-        HideInfo();
+        _infoMaterial.mainTextureOffset = hideOffset;
+        _infoMaterial.mainTextureScale = hideScale;
     }
 
     private void Update()

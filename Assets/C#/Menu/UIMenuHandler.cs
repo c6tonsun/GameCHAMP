@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIMenuHandler : MonoBehaviour
@@ -67,8 +66,8 @@ public class UIMenuHandler : MonoBehaviour
 
         #endregion
 
-        _readMenuInput = _transitionTimer == 0f;
-        _readGameInput = _transitionTimer == 1f;
+        _readMenuInput = true;
+        _readGameInput = false;
         _inputHandler = FindObjectOfType<InputHandler>();
         _inputHandler.readMenuInput = _readMenuInput;
         _inputHandler.readGameInput = _readGameInput;
