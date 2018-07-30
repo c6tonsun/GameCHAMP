@@ -34,6 +34,17 @@ public class Item : MonoBehaviour
     private CapsuleCollider _capsuleCol;
     private float _castSizeFactor = 0.99f;
 
+    private void Reset()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name.Contains("Left"))
+                leftTrasform = transform.GetChild(i);
+            if (transform.GetChild(i).name.Contains("Right"))
+                rightTrasform = transform.GetChild(i);
+        }
+    }
+
     private void Start ()
     {
         rb = GetComponent<Rigidbody>();
