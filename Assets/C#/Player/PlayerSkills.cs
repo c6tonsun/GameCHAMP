@@ -91,11 +91,11 @@ public class PlayerSkills : MonoBehaviour
             _doShoot = true;
 
         // distance
-        if (useAim && !alreadyActivated)
+        if (useAim)
         {
-            if(Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
+            if (!alreadyActivated && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
             {
-                if(_hit.distance - _camControl.currentDistance > _maxDistance)
+                if (_hit.distance - _camControl.currentDistance > _maxDistance)
                 {
                     _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
                 }
