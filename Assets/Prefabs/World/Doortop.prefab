@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4992168267069650}
   - component: {fileID: 33956217212310782}
+  - component: {fileID: 114635800415048832}
   - component: {fileID: 23632566490358256}
   - component: {fileID: 65504337860158230}
   - component: {fileID: 114374819958430254}
@@ -58,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: e1b957bd712b1b548b56b51df6f64e95, type: 2}
+  - {fileID: 2100000, guid: 3b448bf6d200fb74bb49e81c9a7fbbf4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,3 +110,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWalkable: 0
+--- !u!114 &114635800415048832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741531820315844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8fdacac5a6b384eb61d31c29204568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiling: {x: 1, y: 1}
+  x: 1
+  y: 1
+  z: 0
