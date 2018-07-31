@@ -23,6 +23,8 @@ public class CameraControl : MonoBehaviour
     private Vector3 _euler;
     private RaycastHit _hit;
 
+    public LayerMask ignorePlayer;
+
     private void Start()
     {
         _player = FindObjectOfType<PlayerMove>().transform;
@@ -55,7 +57,7 @@ public class CameraControl : MonoBehaviour
         #region camera position
         _pivotOffset = transform.right * pivotOffset.x + Vector3.up * pivotOffset.y;
 
-        if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer))
+        if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer, ignorePlayer))
             currentDistance = _hit.distance;
         else
             currentDistance = distanceFromPlayer;

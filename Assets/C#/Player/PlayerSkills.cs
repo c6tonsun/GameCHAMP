@@ -114,19 +114,6 @@ public class PlayerSkills : MonoBehaviour
 
         if (!useAim)
         {
-            if (_doActivation && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
-            {
-                _interactable = _hit.collider.GetComponent<IInteractable>();
-                if (_interactable == null)
-                    _interactable = _hit.collider.transform.GetComponentInChildren<IInteractable>();
-
-                if (_interactable != null)
-                {
-                    _interactable.Interact();
-                    _playerGravity.ignoreJumpInput = true;
-                }
-            }
-
             if (_currentItem != null)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.World);
@@ -135,10 +122,16 @@ public class PlayerSkills : MonoBehaviour
 
             _playerManipulationArea.SetVisible(false);
             _playerAnimation.doLookAt = false;
+
+            // interact
+            DoInteract();
         }
         else if (currentSkillMode == SkillMode.Single)
         {
             DoSingle();
+
+            // interact
+            DoInteract();
         }
         else if (currentSkillMode == SkillMode.Area)
         {
@@ -148,14 +141,33 @@ public class PlayerSkills : MonoBehaviour
         _playerGravity.DoUpdate(useAim, _inputHandler.KeyDown(InputHandler.Key.Jump));
     }
 
+    private void DoInteract()
+    {
+        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        {
+            _interactable = _hit.collider.GetComponent<IInteractable>();
+            if (_interactable == null)
+                _interactable = _hit.collider.GetComponentInParent<IInteractable>();
+            if (_interactable == null)
+                _interactable = _hit.collider.transform.GetComponentInChildren<IInteractable>();
+
+            if (_interactable != null)
+            {
+                if (_doActivation)
+                    _interactable.Interact();
+
+                _interactable.OnCursorHover();
+                _playerGravity.ignoreJumpInput = true;
+            }
+        }
+    }
+
     private void DoSingle()
     {
         // check for new item
-        if (!alreadyActivated && useAim)
-        {
+        if (!alreadyActivated)
             RaycastHandling();
-        }
-
+        
         // drop item
         if (!useAim && _currentItem != null)
         {
@@ -272,7 +284,7 @@ public class PlayerSkills : MonoBehaviour
         {
             _currentItem = _hit.collider.GetComponent<Item>();
 
-            if(_currentItem != null)
+            if (_currentItem != null)
             {
                 _currentItem.SetGravityMode(Item.GravityMode.Self);
             }

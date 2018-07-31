@@ -33,10 +33,25 @@ public class MultiStepInteractable : MonoBehaviour, IInteractable, IPuzzlePiece 
     private float _lerpTime;
 
     private bool _isGoingDown;
+    
+    [Header("Color stuff")]
+    public int materialIndex;
+    private Material _material;
+    private Color _defaultColor;
+    private Color _otherColor;
+    private bool _isUnderCursor;
 
     private void Start()
     {
-         _stepDifference = 1f / (Steps-1);
+        #region color
+
+        _material = GetComponent<MeshRenderer>().materials[materialIndex];
+        _defaultColor = _material.color;
+        _otherColor = FindObjectOfType<GameManager>().itemModeColors[(int)Item.GravityMode.Self - 1];
+
+        #endregion
+
+        _stepDifference = 1f / (Steps-1);
         _isGoingDown = true;
 
         if(ActiveStep > Steps)
@@ -47,6 +62,15 @@ public class MultiStepInteractable : MonoBehaviour, IInteractable, IPuzzlePiece 
 
     private void Update()
     {
+        #region color
+
+        if (_isUnderCursor)
+            _isUnderCursor = false;
+        else
+            _material.color = _defaultColor;
+
+        #endregion
+
         _oldIsSendingSignal = _isSendingSignal;
         _isSendingSignal = _currentStep == ActiveStep-1;
 
@@ -104,6 +128,12 @@ public class MultiStepInteractable : MonoBehaviour, IInteractable, IPuzzlePiece 
         {
             GoStepUp();
         }
+    }
+
+    public void OnCursorHover()
+    {
+        _isUnderCursor = true;
+        _material.color = _otherColor;
     }
 
     public bool IsSendingSignal()
