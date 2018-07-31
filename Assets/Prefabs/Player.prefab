@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4054255390811544}
+  - component: {fileID: 135085320946014146}
   m_Layer: 0
   m_Name: MOTHA
   m_TagString: Untagged
@@ -816,7 +817,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.31, z: 0}
+  m_LocalPosition: {x: 2.58, y: 4, z: -9.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4718491956149788}
@@ -1027,12 +1028,6 @@ MonoBehaviour:
   useAim: 0
   alreadyActivated: 0
   currentSkillMode: 0
-  defaultLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  itemLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &114739593530457074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,6 +1075,18 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!135 &135085320946014146
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339976157932400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0.65, y: 0, z: 4}
 --- !u!135 &135321491544076616
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1191,7 +1198,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e313f033daf55db4db74e697c716a236, type: 2}
-  - {fileID: 2100000, guid: e313f033daf55db4db74e697c716a236, type: 2}
+  - {fileID: 2100000, guid: 1219cee32bf021643a6fa4fffc7daeff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1314,7 +1321,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

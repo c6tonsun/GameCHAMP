@@ -8,14 +8,38 @@ public class SlideDoor : VisualizedOverlaps, IInteractable
     public float speed;
     private float _lerpTime;
 
+    [Header("Color stuff")]
+    public int materialIndex;
+    private Material _material;
+    private Color _defaultColor;
+    private Color _otherColor;
+    private bool _isUnderCursor;
+
     private void Start()
     {
+        #region color
+
+        _material = GetComponent<MeshRenderer>().materials[materialIndex];
+        _defaultColor = _material.color;
+        _otherColor = FindObjectOfType<GameManager>().itemModeColors[(int)Item.GravityMode.Self - 1];
+
+        #endregion
+
         if (speed > 0)
             speed = -speed;
     }
 
     private new void Update()
     {
+        #region color
+
+        if (_isUnderCursor)
+            _isUnderCursor = false;
+        else
+            _material.color = _defaultColor;
+
+        #endregion
+
         base.Update();
         
         if (_colliders.Length > 0 && speed < 0)
@@ -25,25 +49,18 @@ public class SlideDoor : VisualizedOverlaps, IInteractable
         transform.position = Vector3.Lerp(close.position, open.position, _lerpTime);
 
         offset = close.position - transform.position;
-
-        if (_lerpTime == 0f || _lerpTime == 1f)
-            enabled = false;
     }
     
     public void Close()
     {
         if (speed > 0)
             speed = -speed;
-
-        enabled = true;
     }
 
     public void Open()
     {
         if (speed < 0)
             speed = -speed;
-
-        enabled = true;
     }
 
     public void Interact()
@@ -55,5 +72,11 @@ public class SlideDoor : VisualizedOverlaps, IInteractable
             Open();
         else
             Close();
+    }
+
+    public void OnCursorHover()
+    {
+        _isUnderCursor = true;
+        _material.color = _otherColor;
     }
 }

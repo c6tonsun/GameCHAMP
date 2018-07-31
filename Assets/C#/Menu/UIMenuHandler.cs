@@ -24,6 +24,7 @@ public class UIMenuHandler : MonoBehaviour
     private InputHandler _inputHandler;
     private bool _readMenuInput;
     private bool _readGameInput;
+    private bool _ignoreInitialUnpause = true;
 
     private void Start()
     {
@@ -154,7 +155,10 @@ public class UIMenuHandler : MonoBehaviour
     private void DoSelect()
     {
         if (_activeItem.isPlay)
+        {
+            _ignoreInitialUnpause = false;
             DoUnpause();
+        }
 
         if (_activeItem.isReset)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -275,6 +279,9 @@ public class UIMenuHandler : MonoBehaviour
 
     public void DoUnpause()
     {
+        if (_ignoreInitialUnpause)
+            return;
+
         if (transitionSpeed < 0)
             transitionSpeed = -transitionSpeed;
 
