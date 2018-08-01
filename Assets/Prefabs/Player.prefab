@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4994975903461256}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SELKA_YLA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4791844885614006}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4560868927730082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SELKA_KESKI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4208336386604516}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: REISI_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4621070508071802}
   - component: {fileID: 95122010527949822}
   - component: {fileID: 114834652440726554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: mothabonetest2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4837674690487706}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HIP_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 4361187757260284}
   - component: {fileID: 198037357595387802}
   - component: {fileID: 199352241560864258}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4861628076353270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PAA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4460702840346318}
   - component: {fileID: 137142370278901508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054255390811544}
   - component: {fileID: 135085320946014146}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MOTHA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4617676905433650}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SAARI_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4622016881153636}
   - component: {fileID: 137085365740652564}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: hiukset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4161949905149994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JALKAPOYTA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4129899519426916}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JALKAPOYTA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4897745840247616}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAMMEN_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4959631286884082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: REISI_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4382404840722276}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BASE_SELK__ALA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4468219438292214}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OLKA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4520150519233560}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HIP_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4928777142139318}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_ALA_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4954279786097554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4990774584627376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SAARI_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4163388303352916}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAMMEN_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4087777964056886}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OLKA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +442,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4456493400667708}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_ALA_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4151578532101332}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KASVAR_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4102081795937086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KAULA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +817,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373986265055738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.58, y: 4, z: -9.55}
+  m_LocalPosition: {x: 2.58, y: 2.5, z: -8.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4718491956149788}
@@ -1123,7 +1123,7 @@ SkinnedMeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
@@ -1193,7 +1193,7 @@ SkinnedMeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
