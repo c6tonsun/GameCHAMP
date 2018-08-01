@@ -26,6 +26,9 @@ public class UIMenuHandler : MonoBehaviour
     private bool _readGameInput;
     private bool _ignoreInitialUnpause = true;
 
+    // music
+    private AudioSource _musicSource;
+
     private void Start()
     {
         #region camera handling
@@ -76,6 +79,16 @@ public class UIMenuHandler : MonoBehaviour
         Time.timeScale = 0f;
 
         UpdateHighlightItem();
+
+        #region music
+
+        _musicSource = _mainCamera.GetComponent<AudioSource>();
+
+        _musicSource.time = 2 * 60 + 20;
+        _musicSource.Play();
+        _musicSource.volume = SaveLoad.Floats[SaveLoad.MUSIC_NOICE];
+
+        #endregion
     }
 
     private void Update()
@@ -203,6 +216,7 @@ public class UIMenuHandler : MonoBehaviour
         if (_activeItem.isMusicNoice)
         {
             _activeItem.UpdateVolumeSlider(-sliderSpeed);
+            _musicSource.volume = SaveLoad.Floats[SaveLoad.MUSIC_NOICE];
             return;
         }
 
@@ -232,6 +246,7 @@ public class UIMenuHandler : MonoBehaviour
         if (_activeItem.isMusicNoice)
         {
             _activeItem.UpdateVolumeSlider(sliderSpeed);
+            _musicSource.volume = SaveLoad.Floats[SaveLoad.MUSIC_NOICE];
             return;
         }
 
