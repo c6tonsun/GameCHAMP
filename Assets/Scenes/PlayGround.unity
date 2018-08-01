@@ -6508,8 +6508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8fdacac5a6b384eb61d31c29204568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0}
-  tiling: {x: 0, y: 0}
+  offset: {x: 0.179, y: 0}
+  tiling: {x: 2.4, y: 1}
   tilingX: 0
   tilingY: 0
 --- !u!64 &1754069410
