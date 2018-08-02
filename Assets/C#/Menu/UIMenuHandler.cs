@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIMenuHandler : MonoBehaviour
 {
@@ -30,6 +29,10 @@ public class UIMenuHandler : MonoBehaviour
 
     // music
     private AudioSource _musicSource;
+
+    // reset
+    private PlayerMove _playerMove;
+    private Item[] _items;
 
     private void Start()
     {
@@ -186,7 +189,7 @@ public class UIMenuHandler : MonoBehaviour
         }
 
         if (_activeItem.isReset)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            DoReset();
 
         if (_activeItem.isQuit)
             Application.Quit();
@@ -297,5 +300,15 @@ public class UIMenuHandler : MonoBehaviour
         _menuCamera.enabled = true;
 
         _isInTransition = true;
+    }
+
+    private void DoReset()
+    {
+        _playerMove = FindObjectOfType<PlayerMove>();
+        _playerMove.PlayerToLastCheckpoint();
+
+        _items = FindObjectsOfType<Item>();
+        foreach (Item item in _items)
+            item.DoReset();
     }
 }
