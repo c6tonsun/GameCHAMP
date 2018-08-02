@@ -15,10 +15,10 @@ public static class SaveLoad
     public const int PLAYER_EULER_X = 5;
     public const int PLAYER_EULER_Y = 6;
     public const int PLAYER_EULER_Z = 7;
+    public const int CHECKPOINT_INITIALIZED = 8;
     public const string FILE_PATH = "/GameCHAMP.gd";
 
     public static float[] Floats { get; set; }
-    public static bool CheckpointInitialized { get; private set; }
 
     public static bool FindSaveFile()
     {
@@ -27,8 +27,7 @@ public static class SaveLoad
 
     public static void MakeSaveFile()
     {
-        Floats = new float[8] { 0.6f, 0.4f, 0f, 0f, 0f, 0f, 0f, 0f };
-        CheckpointInitialized = false;
+        Floats = new float[9] { 0.6f, 0.4f, 0f, 0f, 0f, 0f, 0f, 0f, 0 };
 
         Save();
     }
@@ -43,7 +42,7 @@ public static class SaveLoad
         Floats[PLAYER_EULER_Y] = checkpoint.eulerAngles.y;
         Floats[PLAYER_EULER_Z] = checkpoint.eulerAngles.z;
 
-        CheckpointInitialized = true;
+        Floats[CHECKPOINT_INITIALIZED] = 1;
 
         Save();
     }

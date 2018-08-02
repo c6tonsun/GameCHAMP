@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour {
     private Vector3 _movement;
     private float rotationLerp = 0.2f;
 
-    private int _checkpointID = -1;
+    private int _checkpointID;
     private Vector3 _checkPointPos;
     private Quaternion _checkPointRot;
 
@@ -21,15 +21,12 @@ public class PlayerMove : MonoBehaviour {
     {
         #region SaveLoad
 
-        //SaveLoad.Delete();
-        Debug.Log("Save file delete");
-
         if (SaveLoad.FindSaveFile())
             SaveLoad.Load();
         else
             SaveLoad.MakeSaveFile();
 
-        if (SaveLoad.CheckpointInitialized)
+        if (SaveLoad.Floats[SaveLoad.CHECKPOINT_INITIALIZED] > 0.5f)
             LoadCheckpoint(SaveLoad.Floats);
         else
             SetCheckpoint(transform, -1);
@@ -60,9 +57,6 @@ public class PlayerMove : MonoBehaviour {
         _movement.y = 0f;
 
         transform.forward = Vector3.Slerp(transform.forward, _movement.normalized, rotationLerp);
-
-        if (transform.position.y < -10)
-            PlayerToLastCheckpoint();
     }
 
     private void FixedUpdate()
@@ -107,8 +101,8 @@ public class PlayerMove : MonoBehaviour {
 
         // position
         _checkPointPos.x = SaveLoadFloats[SaveLoad.PLAYER_POS_X];
-        _checkPointPos.y = SaveLoadFloats[SaveLoad.PLAYER_POS_X];
-        _checkPointPos.z = SaveLoadFloats[SaveLoad.PLAYER_POS_X];
+        _checkPointPos.y = SaveLoadFloats[SaveLoad.PLAYER_POS_Y];
+        _checkPointPos.z = SaveLoadFloats[SaveLoad.PLAYER_POS_Z];
     }
 
     public void SetCheckpoint(Transform checkPoint, int checkpointID)

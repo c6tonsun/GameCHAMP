@@ -43,19 +43,19 @@ public class PlayerAim : MonoBehaviour {
 
             if (aimLerp > 1)
             {
-                _cameraRotation.pivotOffset = onV3;
+                _cameraRotation.rawPivotOffset = onV3;
                 aimLerp = 1f;
                 _isInTransition = false;
             }
             else if (aimLerp < 0)
             {
-                _cameraRotation.pivotOffset = offV3;
+                _cameraRotation.rawPivotOffset = offV3;
                 aimLerp = 0f;
                 _isInTransition = false;
             }
             else
             {
-                _cameraRotation.pivotOffset = Vector3.Lerp(offV3, onV3, aimLerp);
+                _cameraRotation.rawPivotOffset = Vector3.Lerp(offV3, onV3, aimLerp);
             }
         }
     }

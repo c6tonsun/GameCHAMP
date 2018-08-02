@@ -31,7 +31,7 @@ public class VisualizedOverlaps : MonoBehaviour
             _center = transform.position +
                 transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
 
-        Gizmos.color = Color.white;
+        Gizmos.color = Color.black;
 
         if (isBall)
             Gizmos.DrawWireSphere(_center, ballRadius);
