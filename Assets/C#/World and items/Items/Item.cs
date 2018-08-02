@@ -18,6 +18,10 @@ public class Item : MonoBehaviour
     public Transform leftTrasform;
     public Transform rightTrasform;
 
+    // reset
+    private Vector3 _defaultPos;
+    private Quaternion _defaultRot;
+
     public enum GravityMode
     {
         World = 0,
@@ -50,6 +54,9 @@ public class Item : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _itemColor = GetComponent<ItemColor>();
         _colliders = GetComponentsInChildren<Collider>();
+
+        _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
     }
 	
 	private void Update ()
@@ -252,6 +259,15 @@ public class Item : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
+    }
+
+    public void DoReset()
+    {
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
+
+        _freezeTime = 0f;
+        SetGravityMode(GravityMode.World);
     }
 
     private void OnDrawGizmos()
