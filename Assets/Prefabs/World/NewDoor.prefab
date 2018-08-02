@@ -209,15 +209,15 @@ GameObject:
   - component: {fileID: 4425884638061980}
   - component: {fileID: 33028677822396098}
   - component: {fileID: 23494725552360506}
+  - component: {fileID: 114505346364037326}
   - component: {fileID: 64491220481714316}
-  - component: {fileID: 114625074752254914}
   - component: {fileID: 114308840446509664}
   m_Layer: 0
   m_Name: seina
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &4093710811700780
 Transform:
@@ -469,18 +469,18 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 3b448bf6d200fb74bb49e81c9a7fbbf4, type: 2}
+  - {fileID: 2100000, guid: 35917875a43a31045b97d88689d079c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0
+  m_ScaleInLightmap: 0.1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -540,7 +540,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
@@ -551,7 +551,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0
+  m_ScaleInLightmap: 0.1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -859,6 +859,21 @@ MonoBehaviour:
   close: {fileID: 4494396368325704}
   open: {fileID: 4114024362235752}
   materialIndex: 1
+--- !u!114 &114505346364037326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1957136404071040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8fdacac5a6b384eb61d31c29204568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0.18, y: 0}
+  tiling: {x: 2.4, y: 1}
+  tilingX: 0
+  tilingY: 0
 --- !u!114 &114530777457392474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -883,18 +898,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWalkable: 0
---- !u!114 &114625074752254914
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1957136404071040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8fdacac5a6b384eb61d31c29204568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 0.384, y: 0}
-  tiling: {x: 1.55, y: 1}
-  tilingX: 0
-  tilingY: 2
