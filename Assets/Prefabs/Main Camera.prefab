@@ -91,7 +91,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 65
   orthographic: 0
   orthographic size: 5
@@ -269,7 +269,7 @@ MonoBehaviour:
   minRotX: -45
   maxRotX: 45
   distanceFromPlayer: 5
-  pivotOffset: {x: 0, y: 1.25, z: 0}
+  rawPivotOffset: {x: 0.5, y: 2.25, z: 0}
   currentDistance: 0
   ignorePlayer:
     serializedVersion: 2
