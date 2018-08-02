@@ -132,7 +132,7 @@ public class PlayerSkills : MonoBehaviour
             DoArea();
         }
 
-        _playerGravity.DoUpdate(useAim, _inputHandler.KeyDown(InputHandler.Key.Jump));
+        _playerGravity.DoUpdate();
     }
 
     private void DoInteract()

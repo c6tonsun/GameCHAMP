@@ -5,8 +5,10 @@ public class UIMenuHandler : MonoBehaviour
 {
     // menu
     public float sliderSpeed;
-    public GameObject highlight;
-    public Vector3 highlightScaler = new Vector3(1.2f, 1.2f, 0.8f);
+    public float scaleFactor, scaleSpeed;
+    private float _scaleTimer, _sinValue;
+    private Vector3 _activeItemScale;
+    private Vector3 _activeItemTextScale;
     private UIMenuItem[] _menuItems;
     private UIMenuItem _activeItem;
 
@@ -65,7 +67,7 @@ public class UIMenuHandler : MonoBehaviour
             }
 
             if (item.isDefault)
-                _activeItem = item;
+                SetActiveItem(item);
         }
 
         #endregion
@@ -77,8 +79,6 @@ public class UIMenuHandler : MonoBehaviour
         _inputHandler.readGameInput = _readGameInput;
 
         Time.timeScale = 0f;
-
-        UpdateHighlightItem();
 
         #region music
 
@@ -94,7 +94,7 @@ public class UIMenuHandler : MonoBehaviour
     private void Update()
     {
         #region inputs
-        
+
         if (_readGameInput && _inputHandler.KeyDown(InputHandler.Key.Pause))
         {
             DoPause();
@@ -118,8 +118,6 @@ public class UIMenuHandler : MonoBehaviour
                     DoRight();
                 if (_inputHandler.KeyHold(InputHandler.MenuButtonAxis.RightLeft, positive: false))
                     DoLeft();
-
-                UpdateHighlightItem();
             }
             else
             {
@@ -131,7 +129,7 @@ public class UIMenuHandler : MonoBehaviour
         }
 
         #endregion
-        
+
         #region camera handling and read input logic
 
         if (_isInTransition)
@@ -157,9 +155,23 @@ public class UIMenuHandler : MonoBehaviour
                 _mainCamera.enabled = false;
                 _isInTransition = false;
             }
-            
+
             _inputHandler.readMenuInput = _readMenuInput;
             _inputHandler.readGameInput = _readGameInput;
+        }
+
+        #endregion
+
+        #region scale active
+
+        _scaleTimer += Time.unscaledDeltaTime * scaleSpeed;
+        _sinValue = Mathf.Sin(_scaleTimer) * scaleFactor + 1f + scaleFactor * 2;
+        if (_activeItem != null)
+        {
+            _activeItem.transform.localScale = _activeItemScale * _sinValue;
+
+            if (_activeItem.text != null)
+                _activeItem.text.transform.localScale = _activeItemTextScale * _sinValue;
         }
 
         #endregion
@@ -185,28 +197,14 @@ public class UIMenuHandler : MonoBehaviour
 
     private void DoUp()
     {
-        if (_activeItem.upItem == null)
-            return;
-
-        _activeItem.isHighlighted = false;
-
-        _activeItem = _activeItem.upItem;
-        _activeItem.isHighlighted = true;
-
-        UpdateHighlightItem();
+        if (_activeItem.upItem != null)
+            SetActiveItem(_activeItem.upItem);
     }
 
     private void DoDown()
     {
-        if (_activeItem.downItem == null)
-            return;
-
-        _activeItem.isHighlighted = false;
-
-        _activeItem = _activeItem.downItem;
-        _activeItem.isHighlighted = true;
-
-        UpdateHighlightItem();
+        if (_activeItem.downItem != null)
+            SetActiveItem(_activeItem.downItem);
     }
 
     private void DoLeft()
@@ -227,16 +225,6 @@ public class UIMenuHandler : MonoBehaviour
         }
 
         #endregion
-
-        if (_activeItem.leftItem == null)
-            return;
-
-        _activeItem.isHighlighted = false;
-
-        _activeItem = _activeItem.leftItem;
-        _activeItem.isHighlighted = true;
-
-        UpdateHighlightItem();
     }
 
     private void DoRight()
@@ -257,28 +245,31 @@ public class UIMenuHandler : MonoBehaviour
         }
 
         #endregion
-
-        if (_activeItem.rightItem == null)
-            return;
-
-        _activeItem.isHighlighted = false;
-
-        _activeItem = _activeItem.rightItem;
-        _activeItem.isHighlighted = true;
-
-        UpdateHighlightItem();
     }
-    
-    public void UpdateHighlightItem()
+
+    private void SetActiveItem(UIMenuItem item)
     {
-        highlight.GetComponent<MeshFilter>().mesh = _activeItem.GetComponent<MeshFilter>().mesh;
+        // clear old item
+        if (_activeItem != null)
+        {
+            _activeItem.isHighlighted = false;
+            _activeItem.transform.localScale = _activeItemScale;
 
-        highlight.transform.position = _activeItem.transform.position;
-        highlight.transform.rotation = _activeItem.transform.rotation;
-        highlight.transform.localScale = MathHelp.MultiplyVector3(_activeItem.transform.localScale, highlightScaler);
+            if (_activeItem.text != null)
+                _activeItem.text.transform.localScale = _activeItemTextScale;
+        }
+
+        // swap
+        _activeItem = item;
+
+        // setup new item
+        _activeItem.isHighlighted = true;
+        _activeItemScale = _activeItem.transform.localScale;
+        if (_activeItem.text != null)
+            _activeItemTextScale = _activeItem.text.transform.localScale;
     }
 
-    public void DoPause()
+    private void DoPause()
     {
         Time.timeScale = 0f;
         if (transitionSpeed > 0)
@@ -292,7 +283,7 @@ public class UIMenuHandler : MonoBehaviour
         _isInTransition = true;
     }
 
-    public void DoUnpause()
+    private void DoUnpause()
     {
         if (_ignoreInitialUnpause)
             return;

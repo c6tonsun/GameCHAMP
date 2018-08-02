@@ -14,7 +14,7 @@ public class CameraControl : MonoBehaviour
     [Header("Positioning"), Range(3f, 7f)]
     public float distanceFromPlayer = 5f;
     [HideInInspector]
-    public Vector3 pivotOffset;
+    public Vector3 rawPivotOffset = new Vector3(0.5f, 2.25f, 0f);
     [HideInInspector]
     public float currentDistance;
 
@@ -55,7 +55,7 @@ public class CameraControl : MonoBehaviour
         #endregion
 
         #region camera position
-        _pivotOffset = transform.right * pivotOffset.x + Vector3.up * pivotOffset.y;
+        _pivotOffset = transform.right * rawPivotOffset.x + Vector3.up * rawPivotOffset.y;
 
         if (Physics.SphereCast(_player.position + _pivotOffset, 0.35f, -transform.forward, out _hit, distanceFromPlayer, ignorePlayer))
             currentDistance = _hit.distance;

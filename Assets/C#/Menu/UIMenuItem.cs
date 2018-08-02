@@ -5,8 +5,6 @@ public class UIMenuItem : MonoBehaviour
     public bool isDefault;
     public UIMenuItem upItem;
     public UIMenuItem downItem;
-    public UIMenuItem leftItem;
-    public UIMenuItem rightItem;
     [HideInInspector]
     public bool isHighlighted;
     
@@ -35,6 +33,7 @@ public class UIMenuItem : MonoBehaviour
     [Space(15)]
     public Transform mute;
     public Transform noice;
+    public Transform text;
     private float _lerpTime;
     
     public void UpdateVolumeSlider(float speed)

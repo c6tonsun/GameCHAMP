@@ -2,6 +2,7 @@
 
 public class PlayerGravity : MonoBehaviour
 {
+    private InputHandler _inputHandler;
     private PlayerAim _playerAim;
     private Rigidbody _rb;
 
@@ -19,11 +20,12 @@ public class PlayerGravity : MonoBehaviour
 
     private void Start()
     {
+        _inputHandler = FindObjectOfType<InputHandler>();
         _playerAim = GetComponent<PlayerAim>();
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void DoUpdate(bool isAiming, bool jumpInput)
+    public void DoUpdate()
     {
         isGrounded = Physics.SphereCast(new Ray(transform.position - transform.up * transform.localScale.y * 0.5f, Vector3.down), radius, factor - 0.5f);
 
@@ -31,7 +33,7 @@ public class PlayerGravity : MonoBehaviour
         {
             ignoreJumpInput = false;
         }
-        else if (!isAiming && jumpInput)
+        else if (_inputHandler.KeyDown(InputHandler.Key.Jump))
         {
             if (!_rb.useGravity)
             {

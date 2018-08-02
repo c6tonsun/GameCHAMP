@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class GameManager : MonoBehaviour
 {
+    public bool deleteSaveFile;
     public Color[] itemModeColors;
     
     public static IEnumerator ShootItem(Item item, Vector3 direction)
@@ -20,4 +22,18 @@ public class GameManager : MonoBehaviour
                 items[i].rb.AddForce(directions[i] * 100, ForceMode.Impulse);
         }
     }
+
+#if UNITY_EDITOR
+    
+    private void Update()
+    {
+        if (deleteSaveFile)
+        {
+            SaveLoad.Delete();
+            Debug.Log("Save file deleted");
+            deleteSaveFile = false;
+        }
+    }
+
+#endif
 }
