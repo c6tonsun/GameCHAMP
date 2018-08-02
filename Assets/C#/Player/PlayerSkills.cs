@@ -93,16 +93,10 @@ public class PlayerSkills : MonoBehaviour
         // distance
         if (useAim)
         {
-            if (!alreadyActivated && Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue, LayerMask.NameToLayer("Item")))
+            if (!alreadyActivated && 
+                Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, _maxDistance + _camControl.currentDistance, LayerMask.NameToLayer("Item")))
             {
-                if (_hit.distance - _camControl.currentDistance > _maxDistance)
-                {
-                    _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _maxDistance);
-                }
-                else
-                {
-                    _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _hit.distance - _camControl.currentDistance);
-                }
+                _distance = MathHelp.Clamp(_distance + _inputHandler.GetAxisInput(InputHandler.Axis.Distance), _minDistance, _hit.distance - _camControl.currentDistance);
             }
             else
             {
@@ -143,7 +137,7 @@ public class PlayerSkills : MonoBehaviour
 
     private void DoInteract()
     {
-        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, _maxDistance + _camControl.currentDistance))
         {
             _interactable = _hit.collider.GetComponent<IInteractable>();
             if (_interactable == null)
@@ -280,7 +274,7 @@ public class PlayerSkills : MonoBehaviour
     {
         _lastItem = _currentItem;
 
-        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, float.MaxValue))
+        if (Physics.Raycast(_camControl.transform.position, _camControl.transform.forward, out _hit, _maxDistance + _camControl.currentDistance))
         {
             _currentItem = _hit.collider.GetComponent<Item>();
 

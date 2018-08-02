@@ -226,7 +226,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077053158055666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 5, z: 5}
+  m_LocalPosition: {x: 1, y: 5, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4587822646657276}
@@ -855,9 +855,9 @@ MonoBehaviour:
   offsetIngoresLocalRotation: 1
   offset: {x: 0, y: 0, z: 0}
   isInteractable: 0
+  speed: 1
   close: {fileID: 4494396368325704}
   open: {fileID: 4114024362235752}
-  speed: 1
   materialIndex: 1
 --- !u!114 &114505346364037326
 MonoBehaviour:

@@ -13,6 +13,8 @@ public class PuzzleMaster : MonoBehaviour
 
         foreach (IPuzzlePiece piece in _pieces)
             piece.PuzzleMaster = this;
+
+        _door.isInteractable = _pieces.Length == 0;
     }
 
     public void CheckPuzzlePieces()

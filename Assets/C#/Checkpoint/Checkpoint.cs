@@ -2,6 +2,7 @@
 
 public class Checkpoint : VisualizedOverlaps
 {
+    [Header("Must be unique")]
     public int ID;
     private PlayerMove _playerMove;
 
