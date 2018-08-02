@@ -11,6 +11,7 @@ ModelImporter:
     100010: ovi_001
     100012: Plane
     100014: seina
+    100016: seina_001
     400000: Circle_001
     400002: Circle_002
     400004: Circle_003
@@ -19,6 +20,7 @@ ModelImporter:
     400010: ovi_001
     400012: Plane
     400014: seina
+    400016: seina_001
     2100000: unnamed
     2100002: Material_001
     2100004: metal_2_001
@@ -27,6 +29,7 @@ ModelImporter:
     2100010: Material_002
     2100012: emit_001
     2100014: None__SEINA_UV
+    2100016: None__DOORTOP_UV
     2300000: Circle_001
     2300002: Circle_002
     2300004: Circle_003
@@ -34,6 +37,7 @@ ModelImporter:
     2300008: ovi_001
     2300010: Plane
     2300012: seina
+    2300014: seina_001
     3300000: Circle_001
     3300002: Circle_002
     3300004: Circle_003
@@ -41,6 +45,7 @@ ModelImporter:
     3300008: ovi_001
     3300010: Plane
     3300012: seina
+    3300014: seina_001
     4300000: seina
     4300002: karmit
     4300004: Circle_003
@@ -48,6 +53,7 @@ ModelImporter:
     4300008: Circle_002
     4300010: Plane
     4300012: ovi_001
+    4300014: seina_001
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -97,10 +103,10 @@ ModelImporter:
     weldVertices: 1
     preserveHierarchy: 0
     indexFormat: 0
-    secondaryUVAngleDistortion: 18
-    secondaryUVAreaDistortion: 29
-    secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 42
+    secondaryUVAngleDistortion: 1
+    secondaryUVAreaDistortion: 1
+    secondaryUVHardAngle: 180
+    secondaryUVPackMargin: 54
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60

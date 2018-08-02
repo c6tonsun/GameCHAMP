@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8fdacac5a6b384eb61d31c29204568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0.02, y: 0}
-  tiling: {x: 0.36, y: -0.2}
+  offset: {x: -0.26, y: 0}
+  tiling: {x: 0.42, y: -0.2}
   tilingX: 2
   tilingY: 1
