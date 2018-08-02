@@ -2,10 +2,11 @@
 
 public class SlideDoor : VisualizedOverlaps, IInteractable
 {
-    [Header("Door stuff")]
+    [HideInInspector]
     public bool isInteractable;
-    public Transform close, open;
+    [Header("Door stuff")]
     public float speed;
+    public Transform close, open;
     private float _lerpTime;
 
     [Header("Color stuff")]

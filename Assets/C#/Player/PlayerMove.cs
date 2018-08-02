@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour {
     private Vector3 _movement;
     private float rotationLerp = 0.2f;
 
-    private int _checkpointID;
+    private int _checkpointID = -1;
     private Vector3 _checkPointPos;
     private Quaternion _checkPointRot;
 
@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour {
     {
         #region SaveLoad
 
-        SaveLoad.Delete();
+        //SaveLoad.Delete();
         Debug.Log("Save file delete");
 
         if (SaveLoad.FindSaveFile())
@@ -127,6 +127,8 @@ public class PlayerMove : MonoBehaviour {
     {
         transform.position = _checkPointPos;
         transform.rotation = _checkPointRot;
+
+        _camTransform.rotation = transform.rotation;
 
         _rb.velocity = Vector3.zero;
     }

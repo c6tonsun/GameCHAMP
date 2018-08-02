@@ -3,8 +3,6 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public Color[] itemColorsByMass;
-    public float[] itemMassLessThan;
     public Color[] itemModeColors;
     
     public static IEnumerator ShootItem(Item item, Vector3 direction)
