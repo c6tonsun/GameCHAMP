@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
+public class NormalButton : BaseSwitch, IPuzzlePiece
 {
-
     private bool _isSendingSignal;
     private bool _oldIsSendingSignal;
-    public bool _isButtonLocked;
 
     public bool _isInverted;
 
@@ -25,17 +21,13 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
     private new void Start()
     {
         base.Start();
-        base.SetMovable(true);
+
+        if (successLight != null)
+            successLight.SetSuccess(_isSendingSignal);
     }
 
     private new void Update()
     {
-        if (_isButtonLocked)
-        {
-            return;
-        }
-
-        _isUsedInPuzzle = _puzzleMaster != null;
 
         _oldIsSendingSignal = _isSendingSignal;
 
@@ -67,7 +59,7 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
-        if(_isUsedInPuzzle) CheckSingalChanged(); 
+        CheckSingalChanged(); 
     }
 
     #region IPuzzlePiece
@@ -80,21 +72,12 @@ public class NormalButton : BaseSwitch, IPuzzlePiece, IButton
     public void CheckSingalChanged()
     {
         if (_oldIsSendingSignal != _isSendingSignal)
+        {
             _puzzleMaster.CheckPuzzlePieces();
-    }
-
-    #endregion
-
-    #region IButton
-
-    public bool IsButtonLocked()
-    {
-        return _isButtonLocked;
-    }
-
-    public void SetButtonLocked(bool value)
-    {
-        _isButtonLocked = value;
+            
+            if (successLight != null)
+                successLight.SetSuccess(_isSendingSignal);
+        }
     }
 
     #endregion

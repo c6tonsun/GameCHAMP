@@ -1,8 +1,9 @@
-﻿public class SwitchButton : BaseSwitch, IPuzzlePiece, IButton
+﻿using UnityEngine;
+
+public class SwitchButton : BaseSwitch, IPuzzlePiece
 {
     private bool _isSendingSignal;
     private bool _oldIsSendingSignal;
-    public bool _isButtonLocked;
 
     public bool _isInverted;
 
@@ -20,18 +21,13 @@
     private new void Start()
     {
         base.Start();
-        base.SetMovable(true);
+
+        if (successLight != null)
+            successLight.SetSuccess(_isSendingSignal);
     }
 
     private new void Update()
     {
-        if (_isButtonLocked)
-        {
-            return;
-        }
-
-        _isUsedInPuzzle = _puzzleMaster != null;
-
         _oldIsSendingSignal = _isSendingSignal;
 
         base.Update();
@@ -78,7 +74,7 @@
 
         if (_isInverted) _isSendingSignal = !_isSendingSignal;
 
-        if(_isUsedInPuzzle) CheckSingalChanged();
+        CheckSingalChanged();
     }
 
     #region IPuzzlePiece
@@ -91,21 +87,12 @@
     public void CheckSingalChanged()
     {
         if (_oldIsSendingSignal != _isSendingSignal)
+        {
             _puzzleMaster.CheckPuzzlePieces();
-    }
-
-    #endregion
-
-    #region IButton
-
-    public bool IsButtonLocked()
-    {
-        return _isButtonLocked;
-    }
-
-    public void SetButtonLocked(bool value)
-    {
-        _isButtonLocked = value;
+            
+            if (successLight != null)
+                successLight.SetSuccess(_isSendingSignal);
+        }
     }
 
     #endregion

@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 4465237082928900}
   - component: {fileID: 33553978557484586}
   - component: {fileID: 23934551964767900}
-  - component: {fileID: 64978554916731622}
   m_Layer: 0
   m_Name: stars
   m_TagString: Untagged
@@ -220,7 +219,6 @@ GameObject:
   - component: {fileID: 33862454955798802}
   - component: {fileID: 23637000849077784}
   - component: {fileID: 114315089802823724}
-  - component: {fileID: 64469772585423992}
   m_Layer: 0
   m_Name: menubg
   m_TagString: Untagged
@@ -458,7 +456,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799409197651032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 23.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4856981861674374}
@@ -531,8 +529,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316571576767036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36, y: 19.63, z: 0.22}
-  m_LocalScale: {x: 14.491239, y: 9.179992, z: 8.159989}
+  m_LocalPosition: {x: 0.36, y: 19.63, z: 0.3}
+  m_LocalScale: {x: 14.491239, y: 9.179992, z: 1}
   m_Children: []
   m_Father: {fileID: 4297183416404106}
   m_RootOrder: 1
@@ -1192,34 +1190,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64469772585423992
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1516976705566774}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64978554916731622
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1316571576767036}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114058143182900178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1234,6 +1204,8 @@ MonoBehaviour:
   sliderSpeed: 1
   scaleFactor: 0.1
   scaleSpeed: 3
+  activeColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
   transitionSpeed: 5
 --- !u!114 &114093704674887152
 MonoBehaviour:
@@ -1614,7 +1586,7 @@ MonoBehaviour:
   soundNoice: 0
   mute: {fileID: 4087620025568950}
   noice: {fileID: 4090930225154368}
-  text: {fileID: 224069423977219952}
+  text: {fileID: 1003693710444342}
 --- !u!114 &114315089802823724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1655,7 +1627,7 @@ MonoBehaviour:
   soundNoice: 0
   mute: {fileID: 4418263844765100}
   noice: {fileID: 4161497869923560}
-  text: {fileID: 224116320525812364}
+  text: {fileID: 1504798454505198}
 --- !u!114 &114394670010884750
 MonoBehaviour:
   m_ObjectHideFlags: 1

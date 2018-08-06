@@ -6,6 +6,7 @@ public class UIMenuHandler : MonoBehaviour
     public float sliderSpeed;
     public float scaleFactor, scaleSpeed;
     private float _scaleTimer, _sinValue;
+    public Color activeColor, defaultColor;
     private Vector3 _activeItemScale;
     private Vector3 _activeItemTextScale;
     private UIMenuItem[] _menuItems;
@@ -57,6 +58,10 @@ public class UIMenuHandler : MonoBehaviour
         _menuItems = GetComponentsInChildren<UIMenuItem>();
         foreach (UIMenuItem item in _menuItems)
         {
+            // first call makes TextMeshPro material to instance
+            // calls after that will set colors correctly
+            item.SetColor(defaultColor);
+
             if (item.isMusicNoice)
             {
                 item.musicNoice = SaveLoad.Floats[SaveLoad.MUSIC_NOICE];
@@ -257,6 +262,7 @@ public class UIMenuHandler : MonoBehaviour
         {
             _activeItem.isHighlighted = false;
             _activeItem.transform.localScale = _activeItemScale;
+            _activeItem.SetColor(defaultColor);
 
             if (_activeItem.text != null)
                 _activeItem.text.transform.localScale = _activeItemTextScale;
@@ -268,6 +274,7 @@ public class UIMenuHandler : MonoBehaviour
         // setup new item
         _activeItem.isHighlighted = true;
         _activeItemScale = _activeItem.transform.localScale;
+        _activeItem.SetColor(activeColor);
         if (_activeItem.text != null)
             _activeItemTextScale = _activeItem.text.transform.localScale;
     }

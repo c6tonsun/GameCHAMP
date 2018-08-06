@@ -33,8 +33,29 @@ public class UIMenuItem : MonoBehaviour
     [Space(15)]
     public Transform mute;
     public Transform noice;
-    public Transform text;
     private float _lerpTime;
+
+    [Space(15)]
+    public GameObject text;
+
+    public void SetColor(Color color)
+    {
+        if (isSoundNoice || isMusicNoice)
+        {
+            GetComponent<MeshRenderer>().material.color = color;
+        }
+        else
+        {
+            GetComponent<TMPro.TMP_Text>().color = color;
+            GetComponent<TMPro.TMP_Text>().outlineColor = color;
+        }
+
+        if (text != null)
+        {
+            text.GetComponent<TMPro.TMP_Text>().color = color;
+            text.GetComponent<TMPro.TMP_Text>().outlineColor = color;
+        }
+    }
     
     public void UpdateVolumeSlider(float speed)
     {

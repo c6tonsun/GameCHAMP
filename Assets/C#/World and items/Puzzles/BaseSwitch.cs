@@ -2,20 +2,12 @@
 
 public class BaseSwitch : VisualizedOverlaps
 {
-
-    private bool _isMovable;
-    private bool _isRotable;
-
-    protected bool _isUsedInPuzzle;
+    [Header("Switch stuff")]
+    public SuccessLight successLight;
 
     private Vector3 _pressedPos;
     private Vector3 _unpressedPos;
-
-    public Transform _flicked;
-    private Vector3 _unflickedPos;
-    private Quaternion _unflickedRot;
-
-    [Header("Switch stuff")]
+    
     public float speed;
 
     protected float _lerpTime;
@@ -36,8 +28,9 @@ public class BaseSwitch : VisualizedOverlaps
         _minClamp = 0;
         _unpressedPos = transform.position;
         _pressedPos = transform.parent.position;
-        _unflickedPos = transform.position;
-        _unflickedRot = transform.rotation;
+
+        if (successLight == null)
+            Debug.LogError("Switch without success light!");
     }
 
     protected new void Update()
@@ -59,17 +52,7 @@ public class BaseSwitch : VisualizedOverlaps
 
         _lerpTime = MathHelp.Clamp(_lerpTime + Time.deltaTime * speed, _minClamp, _maxClamp);
 
-        if (_isMovable)
-        {
-            transform.position = Vector3.Lerp(_unpressedPos, _pressedPos, _lerpTime);
-        }
-        if (_isRotable)
-        {
-            transform.position = Vector3.Lerp(_unflickedPos, _flicked.position, _lerpTime);
-            transform.rotation = Quaternion.Lerp(_unflickedRot, _flicked.rotation, _lerpTime);
-        }
-
-        
+        transform.position = Vector3.Lerp(_unpressedPos, _pressedPos, _lerpTime);
     }
 
     public void GoUp()
@@ -81,15 +64,4 @@ public class BaseSwitch : VisualizedOverlaps
     {
         if (speed < 0) speed = -speed;
     }
-
-    public void SetMovable(bool value)
-    {
-        _isMovable = value;
-    }
-
-    public void SetRotable(bool value)
-    {
-        _isRotable = value;
-    }
-
 }
