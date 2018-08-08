@@ -11,7 +11,7 @@ public class InputHandler : MonoBehaviour
     [HideInInspector]
     public bool readGameInput, readMenuInput;
 
-    private float _checkDelay = 5f;
+    private float _checkDelay = 1f;
     private float _lastCheck;
 
     private const string XBOX_CONTROLLER = "Xbox ";
@@ -73,6 +73,8 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = !Cursor.visible;
@@ -85,6 +87,8 @@ public class InputHandler : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
+
+#endif
 
         if((_checkDelay + _lastCheck) < Time.realtimeSinceStartup)
         {

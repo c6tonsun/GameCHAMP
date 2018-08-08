@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4078047820457026}
   - component: {fileID: 33905505657153816}
   - component: {fileID: 23667902880549036}
-  - component: {fileID: 95303281106711898}
   - component: {fileID: 65125533001902454}
   - component: {fileID: 114879150266560970}
   m_Layer: 0
@@ -71,7 +70,6 @@ GameObject:
   - component: {fileID: 4956571630405190}
   - component: {fileID: 33962162831126010}
   - component: {fileID: 23138249960871460}
-  - component: {fileID: 95846258821599624}
   - component: {fileID: 65034318541256458}
   m_Layer: 0
   m_Name: leverbox
@@ -244,42 +242,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0000002, y: 5.0229926, z: 43.24484}
   m_Center: {x: 0.014791014, y: -1.5234736, z: 0.030162811}
---- !u!95 &95303281106711898
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151171773529200}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bbb2c02d74d6f684f8cf70b6109eab88, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!95 &95846258821599624
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1990015860413988}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 563a93a082fccae48a0b75eea4bcfc44, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114879150266560970
 MonoBehaviour:
   m_ObjectHideFlags: 1

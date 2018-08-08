@@ -12,7 +12,6 @@ public class KeyHole : VisualizedOverlaps
     private void Start()
     {
         _target = transform.GetChild(0).transform;
-        _target.GetComponent<MeshRenderer>().enabled = false;
     }
 
     private new void Update()
