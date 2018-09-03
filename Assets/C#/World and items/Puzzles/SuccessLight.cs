@@ -7,13 +7,11 @@ public class SuccessLight : MonoBehaviour
     
     private Material _successMaterial;
 
-    private void Start()
-    {
-        _successMaterial = GetComponent<MeshRenderer>().materials[materialIndex];
-    }
-
     public void SetSuccess(bool success)
     {
+        if (_successMaterial == null)
+            _successMaterial = GetComponent<MeshRenderer>().materials[materialIndex];
+
         if (success)
             _successMaterial.color = yesSuccess;
         else

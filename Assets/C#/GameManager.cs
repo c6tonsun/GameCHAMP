@@ -24,10 +24,15 @@ public class GameManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    
+
+    private void Start()
+    {
+        deleteSaveFile = false;
+    }
+
     private void Update()
     {
-        if (deleteSaveFile)
+        if (deleteSaveFile && !Application.isPlaying)
         {
             SaveLoad.Delete();
             Debug.Log("Save file deleted");

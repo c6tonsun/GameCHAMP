@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684963022384900}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: Checkpoint transform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1059011223092644}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 2.5, z: 0}
+  m_LocalPosition: {x: 1, y: 2.5, z: 16.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4684963022384900}
@@ -62,13 +62,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542514497839452}
-  m_LocalRotation: {x: 0, y: 0.3496351, z: 0, w: 0.93688595}
-  m_LocalPosition: {x: -0.13, y: 0, z: 1.69}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.56, y: 0, z: -3.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4529521946260718}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 40.93, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &114017257848515762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,4 +89,4 @@ MonoBehaviour:
   boxSize: {x: 4, y: 4, z: 2}
   offsetIngoresLocalRotation: 0
   offset: {x: 0, y: 1, z: 0}
-  ID: 0
+  ID: 5
